@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ReservaController;
 
 // Rota para a página inicial que renderiza a view 'home.index'
 Route::get('/', [AdminController::class, 'home'])->name('home.index');
@@ -26,6 +27,8 @@ Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
 
 Route::get('/room_details/{id}', [HomeController::class, 'room_details']);
 
+
+Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
 
 
 

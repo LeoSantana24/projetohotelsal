@@ -167,71 +167,41 @@ footer{
 
             <!-- Formulário menor e centralizado -->
             <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <form action="#" method="post" class="bg-white p-3 border rounded shadow">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label class="text-black font-weight-bold" for="name">Name</label>
-                            <input type="text" id="name" class="form-control form-control-sm">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="text-black font-weight-bold" for="phone">Phone</label>
-                            <input type="text" id="phone" class="form-control form-control-sm">
-                        </div>
-                    </div>
+              <form action="{{ route('reservas.store') }}" method="post" class="bg-white p-3 border rounded shadow">
+                  @csrf <!-- Adicionado token CSRF -->
+                  <input type="hidden" name="quarto_id" value="1">
+                  <input type="hidden" name="user_id" value="2">
+                  
+                  <div class="row">
+                      <div class="col-md-6 form-group">
+                          <label class="text-black font-weight-bold" for="checkin_date">Date Check In</label>
+                          <input type="date" name="data_checkin" class="form-control form-control-sm" required>
+                      </div>
+                      <div class="col-md-6 form-group">
+                          <label class="text-black font-weight-bold" for="checkout_date">Date Check Out</label>
+                          <input type="date" name="data_checkout" class="form-control form-control-sm" required>
+                      </div>
+                  </div>
 
-                    <div class="row">
-                        <div class="col-md-12 form-group">
-                            <label class="text-black font-weight-bold" for="email">Email</label>
-                            <input type="email" id="email" class="form-control form-control-sm">
-                        </div>
-                    </div>
+                  <div class="row">
+                      <div class="col-md-4 form-group">
+                          <label class="font-weight-bold text-black">Adults</label>
+                          <input type="number" name="numero_adultos" class="form-control form-control-sm" required>
+                      </div>
+                      <div class="col-md-4 form-group">
+                          <label class="font-weight-bold text-black">Children</label>
+                          <input type="number" name="numero_criancas" value="0" class="form-control form-control-sm">
+                      </div>
+                  </div>
 
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label class="text-black font-weight-bold" for="checkin_date">Date Check In</label>
-                            <input type="text" id="checkin_date" class="form-control form-control-sm">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="text-black font-weight-bold" for="checkout_date">Date Check Out</label>
-                            <input type="text" id="checkout_date" class="form-control form-control-sm">
-                        </div>
-                    </div>
+                  <div class="row">
+                      <div class="col-md-12 text-center">
+                          <input type="submit" value="Reserve Now" class="btn btn-primary text-white py-2 px-4 font-weight-bold">
+                      </div>
+                  </div>
+              </form>
+          </div>
 
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label class="font-weight-bold text-black">Adults</label>
-                            <select id="adults" class="form-control form-control-sm">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4+</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label class="font-weight-bold text-black">Children</label>
-                            <select id="children" class="form-control form-control-sm">
-                                <option>0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3+</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12 form-group">
-                            <label class="text-black font-weight-bold" for="message">Notes</label>
-                            <textarea id="message" class="form-control form-control-sm" cols="30" rows="3"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <input type="submit" value="Reserve Now" class="btn btn-primary text-white py-2 px-4 font-weight-bold">
-                        </div>
-                    </div>
-                </form>
-            </div>
 
         </div>
     </div>
