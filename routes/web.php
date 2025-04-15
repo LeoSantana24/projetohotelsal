@@ -47,10 +47,7 @@ Route::post('/checkout', [BookingController::class, 'checkout']);
 
 Route::get('/cart/remove/{index}', [BookingController::class, 'removeFromCart']);
 
-Route::get('/cart/reset', function () {
-    session()->forget('cart');
-    return redirect()->route('cart')->with('success', 'Carrinho limpo!');
-});
+Route::get('/cart/reset', [BookingController::class, 'resetCart']);
 
 
 

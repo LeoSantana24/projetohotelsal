@@ -8,45 +8,36 @@ use App\Models\Booking;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\Room;
-use Illuminate\Support\Facades\DB; // se não estiver usando ainda
-
-
-
-
+use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
     public function addToCart(Request $request, $id)
     {
-        dd('BookingController funcionando!');
         $room = Room::find($id);
-    
+
         if (!$room) {
-            return redirect()->route('cart')->with('error', 'Quarto não encontrado.');
+            return redirect()->back()->with('error', 'Quarto não encontrado.');
         }
-    
+
         $startDate = Carbon::parse($request->start_date);
         $endDate = Carbon::parse($request->end_date);
-    
-        // Recupera o carrinho atual da sessão
+
         $cart = session()->get('cart', []);
-    
-        // Verifica se já existe uma reserva para o mesmo quarto e datas sobrepostas no carrinho
+
+        // Verifica se já existe uma reserva para o mesmo quarto com datas sobrepostas
         foreach ($cart as $item) {
             if ($item['room_id'] == $room->id) {
                 $existingStart = Carbon::parse($item['start_date']);
                 $existingEnd = Carbon::parse($item['end_date']);
-    
-                // Verificação de sobreposição de datas
-                if (
-                    $startDate < $existingEnd && $endDate > $existingStart
-                ) {
+
+                if ($startDate < $existingEnd && $endDate > $existingStart) {
                     return redirect()->back()->with('error', 'Este quarto já está no carrinho com datas que se sobrepõem.');
                 }
             }
         }
-    
-        // Se não houver sobreposição, adiciona ao carrinho
+
+        // Adiciona ao carrinho
         $cart[] = [
             'room_id' => $room->id,
             'room_title' => $room->room_title,
@@ -58,21 +49,37 @@ class BookingController extends Controller
             'number_adults' => $request->number_adults,
             'number_children' => $request->number_children,
             'price' => $room->price,
+            'baby_crib' => $request->number_children > 0 && $request->has('baby_crib'),
         ];
-    
-        // Atualiza o carrinho na sessão
+
         session()->put('cart', $cart);
-    
-        return redirect()->route('cart')->with('success', 'Reserva adicionada ao carrinho!');
+
+        return redirect()->back()->with('success', 'Reserva adicionada ao carrinho!');
     }
-    
 
-public function showCart()
-{
-    // Recupera o carrinho da sessão
-    $cart = session()->get('cart', []);
+    public function showCart()
+    {
+        $cart = session()->get('cart', []);
+        return view('home.cart', compact('cart'));
+    }
 
-    // Passa o carrinho para a view
-    return view('home.cart', compact('cart'));
-}
+    public function removeFromCart($index)
+    {
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$index])) {
+            unset($cart[$index]);
+            $cart = array_values($cart); // Reindexa
+            session()->put('cart', $cart);
+            return redirect()->back()->with('success', 'Reserva removida do carrinho.');
+        }
+
+        return redirect()->back()->with('error', 'Reserva não encontrada.');
+    }
+
+    public function resetCart()
+    {
+        session()->forget('cart');
+        return redirect()->back()->with('success', 'Carrinho limpo com sucesso.');
+    }
 }

@@ -97,8 +97,15 @@
   </div>
   <div class="cart-body">
     @if(count($cart ?? []) > 0)
+
+  
+    
       @foreach($cart as $index => $item)
+      
+
+
         @php
+        
           $start = \Carbon\Carbon::parse($item['start_date']);
           $end = \Carbon\Carbon::parse($item['end_date']);
           $nights = $start->diffInDays($end);
@@ -110,7 +117,12 @@
         @endphp
 
         <div class="mb-3 p-3 border rounded shadow-sm bg-white">
-          <h6>Reserva {{ $index + 1 }}</h6>
+        <div class="mb-3 p-3 border rounded shadow-sm bg-white position-relative">
+  <a href="{{ url('/cart/remove/' . $index) }}" class="btn-close position-absolute" style="top: 10px; right: 10px;" aria-label="Remover">X</a>
+
+  <h6>Reserva {{ $index + 1 }}</h6>
+  <!-- resto das infos -->
+</div>
           <p><strong>Room:</strong> {{ $item['room_title'] }}</p>
           <p><strong>Name:</strong> {{ $item['name'] }}</p>
           <p><strong>Email:</strong> {{ $item['email'] }}</p>
@@ -126,6 +138,7 @@
           <p><strong>Total:</strong> {{ number_format($total, 2, ',', '.') }} €</p>
         </div>
       @endforeach
+      <a  style="margin-bottom:5px;" href="{{ url('/cart/reset') }}" class="btn btn-danger w-100 mt-2">🗑️ Limpar Carrinho</a>
       <a href="{{ route('cart') }}" class="btn btn-primary w-100">Checkout</a>
     @else
       <p>O seu carrinho está vazio.</p>
