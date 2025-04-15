@@ -162,6 +162,16 @@
               <input type="number" name="number_children" id="number_children" class="form-control" min="0" value="0">
             </div>
           </div>
+          <div class="mb-3" id="cribOption" style="display: none;">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="baby_crib" id="baby_crib" value="1">
+              <label class="form-check-label" for="baby_crib">
+                Adicionar berço (+12,00 €)
+              </label>
+            </div>
+          </div>
+
+
 
           <div class="row">
             <input type="submit" name="action" value="Reservar" class="btn btn-primary py-2 px-4 text-white">
@@ -276,6 +286,23 @@
       $('#startDate').attr('min', maxDate);
       $('#endDate').attr('min', maxDate);
     });
+
+    
+  const childrenInput = document.getElementById('number_children');
+  const cribOption = document.getElementById('cribOption');
+
+  function toggleCribOption() {
+    const value = parseInt(childrenInput.value);
+    cribOption.style.display = value > 0 ? 'block' : 'none';
+  }
+
+  // Executa ao mudar o campo
+  childrenInput.addEventListener('input', toggleCribOption);
+
+  // Garante que já mostre se o valor vier preenchido (por exemplo, no editar)
+  window.addEventListener('DOMContentLoaded', toggleCribOption);
+
+
 
 </script>
 

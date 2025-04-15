@@ -38,26 +38,30 @@
         <a href="{{ url('/') }}">Sal Paradise Hotel</a>
       </div>
 
-      <div class="col-6 col-lg-8 d-flex justify-content-end align-items-center">
-        <!-- ✅ Botão do Carrinho -->
-        <button id="cartToggleBtn" class="btn btn-outline-dark me-3">
-          🛒 <span class="d-none d-lg-inline"></span> ({{ count($cart ?? []) }})
-        </button>
+      <div class="col-6 col-lg-8 d-flex justify-content-lg-end justify-content-between align-items-center">
 
-        <!-- Login/Registro -->
-        @if (Route::has('login'))
-          @auth
-            <x-app-layout />
-          @else
-            <div class="menu-buttons d-flex align-items-center">
-              <button onclick="window.location.href='/login'" class="btn btn-primary me-2">Entrar</button>
-              @if (Route::has('register'))
-                <button onclick="window.location.href='/register'" class="btn btn-secondary">Registar</button>
-              @endif
-            </div>
-          @endauth
-        @endif
+          <!-- Botão Carrinho -->
+          <div class="col-6 col-lg-8">
+    <div class="d-flex justify-content-end align-items-center w-100 gap-3">
 
+      <!-- Carrinho -->
+      <button id="cartToggleBtn" class="btn btn-outline-dark me-2">
+        🛒 <span class="d-none d-lg-inline"></span> ({{ count($cart ?? []) }})
+      </button>
+
+      <!-- Login/Registro -->
+      @if (Route::has('login'))
+        @auth
+          <x-app-layout />
+        @else
+          <div class="d-flex gap-2">
+            <button onclick="window.location.href='/login'" class="btn btn-warning">Entrar</button>
+            @if (Route::has('register'))
+              <button onclick="window.location.href='/register'" class="btn btn-secondary">Registar</button>
+            @endif
+          </div>
+        @endauth
+      @endif
         <!-- Menu Hamburguer -->
         <div class="site-menu-toggle js-site-menu-toggle d-flex align-items-center ms-3">
           <span></span><span></span><span></span>
@@ -99,7 +103,10 @@
           $end = \Carbon\Carbon::parse($item['end_date']);
           $nights = $start->diffInDays($end);
           $pricePerNight = isset($item['price']) ? floatval($item['price']) : 100;
-          $total = $nights * $pricePerNight;
+          $hasCrib = isset($item['baby_crib']) && $item['baby_crib'];
+          $cribFee = $hasCrib ? 12 : 0;
+          $total = ($nights * $pricePerNight) + $cribFee;
+
         @endphp
 
         <div class="mb-3 p-3 border rounded shadow-sm bg-white">
@@ -111,6 +118,9 @@
           <p><strong>Check-out:</strong> {{ $item['end_date'] }}</p>
           <p><strong>Adults:</strong> {{ $item['number_adults'] }}</p>
           <p><strong>Children:</strong> {{ $item['number_children'] }}</p>
+          @if($hasCrib)
+            <p><strong>Berço:</strong> +12,00 €</p>
+          @endif
           <p><strong>Nights:</strong> {{ $nights }} night{{ $nights > 1 ? 's' : '' }}</p>
           <p><strong>Price per night:</strong> {{ number_format($pricePerNight, 2, ',', '.') }} €</p>
           <p><strong>Total:</strong> {{ number_format($total, 2, ',', '.') }} €</p>

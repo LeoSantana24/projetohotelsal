@@ -80,6 +80,7 @@ class HomeController extends Controller
             'number_adults' => $request->number_adults,
             'number_children' => $request->number_children,
             'price' => $room->price,
+            'baby_crib' => $request->has('baby_crib'),
         ];
 
         session()->put('cart', $cart);
