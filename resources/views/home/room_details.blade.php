@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Sal Paradise Hotel</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sal Paradise Hotel</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -27,106 +30,55 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Lora:wght@400;600&display=swap" rel="stylesheet">
 
+
     <style>
 
-body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .room-info h2 {
-            font-size: 36px;
-            font-weight: 700;
-            color: #333;
-        }
-        .room-info p {
-            font-size: 20px;
-            font-weight: 400;
-            color: #444;
-            line-height: 1.6;
-        }
-        .room-info h4 {
-            font-size: 22px;
-            font-weight: 600;
-            color: #555;
-            margin-top: 10px;
-        }
-        .room-info h3 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #d9534f;
-            margin-top: 15px;
 
-
-      .container{
-        display:inline-block;
-        width: 200px;
-      }
-      input{
-        width: 100%;
+      input.form-control {
+        border-radius: 0.5rem;
+        border: 1px solid #ced4da;
+        transition: all 0.2s ease-in-out;
+        box-shadow: none;
       }
 
-    
-    header{
-      padding-bottom:200px;
-    }
-    
+      input.form-control:focus {
+        border-color: #fcb045;
+        box-shadow: 0 0 0 0.2rem rgba(252, 176, 69, 0.25);
+        outline: none;
+      }
 
-    .room-details-page header {
-    background-color: white !important;  
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  
-    position: fixed; 
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
+      .btn-primary {
+        background-color: #fcb045;
+        border-color: #fcb045;
+        border-radius: 999px;
+        font-weight: 600;
+        transition: background-color 0.3s ease;
+      }
 
-.room-details-page .navbar-brand,
-.room-details-page .navbar-toggler-icon {
-    color: black !important;
-}
-
-.room-details-page .navbar-toggler-icon svg,
-.room-details-page .navbar-toggler-icon path {
-    fill: black !important;
-    stroke: black !important;
-}
-
-    .room-details-page header {
-    background-color: white !important;  /* Garante que o fundo do header seja branco */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona um leve sombreado */
-}
-
-.room-details-page .navbar-brand,
-.room-details-page .navbar-toggler-icon {
-    color: black !important;
-}
-
-.room-details-page .navbar-toggler-icon svg {
-    fill: black !important;
-}
-
-footer{
-      padding-top:200px;
-    }
+      .btn-primary:hover {
+        background-color: #ffa726;
+        border-color: #ffa726;
+      }
 
     </style>
 
-    
   </head>
 
-  
+  <body>
     <header>
     @include('home.header')
-    
+
+   
+    </header>
     <section class="site-hero inner-page overlay" style="background-image: url(images/sm.jpg)" data-stellar-background-ratio="0.5">
       <div class="container">
         <div class="row site-hero-inner justify-content-center align-items-center">
           <div class="col-md-10 text-center" data-aos="fade">
-            <h1 class="heading mb-3">Rooms</h1>
+            <h1 class="heading mb-3">Reservation</h1>
             <ul class="custom-breadcrumbs mb-4">
               <li><a href="/home">Home</a></li>
               <li>&bullet;</li>
-              <li>Rooms</li>
+              <li>Reservation</li>
             </ul>
           </div>
         </div>
@@ -138,74 +90,104 @@ footer{
         </div>
       </a>
     </section>
-    </header>
+  
 
 
 
     
 
-    <body>
-    <div class="container mt-5 d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="row justify-content-center align-items-center gap-5 w-100"> 
-            
-            <!-- Coluna com as informações do quarto -->
-            <div class="col-md-5" data-aos="fade-up"> 
-                <a href="#" class="room">
-                    <div class="img-wrap text-center" style="padding: 20px;">
-                        <img src="/room/{{$room->image}}" alt="Room Image" class="img-fluid mb-3"
-                             style="height: 400px; width: 100%; max-width: 500px; object-fit: cover; border-radius: 10px;">
-                    </div>  
-                    <div class="p-3 text-center room-info">
-                        <h2>{{$room->room_title}}</h2>
-                        <p style="color:black; font-size: 18px; padding: 12px;">{{$room->description}}</p>
-                        <h4 style="padding: 12px;"> Free Wi-Fi: {{$room->wifi}}</h4>
-                        <h4 style="padding: 12px;"> Room Type: {{$room->room_type}}</h4>
-                        <h3 style="padding: 12px;"> Price: {{$room->price}}</h3>
-                    </div>
-                </a>
+   
+    
+    <section class="section contact-section" id="next">
+  <div class="container min-vh-100 d-flex align-items-center justify-content-center mt-5">
+    <div class="row w-100 justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <form action="{{ url('add_booking', $room->id) }}" method="post"
+          class="bg-white p-md-5 p-4 mb-5 border rounded-3 shadow-sm" style="max-width: 800px; margin: auto;">
+          
+          @csrf
+
+          @if(session()->has('message'))
+            @php
+              $message = session()->get('message');
+              $isError = str_contains($message, 'reservado');
+            @endphp
+
+            <div class="alert {{ $isError ? 'alert-danger' : 'alert-success' }}">
+              <button type="button" class="close" data-bs-dismiss="alert">X</button>
+              {{ $message }}
             </div>
+          @endif
 
-            <!-- Formulário menor e centralizado -->
-            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
-              <form action="{{ route('reservas.store') }}" method="post" class="bg-white p-3 border rounded shadow">
-                  @csrf <!-- Adicionado token CSRF -->
-                  <input type="hidden" name="quarto_id" value="1">
-                  <input type="hidden" name="user_id" value="2">
-                  
-                  <div class="row">
-                      <div class="col-md-6 form-group">
-                          <label class="text-black font-weight-bold" for="checkin_date">Date Check In</label>
-                          <input type="date" name="data_checkin" class="form-control form-control-sm" required>
-                      </div>
-                      <div class="col-md-6 form-group">
-                          <label class="text-black font-weight-bold" for="checkout_date">Date Check Out</label>
-                          <input type="date" name="data_checkout" class="form-control form-control-sm" required>
-                      </div>
-                  </div>
 
-                  <div class="row">
-                      <div class="col-md-4 form-group">
-                          <label class="font-weight-bold text-black">Adults</label>
-                          <input type="number" name="numero_adultos" class="form-control form-control-sm" required>
-                      </div>
-                      <div class="col-md-4 form-group">
-                          <label class="font-weight-bold text-black">Children</label>
-                          <input type="number" name="numero_criancas" value="0" class="form-control form-control-sm">
-                      </div>
-                  </div>
-
-                  <div class="row">
-                      <div class="col-md-12 text-center">
-                          <input type="submit" value="Reserve Now" class="btn btn-primary text-white py-2 px-4 font-weight-bold">
-                      </div>
-                  </div>
-              </form>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="name" class="text-black font-weight-bold">Name</label>
+              <input type="text" id="name" name="name" class="form-control"
+                @if(Auth::id()) value="{{ Auth::user()->name }}" @endif>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="phone" class="text-black font-weight-bold">Phone</label>
+              <input type="tel" id="phone" name="phone" class="form-control"
+                @if(Auth::id()) value="{{ Auth::user()->phone }}" @endif>
+            </div>
           </div>
 
+          <div class="row">
+            <div class="col-md-12 form-group">
+              <label for="email" class="text-black font-weight-bold">Email</label>
+              <input type="email" id="email" name="email" class="form-control"
+                @if(Auth::id()) value="{{ Auth::user()->email }}" @endif>
+            </div>
+          </div>
 
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="start_date" class="text-black font-weight-bold">Date Check In</label>
+              <input type="date" id="start_date" name="start_date" class="form-control">
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="end_date" class="text-black font-weight-bold">Date Check Out</label>
+              <input type="date" id="end_date" name="end_date" class="form-control">
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="number_adults" class="font-weight-bold text-black">Adults</label>
+              <input type="number" name="number_adults" id="number_adults" class="form-control" min="1" value="1" required>
+            </div>
+            <div class="col-md-6 form-group">
+              <label for="number_children" class="font-weight-bold text-black">Children</label>
+              <input type="number" name="number_children" id="number_children" class="form-control" min="0" value="0">
+            </div>
+          </div>
+
+          <div class="row">
+            <input type="submit" name="action" value="Reservar" class="btn btn-primary py-2 px-4 text-white">
+            <input style="margin-left:10px;" type="submit" name="action" value="Adicionar ao Carrinho" class="btn btn-primary py-2 px-4 text-white">
+
+          </div>
+        </form>
+      </div>
+
+      <!-- Bloco de informações de contato -->
+      <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
+        <div class="row">
+          <div class="col-md-10 ml-auto contact-info">
+            <p><span class="d-block">Address:</span> <span class="text-black">98 West 21th Street, Suite 721 New York NY 10016</span></p>
+            <p><span class="d-block">Phone:</span> <span class="text-black">(+238) 9842580</span></p>
+            <p><span class="d-block">Email:</span> <span class="text-black">info@salparadisehotel.cv</span></p>
+          </div>
         </div>
+      </div>
+
     </div>
+  </div>
+</section>
+  
 </body>
+
 
 
     <footer class="section footer-section">
@@ -279,5 +261,27 @@ footer{
     
 
     <script src="js/main.js"></script>
+
+    <script type="text/javascript">
+    $(function() {
+      var dtToday = new Date();
+      var month = dtToday.getMonth() + 1;
+      var day = dtToday.getDate();
+      var year = dtToday.getFullYear();
+
+      if (month < 10) month = '0' + month.toString();
+      if (day < 10) day = '0' + day.toString();
+
+      var maxDate = year + '-' + month + '-' + day;
+      $('#startDate').attr('min', maxDate);
+      $('#endDate').attr('min', maxDate);
+    });
+
+</script>
+
+
+
+    
+    
   
 </html>

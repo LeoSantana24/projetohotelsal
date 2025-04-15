@@ -14,8 +14,18 @@ class Room extends Model
         'image',
         'description',
         'price',
-        'wifi',
         'room_type'
     ];
+    public function images()
+{
+    return $this->hasMany(RoomImage::class);
+}
+public function features()
+{
+    return $this->belongsToMany(Feature::class);
+}
+
+
+
 }
 

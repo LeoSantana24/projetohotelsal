@@ -18,7 +18,7 @@
               <img src="room/{{$rooms->image}}" alt="Room Image" class="img-fluid mb-3" style="height: 200px; width: 100%; object-fit: cover; border-radius: 10px;">
             </figure>
             <div class="p-3 text-center room-info">
-              <h2>{{$rooms->room_title}}</h2>
+              <h2 style="font-size:26px;">{{$rooms->room_title}}</h2>
               <span class="text-uppercase letter-spacing-1">{{$rooms->price}}€ / Per night</span>
               <p style="color:black; font-size: 18px; padding:10px;">{!! Str::limit($rooms->description, 100) !!}</p>
 

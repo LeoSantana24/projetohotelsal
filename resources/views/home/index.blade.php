@@ -23,6 +23,38 @@
 
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Owl Carousel CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+<!-- jQuery (necessário para Owl Carousel) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Owl Carousel JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+<style>
+
+.img-box {
+  flex: 1 1 60%;
+}
+
+.content-box {
+  flex: 1 1 45%;
+  margin-left: 30px; /* ou 2rem */
+}
+
+
+/* Ajuste para telas menores */
+@media (max-width: 768px) {
+  .img-box, .content-box {
+    flex: 1 1 100%;
+  }
+}
+
+</style>
+
   </head>
   <body>
 
@@ -129,47 +161,90 @@
       </div>
     </section>
 
-   @include('home.room')
     
     <section class="section slider-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-md-7">
+        <h2 class="heading" data-aos="fade-up">Our Rooms</h2>
+        <p data-aos="fade-up" data-aos-delay="100">
+          Discover our rooms available for booking.
+        </p>
+      </div>
+    </div>
+    
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="home-slider major-caousel owl-carousel mb-5" data-aos="fade-up" data-aos-delay="200">
+
+          @foreach($room as $rooms)
+          <div class="slider-item p-3">
+  <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
+    
+    <!-- IMAGEM -->
+    <div class="img-box">
+      <img src="{{ asset('room/' . ($rooms->images->first()->image ?? 'default.jpg')) }}"
+        alt="Room Image"
+        class="img-fluid"
+        style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;">
+    </div>
+
+    <!-- CONTEÚDO -->
+    <div class="content-box text-start">
+      <h2 class="mb-3" style="font-size: 32px; color: #1a2d5a;">{{ $rooms->room_title }}</h2>
+      <p style="font-size: 16px; color: #555;">{!! $rooms->description !!}</p>
+      <p class="fw-bold mt-3 mb-2" style="font-size: 18px; color: #e6a900;">
+        {{ $rooms->price }}€ / per night
+      </p>
+      <a class="btn btn-outline-dark mt-2" href="{{ url('room_details', $rooms->id) }}">RESERVE NOW</a>
+    </div>
+
+  </div>
+</div>
+
+          @endforeach
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section slider-section bg-light">
       <div class="container">
         <div class="row justify-content-center text-center mb-5">
-          <div class="col-md-7">
+          <div class="col-md-6">
             <h2 class="heading" data-aos="fade-up">Photos</h2>
             <p data-aos="fade-up" data-aos-delay="100">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12">
+          <div class="col-md-8 mx-auto">
             <div class="home-slider major-caousel owl-carousel mb-5" data-aos="fade-up" data-aos-delay="200">
+
+            @foreach($gallery as $gallery)
+
               <div class="slider-item">
-                <a href="images/slider-1.jpg" data-fancybox="images" data-caption="Caption for this image"><img src="images/slider-1.jpg" alt="Image placeholder" class="img-fluid"></a>
+                <a href="images/slider-1.jpg" data-fancybox="images" data-caption="Caption for this image"><img src="/gallery/{{$gallery->image}}" alt="Image placeholder" class="img-fluid"></a>
               </div>
-              <div class="slider-item">
-                <a href="images/slider-2.jpg" data-fancybox="images" data-caption="Caption for this image"><img src="images/slider-2.jpg" alt="Image placeholder" class="img-fluid"></a>
-              </div>
-              <div class="slider-item">
-                <a href="images/slider-3.jpg" data-fancybox="images" data-caption="Caption for this image"><img src="images/slider-3.jpg" alt="Image placeholder" class="img-fluid"></a>
-              </div>
-              <div class="slider-item">
-                <a href="images/slider-4.jpg" data-fancybox="images" data-caption="Caption for this image"><img src="images/slider-4.jpg" alt="Image placeholder" class="img-fluid"></a>
-              </div>
-              <div class="slider-item">
-                <a href="images/slider-5.jpg" data-fancybox="images" data-caption="Caption for this image"><img src="images/slider-5.jpg" alt="Image placeholder" class="img-fluid"></a>
-              </div>
-              <div class="slider-item">
-                <a href="images/slider-6.jpg" data-fancybox="images" data-caption="Caption for this image"><img src="images/slider-6.jpg" alt="Image placeholder" class="img-fluid"></a>
-              </div>
-              <div class="slider-item">
-                <a href="images/slider-7.jpg" data-fancybox="images" data-caption="Caption for this image"><img src="images/slider-7.jpg" alt="Image placeholder" class="img-fluid"></a>
-              </div>
-            </div>
+             @endforeach
             <!-- END slider -->
-          </div>
+            </div>
         
-        </div>
+         </div>
+      </div>
+      </div>
       </div>
     </section>
+
+
+
+
+
+
+
     <!-- END section -->
     
     <section class="section bg-image overlay" style="background-image: url('images/hero_3.jpg');">
@@ -320,56 +395,7 @@
     <!-- END section -->
     
             <!-- END slider -->
-        </div>
-
-      </div>
-    </section>
-    
-
-    <section class="section blog-post-entry bg-light">
-      <div class="container">
-        <div class="row justify-content-center text-center mb-5">
-          <div class="col-md-7">
-            <h2 class="heading" data-aos="fade-up">Events</h2>
-            <p data-aos="fade-up">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-4 col-md-6 col-sm-6 col-12 post" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="media media-custom d-block mb-4 h-100">
-              <a href="#" class="mb-4 d-block"><img src="images/img_1.jpg" alt="Image placeholder" class="img-fluid"></a>
-              <div class="media-body">
-                <span class="meta-post">February 26, 2018</span>
-                <h2 class="mt-0 mb-3"><a href="#">Travel Hacks to Make Your Flight More Comfortable</a></h2>
-                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-              </div>
-            </div>
-
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 col-12 post" data-aos="fade-up" data-aos-delay="200">
-            <div class="media media-custom d-block mb-4 h-100">
-              <a href="#" class="mb-4 d-block"><img src="images/img_2.jpg" alt="Image placeholder" class="img-fluid"></a>
-              <div class="media-body">
-                <span class="meta-post">February 26, 2018</span>
-                <h2 class="mt-0 mb-3"><a href="#">5 Job Types That Aallow You To Earn As You Travel The World</a></h2>
-                <p>Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 col-sm-6 col-12 post" data-aos="fade-up" data-aos-delay="300">
-            <div class="media media-custom d-block mb-4 h-100">
-              <a href="#" class="mb-4 d-block"><img src="images/img_3.jpg" alt="Image placeholder" class="img-fluid"></a>
-              <div class="media-body">
-                <span class="meta-post">February 26, 2018</span>
-                <h2 class="mt-0 mb-3"><a href="#">30 Great Ideas On Gifts For Travelers</a></h2>
-                <p>A small river named Duden flows by their place and supplies it with the necessary regelialia. t is a paradisematic country, in which roasted parts of sentences.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+     
 
     <section class="section bg-image overlay" style="background-image: url('images/sm.jpg');">
         <div class="container" >
@@ -454,5 +480,35 @@
     
 
     <script src="js/main.js"></script>
+
+
+    <script>
+  $(document).ready(function(){
+    $('.room-carousel').owlCarousel({
+      items: 1,
+      loop: true,
+      nav: true,
+      dots: false, // <--- ALTERADO AQUI
+      autoplay: false,
+      navText: [
+        '<span class="carousel-nav-left">&larr;</span>',
+        '<span class="carousel-nav-right">&rarr;</span>'
+      ]
+    });
+  });
+
+  // Este segundo trecho provavelmente pode ser removido, a menos que tenha outro carrossel na página com a classe `.owl-carousel`
+  /*
+  $('.owl-carousel').owlCarousel({
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: false,
+    items: 1
+  });
+  */
+</script>
+
+
   </body>
 </html>

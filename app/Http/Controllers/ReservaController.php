@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-namespace App\Http\Controllers;
-
 use App\Models\Reserva;
 use Illuminate\Http\Request;
 
@@ -19,10 +15,22 @@ class ReservaController extends Controller
             'data_checkin' => 'required|date|after_or_equal:today',
             'data_checkout' => 'required|date|after:data_checkin',
             'numero_adultos' => 'required|integer|min:1',
-            'numero_criancas' => 'nullable|integer|min:0'
+            'numero_criancas' => 'nullable|integer|min:0',
         ]);
 
-        $reserva = Reserva::create($request->all());
+        // Calcular o número total de pessoas (adultos + crianças)
+        $numero_pessoas = $request->numero_adultos + $request->numero_criancas;
+
+        // Criar a reserva incluindo o número total de pessoas
+        $reserva = Reserva::create([
+            'user_id' => $request->user_id,
+            'quarto_id' => $request->quarto_id,
+            'data_checkin' => $request->data_checkin,
+            'data_checkout' => $request->data_checkout,
+            'numero_adultos' => $request->numero_adultos,
+            'numero_criancas' => $request->numero_criancas,
+        
+        ]);
 
         return response()->json(['message' => 'Reserva criada com sucesso!', 'reserva' => $reserva], 201);
     }
