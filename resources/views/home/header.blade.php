@@ -55,9 +55,9 @@
           <x-app-layout />
         @else
           <div class="d-flex gap-2">
-            <button onclick="window.location.href='/login'" class="btn btn-warning">Entrar</button>
+            <button onclick="window.location.href='/login'" class="btn btn-warning">Login</button>
             @if (Route::has('register'))
-              <button onclick="window.location.href='/register'" class="btn btn-secondary">Registar</button>
+              <button onclick="window.location.href='/register'" class="btn btn-secondary">Register</button>
             @endif
           </div>
         @endauth
@@ -89,21 +89,17 @@
   </div>
 </header>
 
-<!-- ✅ Painel lateral do carrinho -->
+<!--  Painel lateral do carrinho -->
 <div id="cartPanel" class="cart-panel">
   <div class="cart-header">
-    <h5>Carrinho de Reservas</h5>
+    <h5>Reservation cart</h5>
     <button id="closeCartBtn" class="btn-close" aria-label="Fechar">&times;</button>
   </div>
   <div class="cart-body">
     @if(count($cart ?? []) > 0)
 
-  
-    
       @foreach($cart as $index => $item)
       
-
-
         @php
         
           $start = \Carbon\Carbon::parse($item['start_date']);
@@ -118,14 +114,15 @@
 
         <div class="mb-3 p-3 border rounded shadow-sm bg-white">
         <div class="mb-3 p-3 border rounded shadow-sm bg-white position-relative">
-  <a href="{{ url('/cart/remove/' . $index) }}" class="btn-close position-absolute" style="top: 10px; right: 10px;" aria-label="Remover">X</a>
+  <a href="{{ url('/cart/remove/' . $index) }}" class="btn-close position-absolute" style="top: 10px; right: 10px;color:red;" aria-label="Remover">X</a>
 
   <h6>Reserva {{ $index + 1 }}</h6>
   <!-- resto das infos -->
 </div>
-          <p><strong>Room:</strong> {{ $item['room_title'] }}</p>
           <p><strong>Name:</strong> {{ $item['name'] }}</p>
           <p><strong>Email:</strong> {{ $item['email'] }}</p>
+          <p><strong>Phone:</strong> {{ $item['phone'] }}</p>
+          <p><strong>Room:</strong> {{ $item['room_title'] }}</p>
           <p><strong>Check-in:</strong> {{ $item['start_date'] }}</p>
           <p><strong>Check-out:</strong> {{ $item['end_date'] }}</p>
           <p><strong>Adults:</strong> {{ $item['number_adults'] }}</p>
@@ -139,9 +136,9 @@
         </div>
       @endforeach
       <a  style="margin-bottom:5px;" href="{{ url('/cart/reset') }}" class="btn btn-danger w-100 mt-2">🗑️ Limpar Carrinho</a>
-      <a href="{{ route('cart') }}" class="btn btn-primary w-100">Checkout</a>
+      <a href="#" class="btn btn-primary w-100">Checkout</a>
     @else
-      <p>O seu carrinho está vazio.</p>
+      <p>Your cart is empty.</p>
     @endif
   </div>
 </div>

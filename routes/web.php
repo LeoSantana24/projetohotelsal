@@ -29,7 +29,7 @@ Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
 
 Route::get('/room_details/{id}', [HomeController::class, 'room_details']);
 
-Route::post('/add_booking/{id}', [HomeController::class, 'add_booking']);
+Route::post('/add_booking/{id}', [BookingController::class, 'add_booking']);
 
 Route::get('/contact', [HomeController::class, 'contact']);
 
@@ -38,9 +38,6 @@ Route::get('/gallery', [HomeController::class, 'gallery']);
 Route::get('/test', [HomeController::class, 'test']);
 
 
-
-Route::post('/add-to-cart/{room_id}', [BookingController::class, 'addToCart']);
-Route::get('/cart', [BookingController::class, 'showCart'])->name('cart');
 
 
 Route::post('/checkout', [BookingController::class, 'checkout']);
@@ -56,12 +53,12 @@ Route::get('/cart/reset', [BookingController::class, 'resetCart']);
 
 
 
-Route::get('/room-features/{id}', [HomeController::class, 'roomFeatures']);
+Route::get('/room-features/{id}', [BookingController::class, 'roomFeatures']);
 
 
 
 
-Route::post('/reservas', [ReservaController::class, 'store'])->name('reservas.store');
+
 
 Route::get('/bookings', [AdminController::class, 'bookings']);
 
