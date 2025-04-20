@@ -33,6 +33,8 @@ Route::post('/add_booking/{id}', [BookingController::class, 'add_booking']);
 
 Route::get('/contact', [HomeController::class, 'contact']);
 
+Route::get('/massagens', [HomeController::class, 'massagens']);
+
 Route::get('/gallery', [HomeController::class, 'gallery']);
 
 Route::get('/test', [HomeController::class, 'test']);

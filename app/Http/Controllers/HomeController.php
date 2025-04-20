@@ -24,6 +24,12 @@ class HomeController extends Controller
         return view('home.gallery');
     }
 
+   
+    public function massagens()
+    {
+        return view('home.massagens');
+    }
+
     public function test()
     {
         $rooms = Room::with('images')->get(); 

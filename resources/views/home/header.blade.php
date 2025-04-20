@@ -78,6 +78,7 @@
                     <li><a href="{{ url('/test') }}">Rooms</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="{{ url('/contact') }}">Contact</a></li>
+                    <li><a href="{{ url('/massagens') }}">Massagens</a></li>
                   </ul>
                 </div>
               </div>
