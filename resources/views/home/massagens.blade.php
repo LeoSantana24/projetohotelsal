@@ -22,6 +22,9 @@
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
     <style>
         * {
           margin: 0;
@@ -32,6 +35,12 @@
         html, body {
           margin: 0;
           padding: 0;
+        }
+        header{
+            .btn{
+                background-color:transparent;
+                color:#343A40;
+            }
         }
        
         .container {
@@ -57,14 +66,13 @@
         .massage-card:hover {
             transform: translateY(-5px);
         }
-        .massage-image {
+        .massage-image img {
+            width: 100%;
             height: 200px;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
+            object-fit: cover;
+            display: block;
         }
+
         .massage-content {
             padding: 20px;
         }
@@ -78,22 +86,22 @@
         }
         .price {
             font-weight: bold;
-            color: #5c916e;
+            color: #FFBA5A;
             font-size: 1.2rem;
             margin-bottom: 15px;
         }
         .btn {
             display: inline-block;
-            background-color: #3a6351;
+            background-color:rgba(33, 37, 41, 0.9);
             color: white;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.3s ease;
         }
         .btn:hover {
-            background-color: #5c916e;
+            background-color: #FFBA5A;
             cursor: pointer;
         }
         .booking-form {
@@ -143,9 +151,9 @@
             transition: all 0.3s ease;
         }
         .duration-option input[type="radio"]:checked + label {
-            background-color: #3a6351;
+            background-color: #FFBA5A;
             color: white;
-            border-color: #3a6351;
+            border-color: #FFBA5A;
         }
         .modal {
             display: none;
@@ -192,11 +200,11 @@
       <div class="container">
         <div class="row site-hero-inner justify-content-center align-items-center">
           <div class="col-md-10 text-center" data-aos="fade">
-            <h1 class="heading mb-3">Serviços</h1>
+            <h1 class="heading mb-3">Massages</h1>
             <ul class="custom-breadcrumbs mb-4">
               <li><a href="index.html">Home</a></li>
               <li>&bullet;</li>
-              <li>Serviços</li>
+              <li>Massages</li>
             </ul>
           </div>
         </div>
@@ -218,76 +226,86 @@
         <h2>Nossos Tipos de Massagens</h2>
         <p>Conheça nossas opções de massagens e escolha a ideal para você:</p>
         
+
+
+        
         <div class="massage-types">
             <div class="massage-card">
+            @foreach($massages as $type_massage)
+
                 <div class="massage-image">
-                    <p>Imagem de Massagem Relaxante</p>
+                    <figure><img src="{{ asset('Type_massage/' . $type_massage->image) }}" alt="Imagem de {{$type_massage->massage_title}}">
+                    </figure>
                 </div>
                 <div class="massage-content">
-                    <h3>Massagem Relaxante</h3>
-                    <p>Movimentos suaves que aliviam a tensão muscular, promovem relaxamento profundo e diminuem o estresse.</p>
-                    <div class="price">A partir de R$ 80,00</div>
-                    <button class="btn book-btn" data-massage="Massagem Relaxante" data-price-30="80" data-price-60="120" data-price-90="160">Agendar</button>
+                    <h3>{{$type_massage->massage_title}}</h3>
+                    <p>{{ $type_massage->description }}</p>
+                    <div class="price">{{ $type_massage->price }}</div>
+                    <button class="btn book-btn" data-massage="Massagem Relaxante" data-price-30="80" data-price-60="120" data-price-90="160">Scheduler</button>
                 </div>
             </div>
+            @endforeach
             
+
+
+
             <div class="massage-card">
                 <div class="massage-image">
-                    <p>Imagem de Massagem Terapêutica</p>
+                <p><img style="object-position: center;"src="/images/massage2.png"></p>
                 </div>
                 <div class="massage-content">
                     <h3>Massagem Terapêutica</h3>
                     <p>Técnica que combina pressão profunda com alongamentos para aliviar dores crônicas e melhorar a postura.</p>
-                    <div class="price">A partir de R$ 100,00</div>
-                    <button class="btn book-btn" data-massage="Massagem Terapêutica" data-price-30="100" data-price-60="150" data-price-90="200">Agendar</button>
+                    <div class="price">From 100€</div>
+                    <button class="btn book-btn" data-massage="Massagem Terapêutica" data-price-30="100" data-price-60="150" data-price-90="200">Schedule</button>
                 </div>
             </div>
             
             <div class="massage-card">
                 <div class="massage-image">
-                    <p>Imagem de Massagem com Pedras Quentes</p>
+                <p><img style="object-position: center;"src="/images/massage3.png"></p>
                 </div>
                 <div class="massage-content">
                     <h3>Massagem com Pedras Quentes</h3>
                     <p>Pedras vulcânicas aquecidas são utilizadas para relaxar músculos tensos e melhorar a circulação sanguínea.</p>
-                    <div class="price">A partir de R$ 120,00</div>
-                    <button class="btn book-btn" data-massage="Massagem com Pedras Quentes" data-price-30="120" data-price-60="180" data-price-90="240">Agendar</button>
+                    <div class="price">From 120€</div>
+                    <button class="btn book-btn" data-massage="Massagem com Pedras Quentes" data-price-30="120" data-price-60="180" data-price-90="240">Schedule</button>
                 </div>
             </div>
             
             <div class="massage-card">
                 <div class="massage-image">
-                    <p>Imagem de Drenagem Linfática</p>
+                <p><img style="object-position: center;"src="/images/massage4.png"></p>
                 </div>
                 <div class="massage-content">
                     <h3>Drenagem Linfática</h3>
                     <p>Movimentos suaves e ritmados que estimulam o sistema linfático, reduzindo edemas e auxiliando na desintoxicação.</p>
-                    <div class="price">A partir de R$ 90,00</div>
-                    <button class="btn book-btn" data-massage="Drenagem Linfática" data-price-30="90" data-price-60="140" data-price-90="190">Agendar</button>
+                    <div class="price">From 90€</div>
+                    <button class="btn book-btn" data-massage="Drenagem Linfática" data-price-30="90" data-price-60="140" data-price-90="190">Schedule</button>
                 </div>
             </div>
             
             <div class="massage-card">
                 <div class="massage-image">
-                    <p>Imagem de Massagem Shiatsu</p>
+                <p><img style="object-position: center;"src="/images/massage5.png"></p>
                 </div>
                 <div class="massage-content">
                     <h3>Shiatsu</h3>
                     <p>Técnica japonesa que utiliza pressão dos dedos em pontos específicos para equilibrar a energia vital do corpo.</p>
-                    <div class="price">A partir de R$ 110,00</div>
-                    <button class="btn book-btn" data-massage="Shiatsu" data-price-30="110" data-price-60="160" data-price-90="210">Agendar</button>
+                    <div class="price">From 110€</div>
+                    <button class="btn book-btn" data-massage="Shiatsu" data-price-30="110" data-price-60="160" data-price-90="210">Schedule</button>
                 </div>
             </div>
             
             <div class="massage-card">
                 <div class="massage-image">
-                    <p>Imagem de Reflexologia Podal</p>
+                <p><img style="object-position: center;"src="/images/massage4.png"></p>
                 </div>
                 <div class="massage-content">
                     <h3>Reflexologia Podal</h3>
                     <p>Massagem nos pés que estimula pontos reflexos correspondentes a órgãos e sistemas do corpo, promovendo equilíbrio.</p>
-                    <div class="price">A partir de R$ 70,00</div>
-                    <button class="btn book-btn" data-massage="Reflexologia Podal" data-price-30="70" data-price-60="100" data-price-90="140">Agendar</button>
+                    <div class="price">From 70€</div>
+                    <button class="btn book-btn" data-massage="Reflexologia Podal" data-price-30="70" data-price-60="100" data-price-90="140">Schedule</button>
                 </div>
             </div>
         </div>
@@ -296,12 +314,12 @@
     <div id="bookingModal" class="modal">
         <div class="modal-content" style="width: 80%; max-width: 800px; height: auto; max-height: 90vh; overflow-y: auto;">
             <span class="close">&times;</span>
-            <h2>Agendar Massagem</h2>
+            <h2>Schedule a massage</h2>
             <h3 id="selectedMassage"></h3>
             
             <form id="bookingForm" class="booking-form">
                 <div class="form-group">
-                    <label>Duração da Sessão:</label>
+                    <label>Session duration:</label>
                     <div class="duration-options">
                         <div class="duration-option">
                             <input type="radio" id="duration30" name="duration" value="30" required>
@@ -316,33 +334,33 @@
                             <label for="duration90">90min</label>
                         </div>
                     </div>
-                    <div id="priceDisplay" class="price-info">Valor: R$ <span id="priceValue">0</span>,00</div>
+                    <div id="priceDisplay" class="price-info">Value: € <span id="priceValue">0</span>,00</div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="name">Nome Completo:</label>
-                    <input type="text" id="name" name="name" required>
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" required>
                 </div>
                 
                 <div class="form-group">
                     <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" required>
+                    <input type="email" id="email" name="email" value="{{ Auth::user()->email }}" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="phone">Telefone:</label>
-                    <input type="tel" id="phone" name="phone" required>
+                    <label for="phone">Phone:</label>
+                    <input type="tel" id="phone" name="phone" value="{{ Auth::user()->phone }}" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="date">Data da Massagem:</label>
+                    <label for="date">Date of Massage:</label>
                     <input type="date" id="date" name="date" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="time">Horário:</label>
+                    <label for="time">Hour:</label>
                     <select id="time" name="time" required>
-                        <option value="">Selecione um horário</option>
+                        <option value="">Select one hour</option>
                         <option value="09:00">09:00</option>
                         <option value="10:00">10:00</option>
                         <option value="11:00">11:00</option>
@@ -355,24 +373,13 @@
                     </select>
                 </div>
                 
-                <button type="submit" class="btn">Confirmar Agendamento</button>
+                <button type="submit" class="btn">Confirm Appointment</button>
             </form>
         </div>
     </div>
     
     
-    <section class="section bg-image overlay" style="background-image: url('images/sm.jpg');">
-        <div class="container" >
-          <div class="row align-items-center">
-            <div class="col-12 col-md-6 text-center mb-4 mb-md-0 text-md-left" data-aos="fade-up">
-              <h2 class="text-white font-weight-bold">A Best Place To Stay. Reserve Now!</h2>
-            </div>
-            <div class="col-12 col-md-6 text-center text-md-right" data-aos="fade-up" data-aos-delay="200">
-              <a href="reservation.html" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve Now</a>
-            </div>
-          </div>
-        </div>
-      </section>
+   
 
     @include('home.footer')
     

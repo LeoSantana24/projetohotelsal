@@ -16,6 +16,8 @@ use App\models\Gallery;
 
 use App\Models\RoomImage;
 
+use App\Models\TypeMassage;
+
 class AdminController extends Controller
 {
     public function index()
@@ -46,10 +48,12 @@ class AdminController extends Controller
     public function home()
     {
         $room = Room::all();
+        $massages = Type_massage::all();
+
 
         $gallery = Gallery::all();
         
-        return view('home.index',compact('room','gallery'));
+        return view('home.index',compact('room','gallery','massages'));
 
         
     }
@@ -141,6 +145,38 @@ class AdminController extends Controller
     }
 
     return redirect()->back();
+}
+//Massagem
+public function create_type_massage()
+{
+    
+    return view('admin.create_type_massage');
+}
+
+public function add_type_massage(Request $request)
+{
+   $massage =  new typeMassage;
+   
+    $massage->massage_title = $request->massage_title;
+    $massage->description =$request->description;
+    $massage->price = $request->price;
+    $image=$request->image;
+
+    if($image)
+    {
+        $imagename=time().'.'.$image->getCLientOriginalExtension();
+
+        $request->image->move('Type_massage',$imagename);
+        $massage->image=$imagename;
+    }
+
+    $massage->save();
+
+    return redirect()->back();
+   
+
+    
+  
 }
 
     public function bookings()

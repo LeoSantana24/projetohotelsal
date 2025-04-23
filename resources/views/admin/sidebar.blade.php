@@ -19,6 +19,11 @@
                     <li><a href="{{url('view_room')}}">Ver Quartos</a></li>
                   </ul>
                 </li>
+                <li><a href="#massagemDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Massages Hotel </a>
+                <ul id="massagemDropdown" class="collapse list-unstyled ">
+                    <li><a href="{{url('create_type_massage')}}">Adicionar Massagens</a></li>
+                    <li><a href="{{url('view_room')}}">Ver Massagens</a></li>
+                  </ul>
 
                 <li> 
                 <a href="{{url('bookings')}}"> <i class="icon-home"></i>Reservas </a>

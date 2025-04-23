@@ -15,6 +15,14 @@ Route::get('/home', [AdminController::class, 'index'])->name('home');
 
 Route::get('/create_room', [AdminController::class, 'create_room']);
 
+Route::get('/create_type_massage', [AdminController::class, 'create_type_massage']);
+Route::get('/type_massage', [AdminController::class, 'type_massage']);
+
+Route::post('/add_type_massage', [AdminController::class, 'add_type_massage']);
+
+
+
+
 Route::post('/add_room', [AdminController::class, 'add_room']);
 
 Route::get('/view_room', [AdminController::class, 'view_room']);

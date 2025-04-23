@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Room;
 use App\Models\Booking;
+use App\Models\TypeMassage;
+
 
 class HomeController extends Controller
 {
@@ -27,7 +29,8 @@ class HomeController extends Controller
    
     public function massagens()
     {
-        return view('home.massagens');
+        $massages = TypeMassage::all();
+        return view('home.massagens',compact('massages'));
     }
 
     public function test()
