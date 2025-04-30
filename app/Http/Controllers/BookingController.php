@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use App\Models\Room;
 use Illuminate\Support\Facades\DB;
+use App\Models\BookingsMassage;
+use App\Models\TypeMassage;
 
 class BookingController extends Controller
 {
@@ -120,6 +122,56 @@ public function removeFromCart($index)
         session()->forget('cart');
         return redirect()->back()->with('success', 'Carrinho limpo com sucesso.');
     }
+
+    public function showMassageBooking()
+    {
+        $massages = TypeMassage::all();
+        return view('home.massagens', compact('massages'));
+    }
+    
+   
+
+// Adicionar reserva Massagem
+public function add_massage_booking(Request $request, $id)
+{
+    // Validação dos dados
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone' => 'required|string|max:15',
+        'date' => 'required|date|after_or_equal:today',
+        'hour' => 'required|date_format:H:i',
+        'duration' => 'required|string|in:30min,60min,90min',
+    ]);
+
+    // Verifica se o tipo de massagem existe
+    $massage = TypeMassage::findOrFail($id);
+
+    // Verifica se já há uma reserva nesse mesmo horário e data
+    $isBooked = BookingsMassage::where('type_massage_id', $id)
+        ->where('date', $request->date)
+        ->where('hour', $request->hour)
+        ->exists();
+
+    if ($isBooked) {
+        $formattedDate = date('d/m/Y', strtotime($request->date));
+        return redirect()->back()->with('message', "Já existe uma reserva para esse horário em $formattedDate às {$request->hour}. Por favor, escolha outro horário.");
+    }
+
+    // Cria a reserva
+    BookingsMassage::create([
+        'type_massage_id' => $id,
+        'name' => $request->name,
+        'email' => $request->email,
+        'phone' => $request->phone,
+        'date' => $request->date,
+        'hour' => $request->hour,
+        'duration' => $request->duration,
+    ]);
+
+    return redirect()->back()->with('success', 'Reserva de massagem criada com sucesso!');
+}
+
 }
 
     

@@ -26,172 +26,260 @@
 
 
     <style>
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .container {
+    margin-top: 0; /* Remove a margem superior de 40px */
+    padding-top: 0; /* Remove o padding superior se houver */
+}
 
-        html, body {
-          margin: 0;
-          padding: 0;
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+    header{
+        .btn{
+            background-color:transparent;
+            color:#343A40;
         }
-        header{
-            .btn{
-                background-color:transparent;
-                color:#343A40;
-            }
-        }
-       
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        h1, h2, h3 {
-            margin-bottom: 20px;
-        }
-        .massage-types {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .massage-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        .massage-card:hover {
-            transform: translateY(-5px);
-        }
-        .massage-image img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
+    }
+  
+    /* Espaçamento geral da seção */
+.massage-section {
+    padding: 60px 0; /* 60px top/bottom, 0 left/right */
+    margin: 0 auto;
+}
 
-        .massage-content {
-            padding: 20px;
-        }
-        .massage-content h3 {
-            color: #3a6351;
-            margin-bottom: 10px;
-        }
-        .massage-content p {
-            margin-bottom: 15px;
-            line-height: 1.5;
-        }
-        .price {
-            font-weight: bold;
-            color: #FFBA5A;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-        }
-        .btn {
-            display: inline-block;
-            background-color:rgba(33, 37, 41, 0.9);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background-color 0.3s ease;
-        }
-        .btn:hover {
-            background-color: #FFBA5A;
-            cursor: pointer;
-        }
-        .booking-form {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            max-width: 600px;
-            margin: 50px auto;
-        }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        .duration-options {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-        .duration-option {
-            flex: 1;
-        }
-        .duration-option input[type="radio"] {
-            display: none;
-        }
-        .duration-option label {
-            display: block;
-            text-align: center;
-            padding: 10px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .duration-option input[type="radio"]:checked + label {
-            background-color: #FFBA5A;
-            color: white;
-            border-color: #FFBA5A;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            overflow: auto;
-        }
-        .modal-content {
-            background-color: white;
-            margin: 5% auto; /* reduz a margem superior pra melhor centralização */
-            padding: 30px;
-            width: 90%;         /* aumentei de 80% para 90% */
-            max-width: 800px;   /* aumentei o limite para deixar mais largo */
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-        }
-        .booking-form {
-          width: 90%;
-      }
+/* Container principal */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
 
+/* Títulos e texto */
+.container h2 {
+    margin-bottom: 15px;
+    padding-top: 20px;
+    font-size: 2rem;
+}
 
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .close:hover {
-            color: black;
-        }
+.container p {
+    margin-bottom: 40px;
+    line-height: 1.6;
+    color: #555;
+}
 
-    </style>
+/* Grid de cards */
+.massage-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Cards individuais */
+.massage-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Espaçamento interno dos cards */
+.massage-content {
+    padding: 25px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .massage-section {
+        padding: 40px 0;
+    }
+    
+    .container h2 {
+        font-size: 1.8rem;
+        padding-top: 10px;
+    }
+    
+    .massage-types {
+        gap: 20px;
+    }
+}
+    .container {
+        margin-top: 0;
+        padding-top: 0;
+    }
+    h1, h2, h3 {
+        margin-bottom: 20px;
+    }
+    .massage-types {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+    .massage-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+    .massage-card {
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    .massage-card:hover {
+        transform: translateY(-5px);
+    }
+    .massage-image {
+        width: 100%;
+        height: 250px; /* Altura fixa para todas as imagens */
+        overflow: hidden;
+    }
+    .massage-image img {
+        
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+    .massage-card:hover .massage-image img {
+        transform: scale(1.05);
+    }
+
+    .massage-content {
+        padding: 20px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .massage-content h3 {
+        color: #3a6351;
+        margin-bottom: 10px;
+    }
+    .massage-content p {
+        margin-bottom: 15px;
+        line-height: 1.5;
+        flex-grow: 1;
+    }
+    .price {
+        font-weight: bold;
+        color: #FFBA5A;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+    }
+    .btn {
+        display: inline-block;
+        background-color:rgba(33, 37, 41, 0.9);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+        align-self: flex-start;
+        margin-top: auto;
+    }
+    .btn:hover {
+        background-color: #FFBA5A;
+        cursor: pointer;
+    }
+    .booking-form {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        max-width: 600px;
+        margin: 50px auto;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    .duration-options {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    .duration-option {
+        flex: 1;
+    }
+    .duration-option input[type="radio"] {
+        display: none;
+    }
+    .duration-option label {
+        display: block;
+        text-align: center;
+        padding: 10px;
+        background-color: #f5f5f5;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .duration-option input[type="radio"]:checked + label {
+        background-color: #FFBA5A;
+        color: white;
+        border-color: #FFBA5A;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        overflow: auto;
+    }
+    .modal-content {
+        background-color: white;
+        margin: 5% auto;
+        padding: 30px;
+        width: 90%;
+        max-width: 800px;
+        border-radius: 10px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    }
+    .booking-form {
+        width: 90%;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    .close:hover {
+        color: black;
+    }
+</style>
   </head>
   <body>   
    @include('home.header')
@@ -230,158 +318,98 @@
 
         
         <div class="massage-types">
-            <div class="massage-card">
-            @foreach($massages as $type_massage)
-
-                <div class="massage-image">
-                    <figure><img src="{{ asset('Type_massage/' . $type_massage->image) }}" alt="Imagem de {{$type_massage->massage_title}}">
-                    </figure>
-                </div>
-                <div class="massage-content">
-                    <h3>{{$type_massage->massage_title}}</h3>
-                    <p>{{ $type_massage->description }}</p>
-                    <div class="price">{{ $type_massage->price }}</div>
-                    <button class="btn book-btn" data-massage="Massagem Relaxante" data-price-30="80" data-price-60="120" data-price-90="160">Scheduler</button>
-                </div>
-            </div>
-            @endforeach
-            
-
-
-
-            <div class="massage-card">
-                <div class="massage-image">
-                <p><img style="object-position: center;"src="/images/massage2.png"></p>
-                </div>
-                <div class="massage-content">
-                    <h3>Massagem Terapêutica</h3>
-                    <p>Técnica que combina pressão profunda com alongamentos para aliviar dores crônicas e melhorar a postura.</p>
-                    <div class="price">From 100€</div>
-                    <button class="btn book-btn" data-massage="Massagem Terapêutica" data-price-30="100" data-price-60="150" data-price-90="200">Schedule</button>
-                </div>
-            </div>
-            
-            <div class="massage-card">
-                <div class="massage-image">
-                <p><img style="object-position: center;"src="/images/massage3.png"></p>
-                </div>
-                <div class="massage-content">
-                    <h3>Massagem com Pedras Quentes</h3>
-                    <p>Pedras vulcânicas aquecidas são utilizadas para relaxar músculos tensos e melhorar a circulação sanguínea.</p>
-                    <div class="price">From 120€</div>
-                    <button class="btn book-btn" data-massage="Massagem com Pedras Quentes" data-price-30="120" data-price-60="180" data-price-90="240">Schedule</button>
-                </div>
-            </div>
-            
-            <div class="massage-card">
-                <div class="massage-image">
-                <p><img style="object-position: center;"src="/images/massage4.png"></p>
-                </div>
-                <div class="massage-content">
-                    <h3>Drenagem Linfática</h3>
-                    <p>Movimentos suaves e ritmados que estimulam o sistema linfático, reduzindo edemas e auxiliando na desintoxicação.</p>
-                    <div class="price">From 90€</div>
-                    <button class="btn book-btn" data-massage="Drenagem Linfática" data-price-30="90" data-price-60="140" data-price-90="190">Schedule</button>
-                </div>
-            </div>
-            
-            <div class="massage-card">
-                <div class="massage-image">
-                <p><img style="object-position: center;"src="/images/massage5.png"></p>
-                </div>
-                <div class="massage-content">
-                    <h3>Shiatsu</h3>
-                    <p>Técnica japonesa que utiliza pressão dos dedos em pontos específicos para equilibrar a energia vital do corpo.</p>
-                    <div class="price">From 110€</div>
-                    <button class="btn book-btn" data-massage="Shiatsu" data-price-30="110" data-price-60="160" data-price-90="210">Schedule</button>
-                </div>
-            </div>
-            
-            <div class="massage-card">
-                <div class="massage-image">
-                <p><img style="object-position: center;"src="/images/massage4.png"></p>
-                </div>
-                <div class="massage-content">
-                    <h3>Reflexologia Podal</h3>
-                    <p>Massagem nos pés que estimula pontos reflexos correspondentes a órgãos e sistemas do corpo, promovendo equilíbrio.</p>
-                    <div class="price">From 70€</div>
-                    <button class="btn book-btn" data-massage="Reflexologia Podal" data-price-30="70" data-price-60="100" data-price-90="140">Schedule</button>
-                </div>
-            </div>
+    @foreach($massages as $type_massage)
+    <div class="massage-card">
+        <div class="massage-image">
+            <figure>
+                <img src="{{ asset('Type_massage/' . $type_massage->image) }}" alt="Imagem de {{$type_massage->massage_title}}">
+            </figure>
+        </div>
+        <div class="massage-content">
+            <h3>{{$type_massage->massage_title}}</h3>
+            <p>{{ $type_massage->description }}</p>
+            <div class="price">From {{ $type_massage->price }}€</div>
+            <button class="btn book-btn" data-id="{{ $type_massage->id }}" data-massage="{{ $type_massage->massage_title }}" data-price-30="80" data-price-60="120" data-price-90="160">Scheduler</button>
         </div>
     </div>
-    
-    <div id="bookingModal" class="modal">
-        <div class="modal-content" style="width: 80%; max-width: 800px; height: auto; max-height: 90vh; overflow-y: auto;">
-            <span class="close">&times;</span>
-            <h2>Schedule a massage</h2>
-            <h3 id="selectedMassage"></h3>
+    @endforeach
+</div>
+
+<!-- Modal de reserva -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Agendar Massagem</h2>
+        <h3 id="selectedMassage"></h3>
+        
+        <form id="bookingForm" method="POST">
+            @csrf
+            <input type="hidden" name="massage_id" id="massageIdInput">
             
-            <form id="bookingForm" class="booking-form">
-                <div class="form-group">
-                    <label>Session duration:</label>
-                    <div class="duration-options">
-                        <div class="duration-option">
-                            <input type="radio" id="duration30" name="duration" value="30" required>
-                            <label for="duration30">30min</label>
-                        </div>
-                        <div class="duration-option">
-                            <input type="radio" id="duration60" name="duration" value="60" checked required>
-                            <label for="duration60">60min</label>
-                        </div>
-                        <div class="duration-option">
-                            <input type="radio" id="duration90" name="duration" value="90" required>
-                            <label for="duration90">90min</label>
-                        </div>
+            <div class="form-group">
+                <label>Duração da Sessão:</label>
+                <div class="duration-options">
+                    <div class="duration-option">
+                        <input type="radio" id="duration30" name="duration" value="30min" required>
+                        <label for="duration30">30min</label>
                     </div>
-                    <div id="priceDisplay" class="price-info">Value: € <span id="priceValue">0</span>,00</div>
+                    <div class="duration-option">
+                        <input type="radio" id="duration60" name="duration" value="60min" checked required>
+                        <label for="duration60">60min</label>
+                    </div>
+                    <div class="duration-option">
+                        <input type="radio" id="duration90" name="duration" value="90min" required>
+                        <label for="duration90">90min</label>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">E-mail:</label>
-                    <input type="email" id="email" name="email" value="{{ Auth::user()->email }}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" value="{{ Auth::user()->phone }}" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="date">Date of Massage:</label>
-                    <input type="date" id="date" name="date" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="time">Hour:</label>
-                    <select id="time" name="time" required>
-                        <option value="">Select one hour</option>
-                        <option value="09:00">09:00</option>
-                        <option value="10:00">10:00</option>
-                        <option value="11:00">11:00</option>
-                        <option value="12:00">12:00</option>
-                        <option value="14:00">14:00</option>
-                        <option value="15:00">15:00</option>
-                        <option value="16:00">16:00</option>
-                        <option value="17:00">17:00</option>
-                        <option value="18:00">18:00</option>
-                    </select>
-                </div>
-                
-                <button type="submit" class="btn">Confirm Appointment</button>
-            </form>
-        </div>
+                <div class="price-info">Valor: € <span id="priceValue">0.00</span></div>
+            </div>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" name="email" value="{{ Auth::user()->email }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" value="{{ Auth::user()->phone }}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date of Massage:</label>
+        <input type="date" id="date" name="date" required>
+      </div>
+
+      <div class="form-group">
+        <label for="time">Hour:</label>
+        <select id="time" name="hour" required>
+          <option value="">Select one hour</option>
+          <option value="09:00">09:00</option>
+          <option value="10:00">10:00</option>
+          <option value="11:00">11:00</option>
+          <option value="12:00">12:00</option>
+          <option value="14:00">14:00</option>
+          <option value="15:00">15:00</option>
+          <option value="16:00">16:00</option>
+          <option value="17:00">17:00</option>
+          <option value="18:00">18:00</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn">Confirmar Reserva</button>
+        </form>
     </div>
-    
+</div>
+
+  </div>  
     
    
 
-    @include('home.footer')
+  @include('home.footer')
     
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
@@ -396,75 +424,112 @@
     <script src="js/main.js"></script>
     
 
-
-    <script>
-document.addEventListener("DOMContentLoaded", function () {
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Elementos do DOM
     const modal = document.getElementById("bookingModal");
     const bookBtns = document.querySelectorAll(".book-btn");
     const closeBtn = document.querySelector(".close");
-    const selectedMassageText = document.getElementById("selectedMassage");
     const bookingForm = document.getElementById("bookingForm");
-    const priceValue = document.getElementById("priceValue");
     const durationOptions = document.querySelectorAll('input[name="duration"]');
+    const priceValue = document.getElementById("priceValue");
+    
+    // Armazena os preços do serviço atual
+    let currentPrices = {
+        '30min': 0,
+        '60min': 0,
+        '90min': 0
+    };
 
-    let currentMassagePrices = { '30': 0, '60': 0, '90': 0 };
-
-    const dateInput = document.getElementById("date");
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const dd = String(today.getDate()).padStart(2, '0');
-    dateInput.min = `${yyyy}-${mm}-${dd}`;
-
+    // Configura os eventos dos botões de reserva
     bookBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            const massageType = btn.getAttribute("data-massage");
-            currentMassagePrices['30'] = btn.getAttribute("data-price-30");
-            currentMassagePrices['60'] = btn.getAttribute("data-price-60");
-            currentMassagePrices['90'] = btn.getAttribute("data-price-90");
-
-            selectedMassageText.textContent = massageType;
-            modal.style.display = "block";
+        btn.addEventListener("click", function() {
+            // Obtém os dados do serviço
+            const massageId = this.getAttribute("data-id");
+            const massageName = this.getAttribute("data-massage");
+            
+            // Atualiza os preços
+            currentPrices = {
+                '30min': parseFloat(this.getAttribute("data-price-30")) || 0,
+                '60min': parseFloat(this.getAttribute("data-price-60")) || 0,
+                '90min': parseFloat(this.getAttribute("data-price-90")) || 0
+            };
+            
+            // Atualiza o formulário
+            document.getElementById("massageIdInput").value = massageId;
+            document.getElementById("selectedMassage").textContent = massageName;
+            bookingForm.action = `/massagens/reservar/${massageId}`;
+            
+            // Seleciona 60min por padrão e atualiza o preço
             document.getElementById("duration60").checked = true;
             updatePrice();
+            
+            // Abre o modal
+            modal.style.display = "block";
         });
     });
 
+    // Atualiza o preço quando muda a duração
     durationOptions.forEach(option => {
         option.addEventListener("change", updatePrice);
     });
 
+    // Função para atualizar o preço exibido
     function updatePrice() {
         const selectedDuration = document.querySelector('input[name="duration"]:checked').value;
-        priceValue.textContent = currentMassagePrices[selectedDuration];
+        priceValue.textContent = currentPrices[selectedDuration].toFixed(2);
     }
 
+    // Fecha o modal
     closeBtn.addEventListener("click", () => {
         modal.style.display = "none";
     });
-
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
             modal.style.display = "none";
         }
     });
 
-    bookingForm.addEventListener("submit", (e) => {
+    // Envio do formulário
+    bookingForm.addEventListener("submit", async function(e) {
         e.preventDefault();
-        const formData = new FormData(bookingForm);
-        const massageType = selectedMassageText.textContent;
-        const bookingDate = formData.get("date");
-        const bookingTime = formData.get("time");
-        const duration = formData.get("duration");
-        const price = currentMassagePrices[duration];
-
-        alert(`Agendamento realizado com sucesso!\n\nMassagem: ${massageType}\nDuração: ${duration} minutos\nValor: R$ ${price},00\nData: ${bookingDate}\nHorário: ${bookingTime}\n\nEnviaremos um e-mail de confirmação em breve.`);
-
-        modal.style.display = "none";
-        bookingForm.reset();
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+        
+        try {
+            const formData = new FormData(this);
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                alert(result.message);
+                modal.style.display = "none";
+                window.location.reload();
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            alert('Ocorreu um erro ao processar sua reserva.');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Confirmar Reserva';
+        }
     });
 });
 </script>
+
 
         
     

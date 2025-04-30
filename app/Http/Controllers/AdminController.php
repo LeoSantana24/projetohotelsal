@@ -48,7 +48,7 @@ class AdminController extends Controller
     public function home()
     {
         $room = Room::all();
-        $massages = Type_massage::all();
+        $massages = Typemassage::all();
 
 
         $gallery = Gallery::all();

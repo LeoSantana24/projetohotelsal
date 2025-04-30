@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\MassageBookingController;
 
 
 // Rota para a página inicial que renderiza a view 'home.index'
@@ -21,8 +22,6 @@ Route::get('/type_massage', [AdminController::class, 'type_massage']);
 Route::post('/add_type_massage', [AdminController::class, 'add_type_massage']);
 
 
-
-
 Route::post('/add_room', [AdminController::class, 'add_room']);
 
 Route::get('/view_room', [AdminController::class, 'view_room']);
@@ -33,6 +32,8 @@ Route::get('/room_delete/{id}', [AdminController::class, 'room_delete']);
 Route::get('/room_update/{id}', [AdminController::class, 'room_update']);
 
 Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
+
+
 
 
 Route::get('/room_details/{id}', [HomeController::class, 'room_details']);
@@ -56,16 +57,30 @@ Route::get('/cart/remove/{index}', [BookingController::class, 'removeFromCart'])
 
 Route::get('/cart/reset', [BookingController::class, 'resetCart']);
 
-
-
-
-
-
-
-
 Route::get('/room-features/{id}', [BookingController::class, 'roomFeatures']);
 
+//massagens
+Route::post('/add_massage_booking/{id}', [MassageBookingController::class, 'add_massage_booking'])->name('massage.booking');
 
+Route::post('/massagens/reservar/{id}', [MassageBookingController::class, 'add_massage_booking']);
+
+//teste
+Route::get('/test-massage-booking', function() {
+    $testData = [
+        'name' => 'Test User',
+        'email' => 'test@example.com',
+        'phone' => '123456789',
+        'date' => now()->format('Y-m-d'),
+        'hour' => '14:00',
+        'duration' => '60min'
+    ];
+    
+    $request = new \Illuminate\Http\Request($testData);
+    $controller = new \App\Http\Controllers\MassageBookingController();
+    
+    return $controller->add_massage_booking($request, 1);
+});
+   
 
 
 
