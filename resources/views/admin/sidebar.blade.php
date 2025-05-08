@@ -11,27 +11,38 @@
         </div>
         <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
         <ul class="list-unstyled">
-                <li class="active"><a href="index.html"> <i class="icon-home"></i>Página Inicial </a></li>
-                
-                <li><a href="#exampledropdownDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Quartos Hotel </a>
-                  <ul id="exampledropdownDropdown" class="collapse list-unstyled ">
-                    <li><a href="{{url('create_room')}}">Adicionar Quartos</a></li>
-                    <li><a href="{{url('view_room')}}">Ver Quartos</a></li>
-                  </ul>
-                </li>
-                <li><a href="#massagemDropdown" aria-expanded="false" data-toggle="collapse"> <i class="icon-windows"></i>Massages Hotel </a>
-                <ul id="massagemDropdown" class="collapse list-unstyled ">
-                    <li><a href="{{url('create_type_massage')}}">Adicionar Massagens</a></li>
-                    <li><a href="{{url('view_room')}}">Ver Massagens</a></li>
-                  </ul>
+        <li class="{{ $activePage == 'home' ? 'active' : '' }}">
+  <a href="{{ url('home') }}"> <i class="icon-home"></i>Página Inicial</a>
+</li>
 
-                <li> 
-                <a href="{{url('bookings')}}"> <i class="icon-home"></i>Reservas </a>
-              </li>
+<li>
+  <a href="#exampledropdownDropdown" aria-expanded="{{ $activePage == 'quartos' ? 'true' : 'false' }}" data-toggle="collapse" class="{{ $activePage == 'quartos' ? '' : 'collapsed' }}">
+    <i class="icon-windows"></i>Quartos Hotel
+  </a>
+  <ul id="exampledropdownDropdown" class="collapse list-unstyled {{ $activePage == 'quartos' ? 'show' : '' }}">
+    <li><a href="{{ url('create_room') }}">Adicionar Quartos</a></li>
+    <li><a href="{{ url('view_room') }}">Ver Quartos</a></li>
+  </ul>
+</li>
 
-              <li> 
-                <a href="{{url('view_gallery')}}"> <i class="icon-home"></i>Galeria </a>
-              </li>
+<li>
+  <a href="#massagemDropdown" aria-expanded="{{ $activePage == 'massagens' ? 'true' : 'false' }}" data-toggle="collapse" class="{{ $activePage == 'massagens' ? '' : 'collapsed' }}">
+    <i class="icon-windows"></i>Massages Hotel
+  </a>
+  <ul id="massagemDropdown" class="collapse list-unstyled {{ $activePage == 'massagens' ? 'show' : '' }}">
+    <li><a href="{{ url('create_type_massage') }}">Adicionar Massagens</a></li>
+    <li><a href="{{ url('view_room') }}">Ver Massagens</a></li>
+  </ul>
+</li>
+
+<li class="{{ $activePage == 'reservas' ? 'active' : '' }}">
+  <a href="{{ url('bookings') }}"> <i class="icon-home"></i>Reservas</a>
+</li>
+
+<li class="{{ $activePage == 'galeria' ? 'active' : '' }}">
+  <a href="{{ url('view_gallery') }}"> <i class="icon-home"></i>Galeria</a>
+</li>
+
                 
         </ul>
       </nav>

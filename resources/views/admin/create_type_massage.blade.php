@@ -4,128 +4,101 @@
     @include('admin.css')
 
     <style>
-
-        .feature-section {
-            margin-top: 20px;
-            padding-top: 10px;
-            border-top: 1px solid #ddd;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 10px;
-            margin-top: 10px;
-        }
-
-        .form-check {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         body {
-            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
         }
-        h1
-        {
-            font-weight: bold;
-        }
-
-        .div_center {
-            text-align: center;
-            padding-top: 40px;
-        }
-
         .form-container {
             max-width: 600px;
             margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            background:rgb(61, 63, 66);
+            padding: 30px;
+            border-radius: 8px;
+            border: 1px solid #333;
         }
-
         .form-container h1 {
-            font-size: 30px;
-            font-weight: bold;
-            margin-bottom: 20px;
+            color: #ffffff;
+            font-weight: 500;
+            margin-bottom: 30px;
+            border: 1px solidrgb(167, 167, 167);
+            text-align: center;
         }
-
         label {
-            font-weight: bold;
+            color: #b0b0b0;
+            font-size: 14px;
+            margin-bottom: 8px;
             display: block;
-            margin-bottom: 5px;
         }
-
-        input, select, textarea {
+        input, textarea, select {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px !important;
-            font-size: 16px;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            background: #2d2d2d;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            color: #ffffff;
         }
-
-        textarea {
-            resize: vertical;
-            height: 100px;
-        }
-
         .btn-primary {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            border: none;
+            background:rgb(104, 102, 102);
             color: white;
-            font-size: 18px;
-            border-radius: 5px;
+            border: none;
+            padding: 14px;
+            width: 100%;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: all 0.3s;
         }
-
         .btn-primary:hover {
-            background-color: #0056b3;
+            background:rgb(214, 18, 18);
         }
     </style>
   </head>
   <body>
     
     @include('admin.header')
-    @include('admin.sidebar')
+    @include('admin.sidebar', ['activePage' => 'massagens'])
     
     <div class="page-content">
         <div class="page-header">
             <div class="container-fluid">
                 <div class="div_center">
                     <div class="form-container">
-                        <h1>Adicionar Massage</h1>
+                        <h1>Adicionar Massagem</h1>
                         <form action="{{url('add_type_massage')}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <label>Título Quarto</label>
-                            <input type="text" name="title" required>
                             
-                            <label>Descrição</label>
-                            <textarea name="description" required></textarea>
+                            <div class="form-group">
+                                <label for="massage_title">Título Massagem</label>
+                                <input type="text" id="massage_title" name="massage_title" required >
+                            </div>
                             
-                            <label>Preço</label>
-                            <input type="number" name="price" required>
+                            <div class="form-group">
+                                <label for="description">Descrição</label>
+                                <textarea id="description" name="description" required ></textarea>
+                            </div>
                             
+                            <div class="form-group">
+                                <label for="price">Preço (€)</label>
+                                <input type="number" id="price" name="price" required >
+                            </div>
                             
-                            
-                            <label>Upload Imagem</label>
-                            <input type="file" name="image" multiple>
-
-                            
-                            <div style="padding-top:20px;">
-                                <input class="btn btn-primary" type="submit" value="Adicionar Massagem">
+                            <div class="form-group">
+                                <label>Imagem da Massagem</label>
+                                <div class="file-input-container">
+                                    <label class="file-input-label">
+                                        <span class="file-input-text" id="file-name">Selecione uma imagem</span>
+                                        <span class="file-input-icon">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                        </span>
+                                        <input type="file" name="image" onchange="updateFileName(this)">
+                                    </label>
+                                </div>
                             </div>
 
-                            
-                            
-                            </div>
-
-
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus-circle"></i> Adicionar Massagem
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -134,5 +107,15 @@
     </div>
     
     @include('admin.footer')
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <script>
+        function updateFileName(input) {
+            const fileName = input.files[0] ? input.files[0].name : 'Selecione uma imagem';
+            document.getElementById('file-name').textContent = fileName;
+        }
+    </script>
   </body>
 </html>

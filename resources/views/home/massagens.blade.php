@@ -326,84 +326,92 @@
             </figure>
         </div>
         <div class="massage-content">
-            <h3>{{$type_massage->massage_title}}</h3>
+            <h2>{{$type_massage->massage_title}}</h2>
             <p>{{ $type_massage->description }}</p>
             <div class="price">From {{ $type_massage->price }}€</div>
-            <button class="btn book-btn" data-id="{{ $type_massage->id }}" data-massage="{{ $type_massage->massage_title }}" data-price-30="80" data-price-60="120" data-price-90="160">Scheduler</button>
+            @if (Route::has('login'))
+                @auth
+                    <button class="btn book-btn" data-id="{{ $type_massage->id }}" data-massage="{{ $type_massage->massage_title }}" data-price-30="80" data-price-60="120" data-price-90="160">Scheduler</button>
+                @endauth
+            @endif
         </div>
     </div>
     @endforeach
 </div>
 
-<!-- Modal de reserva -->
-<div id="bookingModal" class="modal">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Agendar Massagem</h2>
-        <h3 id="selectedMassage"></h3>
-        
-        <form id="bookingForm" method="POST">
-            @csrf
-            <input type="hidden" name="massage_id" id="massageIdInput">
-            
-            <div class="form-group">
-                <label>Duração da Sessão:</label>
-                <div class="duration-options">
-                    <div class="duration-option">
-                        <input type="radio" id="duration30" name="duration" value="30min" required>
-                        <label for="duration30">30min</label>
+        <!-- Modal de reserva -->
+        @if (Route::has('login'))
+            @auth
+                <div id="bookingModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Agendar Massagem</h2>
+                        <h3 id="selectedMassage"></h3>
+                        
+                        <form id="bookingForm" method="POST">
+                            @csrf
+                            <input type="hidden" name="massage_id" id="massageIdInput">
+                            
+                            <div class="form-group">
+                                <label>Duração da Sessão:</label>
+                                <div class="duration-options">
+                                    <div class="duration-option">
+                                        <input type="radio" id="duration30" name="duration" value="30min" required>
+                                        <label for="duration30">30min</label>
+                                    </div>
+                                    <div class="duration-option">
+                                        <input type="radio" id="duration60" name="duration" value="60min" checked required>
+                                        <label for="duration60">60min</label>
+                                    </div>
+                                    <div class="duration-option">
+                                        <input type="radio" id="duration90" name="duration" value="90min" required>
+                                        <label for="duration90">90min</label>
+                                    </div>
+                                </div>
+                                <div class="price-info">Valor: € <span id="priceValue">0.00</span></div>
+                            </div>
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" required>
                     </div>
-                    <div class="duration-option">
-                        <input type="radio" id="duration60" name="duration" value="60min" checked required>
-                        <label for="duration60">60min</label>
+
+                    <div class="form-group">
+                        <label for="email">E-mail:</label>
+                        <input type="email" id="email" name="email" value="{{ Auth::user()->email }}" required>
                     </div>
-                    <div class="duration-option">
-                        <input type="radio" id="duration90" name="duration" value="90min" required>
-                        <label for="duration90">90min</label>
+
+                    <div class="form-group">
+                        <label for="phone">Phone:</label>
+                        <input type="tel" id="phone" name="phone" value="{{ Auth::user()->phone }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Date of Massage:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time">Hour:</label>
+                        <select id="time" name="hour" required>
+                        <option value="">Select one hour</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn">Confirmar Reserva</button>
+                        </form>
                     </div>
                 </div>
-                <div class="price-info">Valor: € <span id="priceValue">0.00</span></div>
-            </div>
-      <div class="form-group">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{ Auth::user()->name }}" required>
-      </div>
-
-      <div class="form-group">
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" value="{{ Auth::user()->email }}" required>
-      </div>
-
-      <div class="form-group">
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" value="{{ Auth::user()->phone }}" required>
-      </div>
-
-      <div class="form-group">
-        <label for="date">Date of Massage:</label>
-        <input type="date" id="date" name="date" required>
-      </div>
-
-      <div class="form-group">
-        <label for="time">Hour:</label>
-        <select id="time" name="hour" required>
-          <option value="">Select one hour</option>
-          <option value="09:00">09:00</option>
-          <option value="10:00">10:00</option>
-          <option value="11:00">11:00</option>
-          <option value="12:00">12:00</option>
-          <option value="14:00">14:00</option>
-          <option value="15:00">15:00</option>
-          <option value="16:00">16:00</option>
-          <option value="17:00">17:00</option>
-          <option value="18:00">18:00</option>
-        </select>
-      </div>
-
-      <button type="submit" class="btn">Confirmar Reserva</button>
-        </form>
-    </div>
-</div>
+            @endauth
+        @endif
 
   </div>  
     

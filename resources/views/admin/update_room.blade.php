@@ -4,6 +4,7 @@
    <base href="/public">
 
         @include('admin.css')
+        @include('admin.sidebar', ['activePage' => 'quartos'])
 
    
 

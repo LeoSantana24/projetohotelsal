@@ -7,7 +7,7 @@
        
     @include('admin.header')
 
-    @include('admin.sidebar')
+    @include('admin.sidebar', ['activePage' => 'galeria'])
     
       <!-- Sidebar Navigation end-->
       <div class="page-content">

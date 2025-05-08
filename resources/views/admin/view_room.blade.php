@@ -32,7 +32,7 @@
        
     @include('admin.header')
 
-    @include('admin.sidebar')
+    @include('admin.sidebar', ['activePage' => 'quartos'])
     
       <!-- Sidebar Navigation end-->
 

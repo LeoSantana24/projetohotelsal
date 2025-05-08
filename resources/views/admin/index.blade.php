@@ -7,7 +7,7 @@
        
     @include('admin.header')
 
-    @include('admin.sidebar')
+    @include('admin.sidebar', ['activePage' => 'home'])
     
       <!-- Sidebar Navigation end-->
     @include('admin.body')
