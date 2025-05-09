@@ -30,9 +30,17 @@
     cursor: pointer;
   }
   .container-row{
+    display: flex;
     width: 90%;
     margin: auto;
     justify-content: space-between;
+  }
+  .col-title,
+  .col-menu{
+    width: auto;
+  }
+  .col-title a{
+    text-decoration: none;
   }
   .btn-card{
     background: transparent;
@@ -40,6 +48,7 @@
   }
   .site-menu-toggle span{
     margin: 7px;
+    margin-right: 10px;
   }
 </style>
 

@@ -8,21 +8,29 @@
     <meta name="description" content="" />
     <meta name="keywords" content="" />
     <meta name="author" content="" />
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=|Roboto+Sans:400,700|Playfair+Display:400,700">
+  <!-- Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Sans:400,700|Playfair+Display:400,700" />
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/aos.css">
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-    <link rel="stylesheet" href="css/fancybox.min.css"> 
-    <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
-    <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
-    <!-- Theme Style -->
-    <link rel="stylesheet" href="css/style.css">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Plugins CSS -->
+  <link rel="stylesheet" href="css/animate.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/aos.css">
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="css/jquery.timepicker.css">
+  <link rel="stylesheet" href="css/fancybox.min.css">
+
+  <!-- Fonts -->
+  <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+
+  <!-- Custom Theme Style -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+
 
 
     <style>
@@ -41,7 +49,7 @@
         padding: 0;
     }
     header{
-        .btn{
+        .book-btn{
             background-color:transparent;
             color:#343A40;
         }
@@ -178,7 +186,7 @@
         font-size: 1.2rem;
         margin-bottom: 15px;
     }
-    .btn {
+    .book-btn {
         display: inline-block;
         background-color:rgba(33, 37, 41, 0.9);
         color: white;
@@ -190,7 +198,7 @@
         align-self: flex-start;
         margin-top: auto;
     }
-    .btn:hover {
+    .book-btn:hover {
         background-color: #FFBA5A;
         cursor: pointer;
     }
