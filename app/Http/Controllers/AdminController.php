@@ -119,33 +119,49 @@ class AdminController extends Controller
 }
 
 
-    public function edit_room(Request $request , $id)
+    public function edit_room(Request $request, $id)
 {
     $data = Room::find($id);
 
     $data->room_title = $request->title;
     $data->description = $request->description;
     $data->price = $request->price;
-    $data->wifi = $request->wifi;
     $data->room_type = $request->type;
-
-    $image=$request->image;
-    if($image)
-    {
-        $imagename=time().'.'.$image->getClientOriginalExtension();
-        $request->image->move('room', $imagename);
-        $data->image = $imagename;
-    }
 
     $data->save();
 
+    // Remover imagens antigas
+    $oldImages = RoomImage::where('room_id', $id)->get();
+    foreach ($oldImages as $oldImage) {
+        $imagePath = public_path('room/' . $oldImage->image);
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+        $oldImage->delete();
+    }
+
+    // Adicionar novas imagens
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move('room', $imageName);
+
+            // Inserir nova imagem
+            RoomImage::create([
+                'room_id' => $id,
+                'image' => $imageName,
+            ]);
+        }
+    }
+
     // Atualizar os features
     if ($request->has('features')) {
-        $data->features()->sync($request->features); // substitui os antigos pelos novos
+        $data->features()->sync($request->features);
     }
 
     return redirect()->back();
 }
+
 //Massagem
 public function create_type_massage()
 {

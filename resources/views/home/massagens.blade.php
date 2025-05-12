@@ -414,7 +414,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn">Confirmar Reserva</button>
+                    <button type="submit" class="btn book-btn"class="btn">Confirmar Reserva</button>
                         </form>
                     </div>
                 </div>

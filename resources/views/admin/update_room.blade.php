@@ -1,118 +1,152 @@
 <!DOCTYPE html>
 <html>
   <head> 
-   <base href="/public">
+    <base href="/public">
 
-        @include('admin.css')
-        @include('admin.sidebar', ['activePage' => 'quartos'])
+    <style>
+    body {
+      background-color: #2c2c2c;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
 
-   
+    .form-wrapper {
+      display: flex;
+      justify-content: center;
+      padding: 60px 20px;
+    }
 
-    <style type="text/css">
+    .form-container {
+      background-color: #3a3a3a;
+      padding: 40px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 600px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      color: black;
+    }
 
-        label{
+    .form-container h1 {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
 
-            display:inline-block;
-            width: 200px;
-        }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
 
-        .div_deg{
-            padding-top: 30px;
-        }
-        .div_center{
-            text-align:center;
-            padding-top:40px;
-        }
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 18px;
+      border-radius: 6px;
+      border: none;
+      background-color: #fff;
+      color: #000;
+      font-size: 14px;
+    }
 
+    textarea {
+      resize: vertical;
+    }
 
-    </style>
+    .btn-primary {
+      background-color: #6c6c6c;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      width: 100%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #5a5a5a;
+    }
+
+    .checkbox-group {
+      margin-top: 20px;
+    }
+
+    .checkbox-group label {
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      color: #ccc;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 10px;
+    }
+
+    .image-preview {
+      max-width: 100px;
+      border-radius: 6px;
+      margin-bottom: 18px;
+    }
+  </style>
   </head>
+
   <body>
-       
     @include('admin.header')
-
     @include('admin.sidebar')
-    
+    @include('admin.css')
+
     <div class="page-content">
-        <div class="page-header">
-            <div class="container-fluid">
-                <div class="div_center">
+      <div class="page-header">
+        <div class="container-fluid">
+          <div class="form-wrapper">
+            <div class="form-container">
+              <h1>Atualizar Quarto</h1>
 
-                        <h1 style="font-size: 30px; font-weight: bold ">Atualizar Quarto</h1>
-                    <form action="{{url('edit_room',$data->id)}}" method="POST" enctype="multipart/form-data">
+              <form action="{{url('edit_room',$data->id)}}" method="POST" enctype="multipart/form-data">
+                @csrf
 
-                    @csrf
-                        <div class="div_deg">
-                            <label> Titulo Quarto</label>
-                            <input type="text" name="title" value="{{$data->room_title}}">
-                        </div>
-                        <div class="div_deg">
-                            <label> Descrição</label>
-                            <textarea name="description" ">
-                                {{$data->description}}
-                            </textarea>
-                        </div>
-                        <div>
-                            <label> Preço</label>
-                            <input type="number" name="price" value="{{$data->price}}">
-                        </div>
-                        <div class="div_deg">
-                            <label> Tipo Quarto</label>
+                <label for="title">Título Quarto</label>
+                <input type="text" id="title" name="title" value="{{$data->room_title}}">
 
-                            <select name="type">
+                <label for="description">Descrição</label>
+                <textarea id="description" name="description">{{$data->description}}</textarea>
 
-                                <option selected value="{{$data->room_type}}">{{$data->room_type}}</option>
+                <label for="price">Preço</label>
+                <input type="number" id="price" name="price" value="{{$data->price}}">
 
-                                <option value="regular">Regular</option>
-                                <option value="premium">Premium</option>
-                                <option value="deluxe">Deluxe</option>
+                <label for="type">Tipo Quarto</label>
+                <select id="type" name="type">
+                  <option selected value="{{$data->room_type}}">{{$data->room_type}}</option>
+                  <option value="regular">Regular</option>
+                  <option value="premium">Premium</option>
+                  <option value="deluxe">Deluxe</option>
+                </select>
 
-                            </select>
-                        </div>
-                        <div class="div_deg">
-                            <label>Wifi Grátis</label>
-                            <select name="wifi">
-                            <option selected value="{{$data->wifi}}">{{$data->wifi}}</option>
+              
 
-                            <option selected value="yes">Sim</option>
-                                <option value="no">Não</option>
-                            
-                            </select>
-                        </div>
+                <label>Imagem atual</label>
+                <img width="200"  src="{{ asset('room/' . $data->images->first()->image) }}" alt="Imagem atual do quarto">
 
-                        <div class="div_deg">
-                            <label>Imagem atual</label>
-                            <img style="margin:auto;" width="100" src="/room/{{$data->image}}" >
-                           
-                        </div>
+                <label for="image">Upload Imagem</label>
+                <input type="file" name="images[]" multiple>
 
-                        <div class="div_deg">
-                            <label>Upload Imagem</label>
-                            <input type="file" name="image">
-                        </div>
-                        <div class="div_deg">
-                            <input class="btn btn-primary" type="submit" value="Add Quarto">
-                        </div>
-
-
-
-
-                    </form>
-
-
-
-                </div>
-
-
-
+                <input class="btn-primary" type="submit" value="Add Quarto">
+              </form>
             </div>
-
+          </div>
         </div>
-
+      </div>
     </div>
-     
-  
-        
+
     @include('admin.footer')
   </body>
 </html>

@@ -118,6 +118,10 @@
   </div>
   <div class="cart-body">
     @if(count($cart ?? []) > 0)
+      @php
+        $grandTotal = 0;
+      @endphp
+
       @foreach($cart as $index => $item)
         @php
           $start = \Carbon\Carbon::parse($item['start_date']);
@@ -127,13 +131,14 @@
           $hasCrib = isset($item['baby_crib']) && $item['baby_crib'];
           $cribFee = $hasCrib ? 12 : 0;
           $total = ($nights * $pricePerNight) + $cribFee;
+          $grandTotal += $total;
         @endphp
 
         <div class="mb-3 p-3 border rounded shadow-sm bg-white">
           <div class="mb-3 p-3 border rounded shadow-sm bg-white position-relative">
             <a href="{{ url('/cart/remove/' . $index) }}" class="btn-close position-absolute" style="top: 10px; right: 10px;color:red;" aria-label="Remover">X</a>
             <h6>Reserva {{ $index + 1 }}</h6>
-        </div>
+          </div>
           <p><strong>Name:</strong> {{ $item['name'] }}</p>
           <p><strong>Email:</strong> {{ $item['email'] }}</p>
           <p><strong>Phone:</strong> {{ $item['phone'] }}</p>
@@ -150,7 +155,13 @@
           <p><strong>Total:</strong> {{ number_format($total, 2, ',', '.') }} €</p>
         </div>
       @endforeach
-      <a  style="margin-bottom:5px;" href="{{ url('/cart/reset') }}" class="btn btn-danger w-100 mt-2">🗑️ Limpar Carrinho</a>
+
+      {{-- Total geral --}}
+      <div class="p-3 border-top mt-2">
+        <h5><strong>Total geral:</strong> {{ number_format($grandTotal, 2, ',', '.') }} €</h5>
+      </div>
+
+      <a style="margin-bottom:5px;" href="{{ url('/cart/reset') }}" class="btn btn-danger w-100 mt-2">🗑️ Limpar Carrinho</a>
       <a href="#" class="btn btn-primary w-100">Checkout</a>
     @else
       <p>Your cart is empty.</p>

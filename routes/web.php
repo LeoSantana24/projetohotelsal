@@ -8,10 +8,9 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\MassageBookingController;
 
 
-// Rota para a página inicial que renderiza a view 'home.index'
+//Admin Controller
 Route::get('/', [AdminController::class, 'home'])->name('home.index');
 
-// Rota para a página home, se necessário
 Route::get('/home', [AdminController::class, 'index'])->name('home');
 
 Route::get('/create_room', [AdminController::class, 'create_room']);
@@ -33,12 +32,26 @@ Route::get('/room_update/{id}', [AdminController::class, 'room_update']);
 
 Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
 
+Route::get('/bookings', [AdminController::class, 'bookings']);
+
+Route::get('/delete_booking/{id}', [AdminController::class, 'delete_booking']);
 
 
+Route::get('/approve_book/{id}', [AdminController::class, 'approve_book']);
+
+Route::get('/reject_book/{id}', [AdminController::class, 'reject_book']);
+
+Route::get('/view_gallery', [AdminController::class, 'view_gallery']);
+
+Route::post('/upload_gallery', [AdminController::class, 'upload_gallery']);
+
+Route::get('/delete_gallery/{id}', [AdminController::class, 'delete_gallery']);
+
+
+
+//Home Controller
 
 Route::get('/room_details/{id}', [HomeController::class, 'room_details']);
-
-Route::post('/add_booking/{id}', [BookingController::class, 'add_booking']);
 
 Route::get('/contact', [HomeController::class, 'contact']);
 
@@ -50,6 +63,7 @@ Route::get('/test', [HomeController::class, 'test']);
 
 
 
+// Booking Controller
 
 Route::post('/checkout', [BookingController::class, 'checkout']);
 
@@ -59,7 +73,10 @@ Route::get('/cart/reset', [BookingController::class, 'resetCart']);
 
 Route::get('/room-features/{id}', [BookingController::class, 'roomFeatures']);
 
-//massagens
+Route::post('/add_booking/{id}', [BookingController::class, 'add_booking']);
+
+
+// Massage Controller
 Route::post('/add_massage_booking/{id}', [MassageBookingController::class, 'add_massage_booking'])->name('massage.booking');
 
 Route::post('/massagens/reservar/{id}', [MassageBookingController::class, 'add_massage_booking']);
@@ -85,20 +102,6 @@ Route::get('/test-massage-booking', function() {
 
 
 
-Route::get('/bookings', [AdminController::class, 'bookings']);
-
-Route::get('/delete_booking/{id}', [AdminController::class, 'delete_booking']);
-
-
-Route::get('/approve_book/{id}', [AdminController::class, 'approve_book']);
-
-Route::get('/reject_book/{id}', [AdminController::class, 'reject_book']);
-
-Route::get('/view_gallery', [AdminController::class, 'view_gallery']);
-
-Route::post('/upload_gallery', [AdminController::class, 'upload_gallery']);
-
-Route::get('/delete_gallery/{id}', [AdminController::class, 'delete_gallery']);
 
 
 

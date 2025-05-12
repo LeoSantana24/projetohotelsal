@@ -60,7 +60,13 @@
                     <td>{{$data->wifi}}</td>
                     <td>{{$data->room_type}}</td>
                     <td>
-                        <img width="60" src="room/{{$data->image}}">
+                      @if($data->images->isNotEmpty())
+                      <img  src="{{ asset('room/' . $data->images->first()->image) }}" alt="Room image" style="width: 200px; height: 60px;">
+                         @else
+                           <span>Sem imagem</span>
+                          @endif
+
+
 
                     </td>
                     <td>
