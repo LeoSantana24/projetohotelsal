@@ -93,7 +93,7 @@ class AdminController extends Controller
             $data->features()->sync($request->features); // aqui espera array de IDs
         }
     
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Quarto adicionado com sucesso.');
     }
     
     public function view_room()
@@ -109,7 +109,7 @@ class AdminController extends Controller
 
         $data->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Quarto removido com sucesso.');
     }
     public function room_update($id)
 {
@@ -156,10 +156,13 @@ class AdminController extends Controller
 
     // Atualizar os features
     if ($request->has('features')) {
-        $data->features()->sync($request->features);
+        // Atualizar os features
+$data->features()->sync($request->input('features', []));
+
+
     }
 
-    return redirect()->back();
+    return redirect()->back()->with('success', 'O quarto foi atualizada com sucesso.');
 }
 
 //Massagem
@@ -194,6 +197,57 @@ public function add_type_massage(Request $request)
     
   
 }
+
+//ver massagens
+public function view_massages()
+    {
+        $massages = TypeMassage::all();
+        return view('admin.view_massages', compact('massages'));
+    }
+
+    public function edit_massage($id)
+    {
+        $massage = TypeMassage::findOrFail($id);
+        return view('admin.update_massage', compact('massage'));
+    }
+
+    public function update_massage(Request $request, $id)
+    {
+        $massage = TypeMassage::findOrFail($id);
+
+        $massage->massage_title = $request->massage_title;
+        $massage->description = $request->description;
+        $massage->price = $request->price;
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move('Type_massage', $imageName);
+            $massage->image = $imageName;
+        }
+
+        $massage->save();
+
+        return redirect()->back()->with('success', 'A massagem foi atualizada com sucesso.');
+    }
+
+    public function delete_massage($id)
+    {
+        $massage = TypeMassage::findOrFail($id);
+
+        if ($massage->image) {
+            $imagePath = public_path('Type_massage/' . $massage->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
+        $massage->delete();
+
+        return redirect()->back()->with('success', 'A massagem foi apagada com sucesso.');
+
+    }
+
 
     public function bookings()
     {

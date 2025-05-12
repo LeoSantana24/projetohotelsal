@@ -89,7 +89,12 @@
                             <td>{{$data->room->room_title}}</td>
                             <td>{{$data->room->price}}</td>
                             <td>
-                                <img src="/room/{{$data->room->image}}" >
+                               @if($data->room->images->isNotEmpty())
+                                  <img src="/room/{{ $data->room->images->first()->image }}" alt="Room Image">
+                              @else
+                                  <img src="/images/sm.png" alt="No Image Available">
+                              @endif
+
                             </td>
                             <td>
                                 <a onclick="return confirm('Tem a certeza que quer remover isso?')"class="btn btn-danger" href="{{url('delete_booking',$data->id)}}<">Remover</a>

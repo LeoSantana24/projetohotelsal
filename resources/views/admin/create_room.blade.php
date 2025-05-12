@@ -66,6 +66,14 @@
             <div class="container-fluid">
                 <div class="div_center">
                     <div class="form-container">
+                        @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show w-100 mx-auto mt-4" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
                         <h1>Adicionar Quartos</h1>
                         <form action="{{url('add_room')}}" method="POST" enctype="multipart/form-data">
                             @csrf
@@ -89,12 +97,6 @@
                             
                             <label>Upload Imagem</label>
                             <input type="file" name="images[]" multiple>
-
-                            
-                            <div style="padding-top:20px;">
-                                <input class="btn btn-primary" type="submit" value="Adicionar Quarto">
-                            </div>
-
                             
                             <div class="feature-section">
                                 <label><strong>Caracteristicas</strong></label>
@@ -108,6 +110,9 @@
                                         </div>
                                     @endforeach
                                 </div>
+                            </div>
+                            <div style="padding-top:20px;">
+                                <input class="btn btn-primary" type="submit" value="Adicionar Quarto">
                             </div>
 
 

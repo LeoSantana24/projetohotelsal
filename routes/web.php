@@ -19,6 +19,18 @@ Route::get('/create_type_massage', [AdminController::class, 'create_type_massage
 Route::get('/type_massage', [AdminController::class, 'type_massage']);
 
 Route::post('/add_type_massage', [AdminController::class, 'add_type_massage']);
+//rota ver massagens
+Route::get('/view_massages', [AdminController::class, 'view_massages']);
+
+
+
+
+Route::get('/update_massage/{id}', [AdminController::class, 'edit_massage']);
+Route::post('/update_massage/{id}', [AdminController::class, 'update_massage']);
+Route::get('/massage_delete/{id}', [AdminController::class, 'delete_massage']);
+
+
+
 
 
 Route::post('/add_room', [AdminController::class, 'add_room']);

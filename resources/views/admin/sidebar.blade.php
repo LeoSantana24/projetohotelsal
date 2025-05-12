@@ -34,7 +34,7 @@
   </a>
   <ul id="massagemDropdown" class="collapse list-unstyled {{ $activePage == 'massagens' ? 'show' : '' }}">
     <li><a href="{{ url('create_type_massage') }}">Adicionar Massagens</a></li>
-    <li><a href="{{ url('view_room') }}">Ver Massagens</a></li>
+    <li><a href="{{ url('view_massages') }}">Ver Massagens</a></li>
   </ul>
 </li>
 

@@ -39,6 +39,14 @@
     <div class="page-content">
         <div class="page-header">
            <div class="container-fluid">
+            @if (session('success'))
+                            <div class="alert alert-success alert-dismissible fade show w-100 mx-auto mt-4" role="alert">
+                                {{ session('success') }}
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        @endif
 
             <table class="table_deg">
                 <tr>

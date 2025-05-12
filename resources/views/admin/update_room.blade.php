@@ -109,6 +109,14 @@
         <div class="container-fluid">
           <div class="form-wrapper">
             <div class="form-container">
+               @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show w-100 mx-auto mt-4" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Fechar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
               <h1>Atualizar Quarto</h1>
 
               <form action="{{url('edit_room',$data->id)}}" method="POST" enctype="multipart/form-data">
@@ -130,16 +138,29 @@
                   <option value="premium">Premium</option>
                   <option value="deluxe">Deluxe</option>
                 </select>
+                <div class="feature-section">
+    <label><strong>Caracteristicas</strong></label>
+    <input type="hidden" name="features" value=""> <!-- 👈 ADICIONE ISSO AQUI -->
+    <div class="feature-grid">
+        @foreach($features as $feature)
+            <div class="form-check">
+                <input type="checkbox" name="features[]" value="{{ $feature->id }}"
+                    class="form-check-input"
+                    @if(isset($data) && $data->features->contains($feature->id)) checked @endif>
+                <label class="form-check-label">{{ $feature->name }}</label>
+            </div>
+        @endforeach
+    </div>
+</div>
 
-              
-
+                
                 <label>Imagem atual</label>
                 <img width="200"  src="{{ asset('room/' . $data->images->first()->image) }}" alt="Imagem atual do quarto">
 
                 <label for="image">Upload Imagem</label>
                 <input type="file" name="images[]" multiple>
 
-                <input class="btn-primary" type="submit" value="Add Quarto">
+                <input class="btn-primary" type="submit" value="Atualizar Quarto">
               </form>
             </div>
           </div>
