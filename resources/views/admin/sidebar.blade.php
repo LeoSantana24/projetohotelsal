@@ -38,8 +38,11 @@
   </ul>
 </li>
 
-<li class="{{ $activePage == 'reservas' ? 'active' : '' }}">
-  <a href="{{ url('bookings') }}"> <i class="icon-home"></i>Reservas</a>
+<li class="{{ $activePage == 'reservasquarto' ? 'active' : '' }}">
+  <a href="{{ url('bookings') }}"> <i class="icon-home"></i>Reservas Quarto</a>
+</li>
+<li class="{{ $activePage == 'reservasmassagem' ? 'active' : '' }}">
+  <a href="{{ url('massageBookings') }}"> <i class="icon-home"></i>Reservas Massagens</a>
 </li>
 
 <li class="{{ $activePage == 'galeria' ? 'active' : '' }}">

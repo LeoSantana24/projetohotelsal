@@ -138,24 +138,25 @@
                   <option value="premium">Premium</option>
                   <option value="deluxe">Deluxe</option>
                 </select>
-                <div class="feature-section">
-    <label><strong>Caracteristicas</strong></label>
-    <input type="hidden" name="features" value=""> <!-- 👈 ADICIONE ISSO AQUI -->
-    <div class="feature-grid">
-        @foreach($features as $feature)
-            <div class="form-check">
-                <input type="checkbox" name="features[]" value="{{ $feature->id }}"
-                    class="form-check-input"
-                    @if(isset($data) && $data->features->contains($feature->id)) checked @endif>
-                <label class="form-check-label">{{ $feature->name }}</label>
-            </div>
-        @endforeach
-    </div>
-</div>
+                
 
                 
                 <label>Imagem atual</label>
                 <img width="200"  src="{{ asset('room/' . $data->images->first()->image) }}" alt="Imagem atual do quarto">
+                <div class="feature-section">
+              <label><strong>Caracteristicas</strong></label>
+              <input type="hidden" name="features" value=""> <!-- 👈 ADICIONE ISSO AQUI -->
+              <div class="feature-grid">
+                  @foreach($features as $feature)
+                      <div class="form-check">
+                          <input type="checkbox" name="features[]" value="{{ $feature->id }}"
+                              class="form-check-input"
+                              @if(isset($data) && $data->features->contains($feature->id)) checked @endif>
+                          <label class="form-check-label">{{ $feature->name }}</label>
+                      </div>
+                  @endforeach
+                  </div>
+                </div>
 
                 <label for="image">Upload Imagem</label>
                 <input type="file" name="images[]" multiple>

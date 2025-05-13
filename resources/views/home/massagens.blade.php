@@ -356,9 +356,9 @@
                         <h2>Agendar Massagem</h2>
                         <h3 id="selectedMassage"></h3>
                         
-                        <form id="bookingForm" method="POST">
+                        <form action="{{ url('add_massage_booking') }}" id="bookingForm" method="POST">
                             @csrf
-                            <input type="hidden" name="massage_id" id="massageIdInput">
+                            <input type="hidden" name="type_massage_id" id="massageIdInput">
                             
                             <div class="form-group">
                                 <label>Duração da Sessão:</label>
@@ -439,9 +439,13 @@
     <script src="js/jquery.timepicker.min.js"></script> 
     <script src="js/main.js"></script>
     
-
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
+
+
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
     // Elementos do DOM
     const modal = document.getElementById("bookingModal");
     const bookBtns = document.querySelectorAll(".book-btn");
@@ -449,7 +453,7 @@
     const bookingForm = document.getElementById("bookingForm");
     const durationOptions = document.querySelectorAll('input[name="duration"]');
     const priceValue = document.getElementById("priceValue");
-    
+
     // Armazena os preços do serviço atual
     let currentPrices = {
         '30min': 0,
@@ -457,30 +461,37 @@
         '90min': 0
     };
 
-    // Configura os eventos dos botões de reserva
+    // Mostrar modal
     bookBtns.forEach(btn => {
         btn.addEventListener("click", function() {
-            // Obtém os dados do serviço
             const massageId = this.getAttribute("data-id");
             const massageName = this.getAttribute("data-massage");
-            
-            // Atualiza os preços
+
+            // Verificação silenciosa - log no console mas sem alerta ao usuário
+            if (!massageId) {
+                console.error("ID da massagem não encontrado");
+                // Não podemos prosseguir sem um ID válido
+                return;
+            }
+
+            // Atualiza os preços com os valores do botão
             currentPrices = {
                 '30min': parseFloat(this.getAttribute("data-price-30")) || 0,
                 '60min': parseFloat(this.getAttribute("data-price-60")) || 0,
                 '90min': parseFloat(this.getAttribute("data-price-90")) || 0
             };
-            
-            // Atualiza o formulário
+
+            console.log("ID da massagem:", massageId);
+            console.log("Preços:", currentPrices);
+
+            // Define os valores do formulário
             document.getElementById("massageIdInput").value = massageId;
             document.getElementById("selectedMassage").textContent = massageName;
-            bookingForm.action = `/massagens/reservar/${massageId}`;
-            
-            // Seleciona 60min por padrão e atualiza o preço
-            document.getElementById("duration60").checked = true;
+            bookingForm.action = `/massage-booking/${massageId}`;
+
+            // Atualiza o preço inicial
             updatePrice();
-            
-            // Abre o modal
+
             modal.style.display = "block";
         });
     });
@@ -492,14 +503,27 @@
 
     // Função para atualizar o preço exibido
     function updatePrice() {
-        const selectedDuration = document.querySelector('input[name="duration"]:checked').value;
-        priceValue.textContent = currentPrices[selectedDuration].toFixed(2);
+        const selectedDuration = document.querySelector('input[name="duration"]:checked');
+        
+        // Verificação adicional para garantir que há uma duração selecionada
+        if (!selectedDuration) {
+            console.error("Nenhuma duração selecionada");
+            return;
+        }
+        
+        const duration = selectedDuration.value;
+        if (currentPrices[duration] !== undefined) {
+            priceValue.textContent = currentPrices[duration].toFixed(2);
+        } else {
+            console.error("Duração não encontrada:", duration);
+        }
     }
 
     // Fecha o modal
     closeBtn.addEventListener("click", () => {
         modal.style.display = "none";
     });
+
     window.addEventListener("click", (event) => {
         if (event.target === modal) {
             modal.style.display = "none";
@@ -509,14 +533,26 @@
     // Envio do formulário
     bookingForm.addEventListener("submit", async function(e) {
         e.preventDefault();
-        
+
         const submitBtn = this.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
         submitBtn.textContent = 'Enviando...';
+
+        // Verifica se todos os campos obrigatórios estão preenchidos
+        const formData = new FormData(this);
+        const massageId = formData.get('type_massage_id');
         
+        // Verificação adicional do ID antes de enviar
+        if (!massageId) {
+            console.error("ID da massagem não encontrado no formulário");
+            alert('Dados incompletos. Por favor, tente novamente.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Confirmar Reserva';
+            return;
+        }
+
         try {
-            const formData = new FormData(this);
-            const response = await fetch(this.action, {
+            const response = await fetch(`/add_massage_booking/${massageId}`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -525,15 +561,20 @@
                     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
                 }
             });
-            
+
+            // Verifica se a resposta foi recebida corretamente
+            if (!response.ok) {
+                throw new Error(`Erro HTTP: ${response.status}`);
+            }
+
             const result = await response.json();
-            
+
             if (result.success) {
                 alert(result.message);
                 modal.style.display = "none";
                 window.location.reload();
             } else {
-                alert(result.message);
+                alert(result.message || 'Erro ao processar reserva.');
             }
         } catch (error) {
             console.error('Erro:', error);
@@ -544,6 +585,7 @@
         }
     });
 });
+
 </script>
 
 

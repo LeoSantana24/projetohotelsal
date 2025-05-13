@@ -44,7 +44,10 @@ Route::get('/room_update/{id}', [AdminController::class, 'room_update']);
 
 Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
 
+//reservas
 Route::get('/bookings', [AdminController::class, 'bookings']);
+Route::get('/massageBookings', [AdminController::class, 'massageBookings']);
+
 
 Route::get('/delete_booking/{id}', [AdminController::class, 'delete_booking']);
 

@@ -18,6 +18,9 @@ use App\Models\RoomImage;
 
 use App\Models\TypeMassage;
 
+use App\Models\BookingMassage;
+
+
 class AdminController extends Controller
 {
     public function index()
@@ -284,6 +287,11 @@ public function view_massages()
         $booking->save();
 
         return redirect()->back();
+    }
+    public function massageBookings()
+    {
+        $massagesBookings = BookingMassage::with('typeMassage')->orderBy('date', 'desc')->get();
+    return view('admin.massageBookings', compact('massagesBookings'));
     }
     public function view_gallery()
     {

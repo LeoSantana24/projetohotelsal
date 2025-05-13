@@ -14,35 +14,89 @@ class MassageBookingController extends Controller
         return view('home.massagens', compact('massages'));
     }
 
-    public function add_massage_booking(Request $request, $id)
+    public function add_massage_booking(Request $request)
     {
-        // Verifica se o horário está disponível
+        // Obtém o ID do tipo de massagem do formulário
+        
+        $id = $request->input('type_massage_id');
+        
+        // Verifica se o tipo de massagem existe
+        $massageType = TypeMassage::find($id);
+        if (!$massageType) {
+            // Verifica se é uma requisição AJAX
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Tipo de massagem não encontrado.'
+                ]);
+            }
+            return redirect()->back()->with('error', 'Tipo de massagem não encontrado.');
+        }
+
+        // Validação dos dados
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email',
+                'phone' => 'required|string|max:20',
+                'date' => 'required|date',
+                'hour' => 'required|string',
+                'duration' => 'required|string',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Dados inválidos. Verifique e tente novamente.',
+                    'errors' => $e->errors()
+                ]);
+            }
+            return redirect()->back()->withErrors($e->errors())->withInput();
+        }
+
+        // Verifica disponibilidade
         $isBooked = BookingMassage::where('type_massage_id', $id)
-            ->where('date', $request->date)
-            ->where('hour', $request->hour)
+            ->where('date', $validated['date'])
+            ->where('hour', $validated['hour'])
             ->exists();
 
         if ($isBooked) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Este horário já está reservado. Por favor, escolha outro.'
-            ]);
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Este horário já está reservado. Por favor, escolha outro.'
+                ]);
+            }
+            return redirect()->back()->with('error', 'Este horário já está reservado. Por favor, escolha outro.');
         }
 
         // Cria a reserva
-        BookingMassage::create([
-            'type_massage_id' => $id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'date' => $request->date,
-            'hour' => $request->hour,
-            'duration' => $request->duration,
-        ]);
+        try {
+            BookingMassage::create([
+                'type_massage_id' => $id,
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'phone' => $validated['phone'],
+                'date' => $validated['date'],
+                'hour' => $validated['hour'],
+                'duration' => $validated['duration'],
+            ]);
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Reserva criada com sucesso!'
-        ]);
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Reserva criada com sucesso!'
+                ]);
+            }
+            return redirect()->back()->with('success', 'Reserva criada com sucesso!');
+        } catch (\Exception $e) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Erro ao criar reserva: ' . $e->getMessage()
+                ]);
+            }
+            return redirect()->back()->with('error', 'Erro ao criar reserva: ' . $e->getMessage());
+        }
     }
 }

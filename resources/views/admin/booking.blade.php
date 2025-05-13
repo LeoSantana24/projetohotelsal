@@ -33,7 +33,7 @@
        
     @include('admin.header')
 
-    @include('admin.sidebar', ['activePage' => 'reservas'])
+    @include('admin.sidebar', ['activePage' => 'reservasquarto'])
     
       <!-- Sidebar Navigation end-->
   
