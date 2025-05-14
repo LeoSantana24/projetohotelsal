@@ -23,7 +23,32 @@
 
         td {
             padding: 10px;  
+            vertical-align: middle;
         }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .action-buttons .btn {
+            width: 100px;
+        }
+
+        .image-container {
+            width: 120px;
+            height: 80px;
+            overflow: hidden;
+            margin: auto;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+
     </style>
 </head>
 <body>
@@ -45,7 +70,8 @@
                         <th class="th_deg">Data</th>
                         <th class="th_deg">Hora</th>
                         <th class="th_deg">Duração</th>
-                        <th class="th_deg">Remover</th>
+                        <th class="th_deg">Imagem</th>
+                        <th class="th_deg">Ações</th>
                     </tr>
 
                     @foreach($massagesBookings as $booking)
@@ -59,11 +85,19 @@
                             <td>{{ $booking->hour }}</td>
                             <td>{{ $booking->duration }} min</td>
                             <td>
-                                <a onclick="return confirm('Tem certeza que deseja remover essa reserva?')" 
-                                   class="btn btn-danger" 
-                                   href="{{ url('admin/delete-massage-booking/'.$booking->id) }}">
-                                   Remover
-                                </a>
+                                <div class="image-container">
+                                    <img src="/images/fake_image.jpg" alt="Imagem" />
+                                </div>
+                            </td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a class="btn btn-danger" onclick="return confirm('Tem certeza que deseja remover essa reserva?')" href="{{ url('admin/deleteMassageBooking/'.$booking->id) }}">Remover</a>
+                            
+                            </td>
+                            <td>
+                                    <span style="padding-bottom: 10px;"><a  class="btn btn-success" href="{{ url('approve_book', $booking->id) }}">Aprovar</a></span>
+                                    <a class="btn btn-warning" href="{{ url('reject_book', $booking->id) }}">Rejeitar</a>
+                                </div>
                             </td>
                         </tr>
                     @endforeach

@@ -51,6 +51,8 @@ Route::get('/massageBookings', [AdminController::class, 'massageBookings']);
 
 Route::get('/delete_booking/{id}', [AdminController::class, 'delete_booking']);
 
+Route::get('/deleteMassageBooking/{id}', [MassageBookingController::class, 'deleteMassageBooking']);
+
 
 Route::get('/approve_book/{id}', [AdminController::class, 'approve_book']);
 

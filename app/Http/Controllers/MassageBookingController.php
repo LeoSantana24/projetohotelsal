@@ -98,5 +98,17 @@ class MassageBookingController extends Controller
             }
             return redirect()->back()->with('error', 'Erro ao criar reserva: ' . $e->getMessage());
         }
+
     }
-}
+    public function deleteMassageBooking($id)
+    {
+        try {
+            $booking = BookingMassage::findOrFail($id);
+            $booking->delete();
+
+            return redirect()->back()->with('success', 'Reserva removida com sucesso.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Erro ao remover a reserva: ' . $e->getMessage());
+        }
+    }
+    }
