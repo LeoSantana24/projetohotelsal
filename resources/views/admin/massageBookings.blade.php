@@ -48,7 +48,6 @@
             height: auto;
             object-fit: cover;
         }
-
     </style>
 </head>
 <body>
@@ -71,7 +70,9 @@
                         <th class="th_deg">Hora</th>
                         <th class="th_deg">Duração</th>
                         <th class="th_deg">Imagem</th>
-                        <th class="th_deg">Ações</th>
+                        <th class="th_deg">Estado</th>
+                        <th class="th_deg">Remover</th>
+                        <th class="th_deg">Status Update</th>
                     </tr>
 
                     @foreach($massagesBookings as $booking)
@@ -83,21 +84,31 @@
                             <td>{{ $booking->typeMassage->massage_title ?? 'N/A' }}</td>
                             <td>{{ \Carbon\Carbon::parse($booking->date)->format('d/m/Y') }}</td>
                             <td>{{ $booking->hour }}</td>
-                            <td>{{ $booking->duration }} min</td>
+                            <td>{{ $booking->duration }}</td>
                             <td>
                                 <div class="image-container">
-                                    <img src="/images/fake_image.jpg" alt="Imagem" />
+                                    @if ($booking->typeMassage && $booking->typeMassage->image)
+                                        <img src="{{ asset('Type_massage/' . $booking->typeMassage->image) }}" alt="Imagem de {{ $booking->typeMassage->massage_title }}">
+                                    @else
+                                        <img src="{{ asset('images/sm.png') }}" alt="Imagem Padrão">
+                                    @endif
                                 </div>
                             </td>
                             <td>
-                                <div class="action-buttons">
-                                    <a class="btn btn-danger" onclick="return confirm('Tem certeza que deseja remover essa reserva?')" href="{{ url('admin/deleteMassageBooking/'.$booking->id) }}">Remover</a>
-                            
+                                @if($booking->status == 'aprovado')
+                                    <span style="color: skyblue;">Aprovado</span>
+                                @elseif($booking->status == 'rejeitado')
+                                    <span style="color: red;">Rejeitado</span>
+                                @elseif($booking->status == 'waiting')
+                                    <span style="color: yellow;">Pendente</span>
+                                @endif
                             </td>
                             <td>
-                                    <span style="padding-bottom: 10px;"><a  class="btn btn-success" href="{{ url('approve_book', $booking->id) }}">Aprovar</a></span>
-                                    <a class="btn btn-warning" href="{{ url('reject_book', $booking->id) }}">Rejeitar</a>
-                                </div>
+                                <a class="btn btn-danger" onclick="return confirm('Tem certeza que deseja remover essa reserva?')" href="{{ url('admin/deleteMassageBooking/'.$booking->id) }}">Remover</a>
+                            </td>
+                            <td class="action-buttons">
+                                <a class="btn btn-success" href="{{ url('approve_bookMassage', $booking->id) }}">Aprovar</a>
+                                <a class="btn btn-warning" href="{{ url('reject_bookMassage', $booking->id) }}">Rejeitar</a>
                             </td>
                         </tr>
                     @endforeach

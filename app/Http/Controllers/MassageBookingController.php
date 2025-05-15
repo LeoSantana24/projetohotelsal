@@ -111,4 +111,25 @@ class MassageBookingController extends Controller
             return redirect()->back()->with('error', 'Erro ao remover a reserva: ' . $e->getMessage());
         }
     }
+    public function approve_bookMassage($id)
+    {
+        $booking = BookingMassage::find($id);
+
+        $booking->status= 'aprovado';
+
+        $booking->save();
+
+        return redirect()->back();
+    }
+
+    public function reject_bookMassage($id)
+    {
+        $booking = BookingMassage::find($id);
+
+        $booking->status= 'rejeitado';
+
+        $booking->save();
+
+        return redirect()->back();
+    }
     }
