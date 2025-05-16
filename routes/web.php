@@ -56,6 +56,16 @@ Route::get('/deleteMassageBooking/{id}', [MassageBookingController::class, 'dele
 Route::get('/approve_bookMassage/{id}', [MassageBookingController::class, 'approve_bookMassage']);
 Route::get('/reject_bookMassage/{id}', [MassageBookingController::class, 'reject_bookMassage']);
 
+//testando
+Route::get('/reservas/quarto', [ReservaController::class, 'quarto'])->name('reservas.quarto');
+Route::get('/reservas/massagem', [ReservaController::class, 'massagem'])->name('reservas.massagem');
+
+
+Route::get('/minhas-reservas', [App\Http\Controllers\BookingController::class, 'minhasReservas'])
+    ->middleware('auth')
+    ->name('minhas.reservas');
+
+
 
 Route::get('/approve_book/{id}', [AdminController::class, 'approve_book']);
 

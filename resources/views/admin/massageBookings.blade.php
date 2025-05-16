@@ -70,6 +70,7 @@
                         <th class="th_deg">Hora</th>
                         <th class="th_deg">Duração</th>
                         <th class="th_deg">Imagem</th>
+                        <th class="th_deg">Preço</th>
                         <th class="th_deg">Estado</th>
                         <th class="th_deg">Remover</th>
                         <th class="th_deg">Status Update</th>
@@ -94,6 +95,7 @@
                                     @endif
                                 </div>
                             </td>
+                            <td>{{ $booking->typeMassage->price }}€</td>
                             <td>
                                 @if($booking->status == 'aprovado')
                                     <span style="color: skyblue;">Aprovado</span>

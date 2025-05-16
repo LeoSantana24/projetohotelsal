@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use App\Models\BookingsMassage;
 use App\Models\TypeMassage;
 
+
+
 class BookingController extends Controller
 {
     public function roomFeatures($id)
@@ -171,6 +173,7 @@ public function add_massage_booking(Request $request, $id)
 
     return redirect()->back()->with('success', 'Reserva de massagem criada com sucesso!');
 }
+
 
 }
 

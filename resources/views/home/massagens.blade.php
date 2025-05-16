@@ -156,10 +156,12 @@
     }
     .massage-image img {
         
-        height: 100%;
-        object-fit: cover;
-        display: block;
-        transition: transform 0.3s ease;
+     
+   width: 100%;
+  height: auto;
+  object-fit: contain;
+
+
     }
     .massage-card:hover .massage-image img {
         transform: scale(1.05);
@@ -319,8 +321,8 @@
     </section>
 
     <div class="container">
-        <h2>Nossos Tipos de Massagens</h2>
-        <p>Conheça nossas opções de massagens e escolha a ideal para você:</p>
+        <h2>Our Types of Massages</h2>
+        <p>Discover our massage options and choose the ideal one for you:</p>
         
 
 
@@ -353,7 +355,7 @@
                 <div id="bookingModal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
-                        <h2>Agendar Massagem</h2>
+                        <h2>Schedule a Massage</h2>
                         <h3 id="selectedMassage"></h3>
                         
                         <form action="{{ url('add_massage_booking') }}" id="bookingForm" method="POST">
@@ -361,7 +363,7 @@
                             <input type="hidden" name="type_massage_id" id="massageIdInput">
                             
                             <div class="form-group">
-                                <label>Duração da Sessão:</label>
+                                <label>Session Duration:</label>
                                 <div class="duration-options">
                                     <div class="duration-option">
                                         <input type="radio" id="duration30" name="duration" value="30min" required>
@@ -414,7 +416,7 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn book-btn"class="btn">Confirmar Reserva</button>
+                    <button type="submit" class="btn book-btn"class="btn">Confirm reservation</button>
                         </form>
                     </div>
                 </div>
@@ -536,7 +538,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         const submitBtn = this.querySelector('button[type="submit"]');
         submitBtn.disabled = true;
-        submitBtn.textContent = 'Enviando...';
+        submitBtn.textContent = 'Sending...';
 
         // Verifica se todos os campos obrigatórios estão preenchidos
         const formData = new FormData(this);
@@ -547,7 +549,7 @@ document.addEventListener("DOMContentLoaded", function() {
             console.error("ID da massagem não encontrado no formulário");
             alert('Dados incompletos. Por favor, tente novamente.');
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Confirmar Reserva';
+            submitBtn.textContent = 'Confirm reservation';
             return;
         }
 
@@ -581,7 +583,7 @@ document.addEventListener("DOMContentLoaded", function() {
             alert('Ocorreu um erro ao processar sua reserva.');
         } finally {
             submitBtn.disabled = false;
-            submitBtn.textContent = 'Confirmar Reserva';
+            submitBtn.textContent = 'Confirm reservation';
         }
     });
 });
