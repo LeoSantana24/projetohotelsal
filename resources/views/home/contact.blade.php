@@ -50,34 +50,47 @@
       </a>
     </section>
     <!-- END section -->
+     
 
     <section class="section contact-section" id="next">
+     
       <div class="container">
+   
         <div class="row">
+          
           <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+                   @if(session()->has('message'))
+     <div class="alert alert-success">
+      <button type="button" class="close" data-bs-dismiss='alert'>X</button>
+       {{session()->get('message')}}
+     </div>
+     
+     @endif
             
-            <form action="#" method="post" class="bg-white p-md-5 p-4 mb-5 border">
+            <form id="request" action="{{url('sendcontact')}}" method="post" class="bg-white p-md-5 p-4 mb-5 border">
+
+              @csrf
               <div class="row">
                 <div class="col-md-6 form-group">
                   <label for="name">Name</label>
-                  <input type="text" id="name" class="form-control ">
+                  <input type="text" id="name" name="name" class="form-control " required>
                 </div>
                 <div class="col-md-6 form-group">
                   <label for="phone">Phone</label>
-                  <input type="text" id="phone" class="form-control ">
+                  <input type="text" id="phone" name="phone" class="form-control " required>
                 </div>
               </div>
           
               <div class="row">
                 <div class="col-md-12 form-group">
                   <label for="email">Email</label>
-                  <input type="email" id="email" class="form-control ">
+                  <input type="email" id="email" name="email" class="form-control " required>
                 </div>
               </div>
               <div class="row mb-4">
                 <div class="col-md-12 form-group">
                   <label for="message">Write Message</label>
-                  <textarea name="message" id="message" class="form-control " cols="30" rows="8"></textarea>
+                  <textarea name="message" id="message" class="form-control " cols="30" rows="8" required></textarea>
                 </div>
               </div>
               <div class="row">
@@ -193,5 +206,7 @@
     
 
     <script src="js/main.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
   </body>
 </html>

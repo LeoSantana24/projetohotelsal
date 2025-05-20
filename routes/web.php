@@ -84,6 +84,7 @@ Route::get('/delete_gallery/{id}', [AdminController::class, 'delete_gallery']);
 Route::get('/room_details/{id}', [HomeController::class, 'room_details']);
 
 Route::get('/contact', [HomeController::class, 'contact']);
+Route::post('/sendcontact', [HomeController::class, 'sendcontact']);
 
 Route::get('/massagens', [HomeController::class, 'massagens']);
 
