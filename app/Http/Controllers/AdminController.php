@@ -19,6 +19,10 @@ use App\Models\RoomImage;
 use App\Models\TypeMassage;
 
 use App\Models\BookingMassage;
+use App\Models\Contact;
+use App\Notifications\SendEmailNotification;
+
+use Notification;
 
 
 class AdminController extends Controller
@@ -326,6 +330,36 @@ public function view_massages()
         $data = Gallery::find($id);
 
         $data->delete();
+
+        return redirect()->back();
+    }
+    public function all_messages()
+    {
+        $data = Contact::all();
+
+        return view('admin.all_message',compact('data'));
+    }
+    public function send_email($id)
+    {
+        $data = Contact::find($id);
+        return view('admin.send_email',compact('data'));
+    }
+    public function email(Request $request,$id)
+    {
+        $data = Contact::find($id);
+
+        $details = [
+
+            'greeting' => $request->greeting,
+
+            'body' => $request->body,
+
+            'endline' => $request->endline,
+
+
+        ];
+
+        Notification::send($data, new SendEmailNotification($details));
 
         return redirect()->back();
     }

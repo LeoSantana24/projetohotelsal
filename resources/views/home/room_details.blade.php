@@ -166,7 +166,7 @@
             <div class="form-check">
               <input class="form-check-input" type="checkbox" name="baby_crib" id="baby_crib" value="1">
               <label class="form-check-label" for="baby_crib">
-                Adicionar berço (+12,00 €)
+                add crib (+12,00 €)
               </label>
             </div>
           </div>

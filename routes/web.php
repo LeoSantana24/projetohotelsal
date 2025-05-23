@@ -84,9 +84,26 @@ Route::get('/delete_gallery/{id}', [AdminController::class, 'delete_gallery']);
 Route::get('/room_details/{id}', [HomeController::class, 'room_details']);
 
 Route::get('/contact', [HomeController::class, 'contact']);
+
+//checkout
+Route::get('/checkout', [HomeController::class, 'checkout']);
+Route::post('/finishcheckout', [BookingController::class, 'finishcheckout']);
+
+Route::get('/minhas-reservas', [BookingController::class, 'minhasReservas'])->name('reservas.usuario');
+
+
+
 Route::post('/sendcontact', [HomeController::class, 'sendcontact']);
+Route::get('/profile', [HomeController::class, 'profile']);
+Route::get('/showprofile', [BookingController::class, 'showprofile']);
 
 Route::get('/massagens', [HomeController::class, 'massagens']);
+//mensagens
+Route::get('/all_messages', [AdminController::class, 'all_messages']);
+Route::get('/send_email/{id}', [AdminController::class, 'send_email']);
+
+Route::post('/email/{id}', [AdminController::class, 'email']);
+
 
 Route::get('/gallery', [HomeController::class, 'gallery']);
 
@@ -105,6 +122,9 @@ Route::get('/cart/reset', [BookingController::class, 'resetCart']);
 Route::get('/room-features/{id}', [BookingController::class, 'roomFeatures']);
 
 Route::post('/add_booking/{id}', [BookingController::class, 'add_booking']);
+
+Route::get('/perfil/reservas', [BookingController::class, 'minhasReservas'])->name('perfil.reservas');
+
 
 
 // Massage Controller

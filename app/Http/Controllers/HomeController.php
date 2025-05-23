@@ -23,6 +23,18 @@ class HomeController extends Controller
         return view('home.contact');
     }
 
+     public function checkout()
+    {
+       
+        return view('home.checkout');
+    }
+     public function profile()
+    {
+       
+        return view('home.profile');
+    }
+
+
     public function sendcontact(Request $request)
     {
 
@@ -46,6 +58,7 @@ class HomeController extends Controller
     {
         return view('home.gallery');
     }
+    
 
    
     public function massagens()

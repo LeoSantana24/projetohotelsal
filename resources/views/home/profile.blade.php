@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body">
                     <ul class="reservations-list">
-                        @forelse ($reservas as $reservas)
+                        @forelse ($data as $data)
                             <li class="reservation-item">
                                 <div class="reservation-header">
                                     <div class="reservation-title">SalParadiseHotel</div>

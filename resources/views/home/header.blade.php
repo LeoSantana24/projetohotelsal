@@ -162,7 +162,7 @@
       </div>
 
       <a style="margin-bottom:5px;" href="{{ url('/cart/reset') }}" class="btn btn-danger w-100 mt-2">🗑️ Limpar Carrinho</a>
-      <a href="#" class="btn btn-primary w-100">Checkout</a>
+      <a href="{{ url('/checkout') }}" class="btn btn-primary w-100">Checkout</a>
     @else
       <p>Your cart is empty.</p>
     @endif

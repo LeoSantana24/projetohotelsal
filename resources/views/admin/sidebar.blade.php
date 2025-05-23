@@ -42,6 +42,9 @@
 <li class="{{ $activePage == 'galeria' ? 'active' : '' }}">
   <a href="{{ url('view_gallery') }}"> <i class="icon-home"></i>Galeria</a>
 </li>
+<li class="{{ $activePage == 'Mensagens' ? 'active' : '' }}">
+  <a href="{{ url('all_messages') }}"> <i class="icon-home"></i>Mensagens</a>
+</li>
 
                 
         </ul>

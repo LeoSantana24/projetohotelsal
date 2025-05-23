@@ -85,7 +85,7 @@
                             <!-- Account Management -->
                             
 
-                            <x-dropdown-link href="{{ route('profile.show') }}">
+                            <x-dropdown-link href="{{ url('profile') }}">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
