@@ -14,17 +14,21 @@
 
     <style>
         body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgb(0, 0, 34);
-            font-size: 0.8rem;
-        }
-        .card {
-            max-width: 1000px;
-            margin: 2vh;
-        }
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff; /* fundo branco */
+    font-size: 0.8rem;
+}
+
+.card {
+    max-width: 1000px;
+    margin: 2vh;
+    box-shadow: 0 0 38px rgba(0, 0, 0, 0.1); /* sombra leve */
+    border-radius: 10px; /* cantos arredondados */
+}
+
         .card-top {
             padding: 0.7rem 5rem;
         }
@@ -66,14 +70,24 @@
             border: 1px solid rgba(0, 0, 0, 0.137);
             background-color: rgb(247, 247, 247);
         }
-        .btn {
-            background-color: rgb(23, 4, 189);
-            color: white;
-            width: 100%;
-            font-size: 0.9rem;
-            margin: 4vh 0 1.5vh 0;
-            padding: 1.5vh;
-        }
+       .btn {
+    background-color: #4da6ff; /* azul claro */
+    color: white;
+    width: 100%;
+    font-size: 0.9rem;
+    margin: 4vh 0 1.5vh 0;
+    padding: 1.5vh;
+    border: none;
+    transition: background-color 0.3s ease;
+    font-size:18px;
+    
+}
+
+.btn:hover {
+    background-color: #fcb045; /* laranja no hover */
+    color: white;
+}
+
         #cvv {
             background-image: linear-gradient(to left, rgba(255,255,255,0.6), rgba(255,255,255,0.6)), url("https://img.icons8.com/material-outlined/24/000000/help.png");
             background-repeat: no-repeat;
@@ -85,8 +99,8 @@
 <body>
     <div class="card">
         <div class="card-top border-bottom text-center">
-            <a href="{{ url('/') }}">← Voltar</a>
-            <span id="logo">Reserva Online</span>
+            <a href="{{ url('/') }}">← Back</a>
+            <span id="logo">Payment</span>
         </div>
 
         <div class="card-body">
@@ -95,7 +109,7 @@
                 <div class="col-md-7">
                     <div class="left border">
                         <div class="row mb-3">
-                            <span class="header">Pagamento</span>
+                            <span class="header">Payment</span>
                             <div class="ml-auto">
                                 <img src="https://img.icons8.com/color/48/000000/visa.png"/>
                                 <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png"/>
@@ -123,15 +137,15 @@
 
                         <form action="{{ url('finishcheckout') }}" method="post" onsubmit="return validateCardForm();">
                             @csrf
-                            <span>Nome no cartão:</span>
+                            <span>Card name:</span>
                             <input type="text" name="card_name" placeholder="Ex: Maria Silva" required>
 
-                            <span>Número do cartão:</span>
+                            <span>Card number:</span>
                             <input type="text" name="card_number" placeholder="0123456789012345" required pattern="\d{16}" title="O número do cartão deve conter 16 dígitos">
 
                             <div class="row">
                                 <div class="col-6">
-                                    <span>Data de validade (MM/YY):</span>
+                                    <span>Validity date (MM/YY):</span>
                                     <input type="text" name="card_expiry" placeholder="12/26" required pattern="(0[1-9]|1[0-2])\/\d{2}" title="Formato: MM/YY">
                                 </div>
                                 <div class="col-6">
@@ -140,10 +154,16 @@
                                 </div>
                             </div>
 
-                            <input type="checkbox" name="save_card" id="save_card">
-                            <label for="save_card">Salvar cartão</label>
+ <div class="form-group mb-4">
+    <div class="custom-control custom-checkbox d-flex align-items-center">
+        <input type="checkbox" class="custom-control-input" id="save_card" name="save_card">
+        <label class="custom-control-label" for="save_card">Save card</label>
+    </div>
+</div>
 
-                            <input type="submit" name="action" value="Finalizar pedido" class="btn btn-primary py-2 px-4 text-white">
+
+
+                            <input type="submit" name="action" value="Finalize payment" class="btn btn-primary py-2 px-4 text-white">
                         </form>
                     </div>
                 </div>
@@ -151,7 +171,7 @@
                 <!-- RIGHT: RESUMO DO PEDIDO -->
                 <div class="col-md-5">
                     <div class="right border">
-                        <div class="header">Resumo da Reserva</div>
+                        <div class="header">Booking summary</div>
 
                         @php
                             $grandTotal = 0;
@@ -175,7 +195,7 @@
                                     <small>Check-in: {{ $item['start_date'] }}</small><br>
                                     <small>Check-out: {{ $item['end_date'] }}</small><br>
                                     @if(!empty($item['baby_crib']))
-                                        <small>Berço: +12,00 €</small>
+                                        <small>Crib: +12,00 €</small>
                                     @endif
                                 </div>
                                 <div class="col-4 text-right">
@@ -190,7 +210,7 @@
                             <div class="col text-right">{{ number_format($grandTotal, 2, ',', '.') }} €</div>
                         </div>
                         <div class="row font-weight-bold">
-                            <div class="col">Total a pagar</div>
+                            <div class="col">Total to pay</div>
                             <div class="col text-right">{{ number_format($grandTotal, 2, ',', '.') }} €</div>
                         </div>
 

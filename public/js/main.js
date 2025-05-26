@@ -167,20 +167,31 @@
   dateAndTime();
 
 
-  var windowScroll = function() {
+var windowScroll = function() {
+  // Adiciona a classe scrolled de cara nas outras páginas
+  if ($('header').hasClass('not-home')) {
+    $('.js-site-header').addClass('scrolled');
+  }
 
-    $(window).scroll(function(){
-      var $win = $(window);
+  $(window).scroll(function(){
+    var $win = $(window);
+
+    if ($('header').hasClass('not-home')) {
+      // Nas outras páginas, não tira nem mexe na classe scrolled
+      return; // sai da função para evitar mudança
+    } else {
+      // Na home, adiciona ou remove a classe conforme scroll
       if ($win.scrollTop() > 200) {
         $('.js-site-header').addClass('scrolled');
       } else {
         $('.js-site-header').removeClass('scrolled');
       }
+    }
+  });
+};
+windowScroll();
 
-    });
 
-  };
-  windowScroll();
 
 
   var goToTop = function() {

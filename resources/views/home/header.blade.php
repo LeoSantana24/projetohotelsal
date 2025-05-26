@@ -52,7 +52,7 @@
   }
 </style>
 
-  <header class="site-header js-site-header">
+  <header class= "site-header js-site-header">
     <div class="container-fluid">
       <div class="container-row row align-items-center">
         <div class="site-logo col-title" data-aos="fade">

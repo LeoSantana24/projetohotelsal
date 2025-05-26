@@ -8,6 +8,11 @@
 
   <!-- Google Fonts -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Sans:400,700|Playfair+Display:400,700" />
+  <!-- Adicione Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -30,51 +35,106 @@
 
 
   <style>
+
+ 
+   
+
+    /* Adicione este estilo para evitar que o conteúdo fique escondido atrás do header */
+   .site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 60px 0;
+  z-index: 2;
+  -webkit-transition: .3s all ease-in-out;
+  -o-transition: .3s all ease-in-out;
+  transition: .3s all ease-in-out; }
+
+    /* Mantenha os outros estilos que já existem */
     .owl-prev, .owl-next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0,0,0,0.5);
-      color: white;
-      padding: 10px 15px;
-      border-radius: 50%;
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 999;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(0,0,0,0.5);
+        color: white;
+        padding: 10px 15px;
+        border-radius: 50%;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 999;
     }
 
     .owl-prev {
-      left: 10px;
+        left: 10px;
     }
 
     .owl-next {
-      right: 10px;
+        right: 10px;
     }
 
     .image-carousel .owl-stage-outer,
     .image-carousel .owl-item {
-      height: 100%;
+        height: 100%;
     }
-  </style>
+
+    .cart-panel {
+    position: fixed;
+    top: 70px;
+    right: -400px;
+    width: 350px;
+    height: calc(100vh - 70px);
+    background: #f8f9fa;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    z-index: 1050;
+    overflow-y: auto;
+    transition: right 0.3s ease;
+  }
+
+  .cart-panel.open {
+    right: 0;
+  }
+
+  .cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  .container-row{
+    display: flex;
+    width: 90%;
+    margin: auto;
+    justify-content: space-between;
+  }
+  .col-title,
+  .col-menu{
+    width: auto;
+  }
+  .col-title a{
+    text-decoration: none;
+  }
+  .btn-card{
+    background: transparent;
+    border: 2px solid gray;
+  }
+  .site-menu-toggle span{
+    margin: 7px;
+    margin-right: 10px;
+  }
+</style>
 </head>
 
-<body>
 
-  @include('home.header')
 
-  <section class="site-hero inner-page overlay" style="background-image: url(images/sm.jpg)" data-stellar-background-ratio="0.5">
-    <div class="container">
-      <div class="row site-hero-inner justify-content-center align-items-center">
-        <div class="col-md-10 text-center" data-aos="fade">
-          <h1 class="heading mb-3">Rooms</h1>
-          <ul class="custom-breadcrumbs mb-4">
-            <li><a href="index.html">Home</a></li>
-            <li>&bullet;</li>
-            <li>Rooms</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <header class="not-home">@include('home.header')</header>
+ <body >
 
     <a class="mouse smoothscroll" href="#next">
       <div class="mouse-icon">
@@ -207,6 +267,7 @@
           console.error('Erro ao buscar características:', error);
         });
     }
+    
   </script>
 </body>
 </html>

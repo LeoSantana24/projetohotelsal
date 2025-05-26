@@ -175,7 +175,7 @@
 
           <div class="row">
             <input type="submit" name="action" value="Reservar" class="btn btn-primary py-2 px-4 text-white">
-            <input style="margin-left:10px;" type="submit" name="action" value="Adicionar ao Carrinho" class="btn btn-primary py-2 px-4 text-white">
+            <input style="margin-left:10px;" type="submit" name="action" value="Add to cart" class="btn btn-primary py-2 px-4 text-white">
 
           </div>
         </form>

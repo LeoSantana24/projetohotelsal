@@ -48,7 +48,7 @@ class BookingController extends Controller
                 $start = date('d/m/Y', strtotime($request->start_date));
                 $end = date('d/m/Y', strtotime($request->end_date));
             
-                return redirect()->back()->with('message', "O quarto já está reservado no período que você escolheu: de $start até $end. Por favor, escolha outra data.");
+                return redirect()->back()->with('message', "The room is already booked for the period you selected: from $start to $end. Please choose another date.");
             }
             
             // Verificar conflitos de datas dentro do carrinho para o mesmo quarto
@@ -62,14 +62,14 @@ class BookingController extends Controller
 
                     // Se as datas se sobrepõem
                     if ($newStart <= $existingEnd && $newEnd >= $existingStart) {
-                        return redirect()->back()->with('message', 'Este quarto já foi reservado para o período selecionado no carrinho. Por favor, escolha outra data.');
+                        return redirect()->back()->with('message', 'This room has already been booked for the period selected in the cart. Please choose another date.');
                     }
                 }
             }
 
 
         // Se for para adicionar ao carrinho
-        if ($request->input('action') === 'Adicionar ao Carrinho' || $request->input('action') === 'checkout') {
+        if ($request->input('action') === 'Add to cart' || $request->input('action') === 'checkout') {
             $cart = session()->get('cart', []);
 
             $cart[] = [
@@ -88,7 +88,7 @@ class BookingController extends Controller
 
             session()->put('cart', $cart);
 
-            return redirect()->back()->with('message', 'Reserva adicionada ao carrinho!');
+            return redirect()->back()->with('message', 'Reservation added to cart!');
         }
 
         // Se for para reservar direto
@@ -103,7 +103,7 @@ class BookingController extends Controller
             'number_children' => $request->number_children,
         ]);
 
-        return redirect()->back()->with('message', 'Reserva realizada com sucesso!');
+        return redirect()->back()->with('message', 'Reservation successful! Check your email.');
     }
 
     public function removeFromCart($index)
@@ -114,16 +114,16 @@ class BookingController extends Controller
             unset($cart[$index]);
             $cart = array_values($cart); // Reindexa
             session()->put('cart', $cart);
-            return redirect()->back()->with('success', 'Reserva removida do carrinho.');
+            return redirect()->back()->with('success', 'Reservation removed from cart.');
         }
 
-        return redirect()->back()->with('error', 'Reserva não encontrada.');
+        return redirect()->back()->with('error', 'Reservation not found.');
     }
 
     public function resetCart()
     {
         session()->forget('cart');
-        return redirect()->back()->with('success', 'Carrinho limpo com sucesso.');
+        return redirect()->back()->with('success', 'Cart cleaned successfully.');
     }
 
     public function showMassageBooking()
@@ -158,7 +158,7 @@ public function add_massage_booking(Request $request, $id)
 
     if ($isBooked) {
         $formattedDate = date('d/m/Y', strtotime($request->date));
-        return redirect()->back()->with('message', "Já existe uma reserva para esse horário em $formattedDate às {$request->hour}. Por favor, escolha outro horário.");
+        return redirect()->back()->with('message', "There is already a reservation for this time on $formattedDate at {$request->hour}. Please choose another time.");
     }
 
     // Cria a reserva
@@ -172,14 +172,14 @@ public function add_massage_booking(Request $request, $id)
         'duration' => $request->duration,
     ]);
 
-    return redirect()->back()->with('success', 'Reserva de massagem criada com sucesso!');
+    return redirect()->back()->with('success', 'Massage reservation created successfully!');
 }
 public function finishcheckout(Request $request)
 {
     $cart = session()->get('cart', []);
 
     if (empty($cart)) {
-        return redirect()->back()->with('error', 'Carrinho vazio. Adicione uma reserva antes de finalizar.');
+        return redirect()->back()->with('error', 'Empty cart. Please add a reservation before checkout.');
     }
 
     DB::beginTransaction();
@@ -202,10 +202,10 @@ public function finishcheckout(Request $request)
         DB::commit();
         session()->forget('cart');
 
-        return redirect()->back()->with('success', 'Reserva finalizada com sucesso!');
+        return redirect()->back()->with('success', 'Reservation completed successfully!');
     } catch (\Exception $e) {
         DB::rollback();
-        return redirect()->back()->with('error', 'Erro ao finalizar a reserva: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Error completing reservation: ' . $e->getMessage());
     }
 }
 public function showprofile()

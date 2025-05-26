@@ -21,7 +21,7 @@
             <!-- <li>198 West 21th Street, <br> Suite 721 New York NY 10016</li> -->
             <p><span class="d-block"><span class="ion-ios-location h5 mr-3 text-primary"></span>Address:</span> <span> Hotels Avenue<br> Santa Maria 4111, Cape Verde</span></p>
             <p><span class="d-block"><span class="ion-ios-telephone h5 mr-3 text-primary"></span>Phone:</span> <span> (+238) 9842580</span></p>
-            <p><span class="d-block"><span class="ion-ios-email h5 mr-3 text-primary"></span>Email:</span> <span> info@salparadisehotel.cv</span></p>
+            <p><span class="d-block"><span class="ion-ios-email h5 mr-3 text-primary"></span>Email:</span> <span> infosalparadisehotel@gmail.com</span></p>
           </div>
           <div class="col-md-3 mb-5">
             <p>Sign up for our newsletter</p>
