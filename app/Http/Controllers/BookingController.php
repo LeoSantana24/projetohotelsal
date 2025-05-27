@@ -11,6 +11,7 @@ use App\Models\Room;
 use Illuminate\Support\Facades\DB;
 use App\Models\BookingsMassage;
 use App\Models\TypeMassage;
+use App\Models\TypeRoom;
 
 
 
@@ -31,8 +32,8 @@ class BookingController extends Controller
             'phone' => 'required|string|max:15',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after:start_date',
-            'number_adults' => 'required|integer|min:1',
-            'number_children' => 'nullable|integer|min:0',
+            'number_adults' => 'required|integer|min:1|max:2',
+            'number_children' => 'nullable|integer|min:0|max:2',
         ]);
         
 

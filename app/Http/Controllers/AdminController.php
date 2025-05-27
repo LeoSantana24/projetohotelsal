@@ -15,8 +15,11 @@ use App\models\Booking;
 use App\models\Gallery;
 
 use App\Models\RoomImage;
+use App\Models\Feature;
+
 
 use App\Models\TypeMassage;
+use App\Models\TypeRoom;
 
 use App\Models\BookingMassage;
 use App\Models\Contact;
@@ -29,148 +32,154 @@ class AdminController extends Controller
 {
     public function index()
     {
-        if(Auth::id())
-        {
+        if (Auth::id()) {
             $usertype = Auth::user()->usertype;
 
-            
-
-            if($usertype =='user')
-            {
+            if ($usertype == 'user') {
                 $room = Room::all();
-
                 $gallery = Gallery::all();
-
-                return view('home.index',compact('room','gallery'));
+                return view('home.index', compact('room', 'gallery'));
             }
-            if($usertype =='admin')
-            {
+
+            if ($usertype == 'admin') {
                 return view('admin.index');
-            }else{
-
-                return redirect()->back();
             }
+
+            return redirect()->back();
         }
     }
+
     public function home()
     {
-        $room = Room::all();
+        $room = Room::with('typeRoom')->get();
+
         $massages = Typemassage::all();
-
-
         $gallery = Gallery::all();
-        
-        return view('home.index',compact('room','gallery','massages'));
 
-        
+        return view('home.index', compact('room', 'gallery', 'massages'));
     }
 
     public function create_room()
     {
-        $features = \App\Models\Feature::all(); // Importa todas as características
-        return view('admin.create_room', compact('features'));
+        $features = Feature::all();
+        $typeRooms = TypeRoom::all();
+
+        return view('admin.create_room', compact('features', 'typeRooms'));
     }
-    
+
     public function add_room(Request $request)
     {
-        $data = new Room;
-    
-        $data->room_title = $request->title;
-        $data->description = $request->description;
-        $data->price = $request->price;
-        $data->room_type = $request->type;
-        
-        $data->save();
-    
-        // Salvar as imagens
-        if($request->hasFile('images')) {
+        $request->validate([
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'type_room_id' => 'required|exists:type_room,id',
+            'images.*' => 'image',
+        ]);
+
+        $room = new Room;
+        $room->description = $request->description;
+        $room->price = $request->price;
+        $room->type_room_id = $request->type_room_id;
+        $room->save();
+
+        if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imagename = time().'_'.$image->getClientOriginalName();
-                $image->move('room', $imagename);
-    
-                $roomImage = new RoomImage;
-                $roomImage->room_id = $data->id;
-                $roomImage->image = $imagename;
-                $roomImage->save();
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move('room', $imageName);
+
+                RoomImage::create([
+                    'room_id' => $room->id,
+                    'image' => $imageName,
+                ]);
             }
         }
-    
-        // Associar features
+
         if ($request->has('features')) {
-            $data->features()->sync($request->features); // aqui espera array de IDs
+            $room->features()->sync($request->features);
         }
-    
+
         return redirect()->back()->with('success', 'Quarto adicionado com sucesso.');
     }
-    
+
     public function view_room()
     {
-        $data = Room::all();
-
-        return view('admin.view_room',compact('data'));
+        $data = Room::with('typeRoom')->get();
+        return view('admin.view_room', compact('data'));
     }
 
     public function room_delete($id)
     {
-        $data = Room::find($id);
+        $room = Room::findOrFail($id);
 
-        $data->delete();
+        // Deletar imagens associadas
+        foreach ($room->images as $image) {
+            $path = public_path('room/' . $image->image);
+            if (file_exists($path)) {
+                unlink($path);
+            }
+            $image->delete();
+        }
+
+        $room->features()->detach(); // Remover relacionamento com features
+
+        $room->delete();
 
         return redirect()->back()->with('success', 'Quarto removido com sucesso.');
     }
-    public function room_update($id)
-{
-    $data = Room::find($id);
-    $features = \App\Models\Feature::all();
-    return view('admin.update_room', compact('data', 'features'));
-}
 
+    public function room_update($id)
+    {
+        $data = Room::findOrFail($id);
+        $features = Feature::all();
+        $typeRooms = TypeRoom::all();
+
+        return view('admin.update_room', compact('data', 'features', 'typeRooms'));
+    }
 
     public function edit_room(Request $request, $id)
-{
-    $data = Room::find($id);
+    {
+        $request->validate([
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'type_room_id' => 'required|exists:type_room,id',
+            'images.*' => 'image',
+        ]);
 
-    $data->room_title = $request->title;
-    $data->description = $request->description;
-    $data->price = $request->price;
-    $data->room_type = $request->type;
+        $room = Room::findOrFail($id);
+        $room->description = $request->description;
+        $room->price = $request->price;
+        $room->type_room_id = $request->type_room_id;
+        $room->save();
 
-    $data->save();
-
-    // Remover imagens antigas
-    $oldImages = RoomImage::where('room_id', $id)->get();
-    foreach ($oldImages as $oldImage) {
-        $imagePath = public_path('room/' . $oldImage->image);
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
+        // Apagar imagens antigas
+        foreach ($room->images as $oldImage) {
+            $imagePath = public_path('room/' . $oldImage->image);
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+            $oldImage->delete();
         }
-        $oldImage->delete();
-    }
 
-    // Adicionar novas imagens
-    if ($request->hasFile('images')) {
-        foreach ($request->file('images') as $image) {
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move('room', $imageName);
+        // Adicionar novas imagens
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $image) {
+                $imageName = time() . '_' . $image->getClientOriginalName();
+                $image->move('room', $imageName);
 
-            // Inserir nova imagem
-            RoomImage::create([
-                'room_id' => $id,
-                'image' => $imageName,
-            ]);
+                RoomImage::create([
+                    'room_id' => $room->id,
+                    'image' => $imageName,
+                ]);
+            }
         }
+
+        // Atualizar features
+        $room->features()->sync($request->input('features', []));
+
+        return redirect()->back()->with('success', 'O quarto foi atualizado com sucesso.');
     }
 
-    // Atualizar os features
-    if ($request->has('features')) {
-        // Atualizar os features
-$data->features()->sync($request->input('features', []));
 
-
-    }
-
-    return redirect()->back()->with('success', 'O quarto foi atualizada com sucesso.');
-}
 
 //Massagem
 public function create_type_massage()
@@ -256,12 +265,13 @@ public function view_massages()
     }
 
 
-    public function bookings()
-    {
-        $rooms = Room::with('images')->get();
-        $data=Booking::all();
-        return view('admin.booking',compact('data'));
-    }
+   public function bookings()
+{
+    $rooms = Room::with(['images', 'typeRoom'])->get(); // 👈 CORRIGIDO AQUI
+    $data = Booking::all();
+    return view('admin.booking', compact('data', 'rooms')); // 👈 Adicionei 'rooms' se você usa na view
+}
+
     public function delete_booking($id)
     {
         $data = Booking::find($id);

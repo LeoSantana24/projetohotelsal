@@ -190,7 +190,7 @@
 
     <!-- CONTEÚDO -->
     <div class="content-box text-start">
-      <h2 class="mb-3" style="font-size: 32px; color: #1a2d5a;">{{ $rooms->room_title }}</h2>
+      <h2 class="mb-3" style="font-size: 32px; color: #1a2d5a;">{{  optional($rooms->typeRoom)->nome }}</h2>
       <p style="font-size: 16px; color: #555;">{!! $rooms->description !!}</p>
       <p class="fw-bold mt-3 mb-2" style="font-size: 18px; color: #e6a900;">
         {{ $rooms->price }}€ / per night

@@ -117,27 +117,24 @@
                 </button>
             </div>
         @endif
-              <h1>Atualizar Quarto</h1>
+              <h1 style="color:white;">Atualizar Quarto</h1>
 
               <form action="{{url('edit_room',$data->id)}}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <label for="title">Título Quarto</label>
-                <input type="text" id="title" name="title" value="{{$data->room_title}}">
-
+              <label for="type_room_id">Tipo de Quarto:</label>
+                            <select name="type_room_id" id="type_room_id" required>
+                                @foreach ($typeRooms as $typeRoom)
+                                    <option value="{{ $typeRoom->id }}">{{ $typeRoom->nome }}</option>
+                                @endforeach
+                            </select>
                 <label for="description">Descrição</label>
                 <textarea id="description" name="description">{{$data->description}}</textarea>
 
                 <label for="price">Preço</label>
                 <input type="number" id="price" name="price" value="{{$data->price}}">
 
-                <label for="type">Tipo Quarto</label>
-                <select id="type" name="type">
-                  <option selected value="{{$data->room_type}}">{{$data->room_type}}</option>
-                  <option value="regular">Regular</option>
-                  <option value="premium">Premium</option>
-                  <option value="deluxe">Deluxe</option>
-                </select>
+               
                 
 
                 

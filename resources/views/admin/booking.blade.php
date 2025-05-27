@@ -50,7 +50,7 @@
                             <th class="th_deg">Data de chegada</th>
                             <th class="th_deg">Data de saída</th>
                             <th class="th_deg">Estado</th>
-                            <th class="th_deg">Titulo Quarto</th>
+                            <th class="th_deg">Tipo Quarto</th>
                             <th class="th_deg">Preço</th>
                             <th class="th_deg">Imagem</th>
                             <th class="th_deg">Remover</th>
@@ -86,7 +86,7 @@
 
 
                             </td>
-                            <td>{{$data->room->room_title}}</td>
+                            <td>{{ optional($data->typeRoom)->nome ?? 'Sem tipo definido' }}</td>
                             <td>{{$data->room->price}}</td>
                             <td>
                                @if($data->room->images->isNotEmpty())

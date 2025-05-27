@@ -118,7 +118,7 @@
             <div class="row">
               <div class="col-md-10 ml-auto contact-info">
                 <p><span class="d-block">Address:</span> <span> Hotels Avenue
-Santa Maria 4111, Cape Verde</span></p>
+                  Santa Maria 4111, Cape Verde</span></p>
                 <p><span class="d-block">Phone:</span> <span> (+238) 984 25 80</span></p>
                 <p><span class="d-block">Email:</span> <span> infosalparadisehotel@gmail.com</span></p>
               </div>

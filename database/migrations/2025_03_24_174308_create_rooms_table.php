@@ -13,14 +13,17 @@ return new class extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             $table->id();
-            $table->string('room_title')->nullable;
-            $table->string('image')->nullable;
-            $table->string('description')->nullable;
-            $table->string('price')->nullable;
-            $table->string('room_type')->nullable;
-            
-
+            $table->unsignedBigInteger('type_room_id'); 
+            $table->string('image')->nullable();
+            $table->text('description')->nullable();
+            $table->decimal('price', 8, 2)->nullable();
             $table->timestamps();
+
+            // 🔐 Chave estrangeira
+            $table->foreign('type_room_id')
+                  ->references('id')
+                  ->on('type_room')
+                  ->onDelete('cascade');
         });
     }
 

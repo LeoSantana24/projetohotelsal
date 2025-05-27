@@ -74,24 +74,22 @@
                                 </button>
                             </div>
                         @endif
+                         
                         <h1>Adicionar Quartos</h1>
                         <form action="{{url('add_room')}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <label>Título Quarto</label>
-                            <input type="text" name="title" required>
+                            <label for="type_room_id">Tipo de Quarto:</label>
+                            <select name="type_room_id" id="type_room_id" required>
+                                @foreach ($typeRooms as $typeRoom)
+                                    <option value="{{ $typeRoom->id }}">{{ $typeRoom->nome }}</option>
+                                @endforeach
+                            </select>
                             
                             <label>Descrição</label>
                             <textarea name="description" required></textarea>
                             
                             <label>Preço</label>
                             <input type="number" name="price" required>
-                            
-                            <label>Tipo Quarto</label>
-                            <select name="type" required>
-                                <option value="regular">Regular</option>
-                                <option value="premium">Premium</option>
-                                <option value="deluxe">Deluxe</option>
-                            </select>
                             
                             
                             

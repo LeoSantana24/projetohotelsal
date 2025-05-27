@@ -32,6 +32,9 @@
 
 
     <style>
+          body {
+    padding-top: 85px; 
+    }
 
 
       input.form-control {
@@ -65,31 +68,12 @@
   </head>
 
   <body>
-    <header>
+    <header class="not-home">
     @include('home.header')
 
    
     </header>
-    <section class="site-hero inner-page overlay" style="background-image: url(images/sm.jpg)" data-stellar-background-ratio="0.5">
-      <div class="container">
-        <div class="row site-hero-inner justify-content-center align-items-center">
-          <div class="col-md-10 text-center" data-aos="fade">
-            <h1 class="heading mb-3">Reservation</h1>
-            <ul class="custom-breadcrumbs mb-4">
-              <li><a href="/home">Home</a></li>
-              <li>&bullet;</li>
-              <li>Reservation</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <a class="mouse smoothscroll" href="#next">
-        <div class="mouse-icon">
-          <span class="mouse-wheel"></span>
-        </div>
-      </a>
-    </section>
+    
   
 
 
@@ -155,11 +139,11 @@
           <div class="row">
             <div class="col-md-6 form-group">
               <label for="number_adults" class="font-weight-bold text-black">Adults</label>
-              <input type="number" name="number_adults" id="number_adults" class="form-control" min="1" value="1" required>
+              <input type="number" name="number_adults" id="number_adults" class="form-control" min="1" max="2" placeholder="max 2" required>
             </div>
             <div class="col-md-6 form-group">
               <label for="number_children" class="font-weight-bold text-black">Children</label>
-              <input type="number" name="number_children" id="number_children" class="form-control" min="0" value="0">
+              <input type="number" name="number_children" id="number_children" class="form-control" min="0" max="2"  placeholder="max 2- child from 0 to 10 years old">
             </div>
           </div>
           <div class="mb-3" id="cribOption" style="display: none;">
@@ -174,7 +158,6 @@
 
 
           <div class="row">
-            <input type="submit" name="action" value="Reservar" class="btn btn-primary py-2 px-4 text-white">
             <input style="margin-left:10px;" type="submit" name="action" value="Add to cart" class="btn btn-primary py-2 px-4 text-white">
 
           </div>

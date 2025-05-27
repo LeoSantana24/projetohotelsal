@@ -2,30 +2,35 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory; // 🔹 Adicione esta linha
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    use HasFactory; 
+    use HasFactory;
 
     protected $fillable = [
-        'room_title',
-        'image',
         'description',
         'price',
-        'room_type'
+        'type_room_id' // Corrigido aqui
     ];
+
+    // Imagens do quarto
     public function images()
-{
-    return $this->hasMany(RoomImage::class);
-}
-public function features()
-{
-    return $this->belongsToMany(Feature::class);
-}
+    {
+        return $this->hasMany(RoomImage::class);
+    }
 
+    // Características (features) do quarto
+    public function features()
+    {
+        return $this->belongsToMany(Feature::class);
+    }
 
-
+    // Tipo do quarto
+    public function typeRoom()
+    {
+        return $this->belongsTo(TypeRoom::class, 'type_room_id');
+    }
 }
 

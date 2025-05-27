@@ -7,10 +7,18 @@ use App\Models\Room;
 use App\Models\Booking;
 use App\Models\TypeMassage;
 use App\Models\Contact;
+use App\Models\TypeRoom;
 
 
 class HomeController extends Controller
 {
+
+    public function index()
+{
+    $rooms = Room::with(['typeRoom', 'images'])->get();
+    return view('home.index', compact('rooms'));
+}
+
     public function room_details($id)
     {
         $room = Room::find($id);
@@ -67,11 +75,12 @@ class HomeController extends Controller
         return view('home.massagens',compact('massages'));
     }
 
-    public function test()
-    {
-        $rooms = Room::with('images')->get(); 
-        return view('home.test', compact('rooms'));
-    }
+   public function test() 
+{
+    $rooms = Room::with(['images', 'typeRoom'])->get(); 
+    return view('home.test', compact('rooms'));
+}
+
 
     
 
