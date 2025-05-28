@@ -142,7 +142,6 @@
           <p><strong>Name:</strong> {{ $item['name'] }}</p>
           <p><strong>Email:</strong> {{ $item['email'] }}</p>
           <p><strong>Phone:</strong> {{ $item['phone'] }}</p>
-          <p><strong>Room:</strong> {{ $item['room_title'] }}</p>
           <p><strong>Check-in:</strong> {{ $item['start_date'] }}</p>
           <p><strong>Check-out:</strong> {{ $item['end_date'] }}</p>
           <p><strong>Adults:</strong> {{ $item['number_adults'] }}</p>

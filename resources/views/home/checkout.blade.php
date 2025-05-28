@@ -190,7 +190,6 @@
 
                             <div class="row item mb-2">
                                 <div class="col-8">
-                                    <strong>{{ $item['room_title'] }}</strong><br>
                                     <small>{{ $nights }} noite(s)</small><br>
                                     <small>Check-in: {{ $item['start_date'] }}</small><br>
                                     <small>Check-out: {{ $item['end_date'] }}</small><br>

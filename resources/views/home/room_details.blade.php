@@ -143,7 +143,7 @@
             </div>
             <div class="col-md-6 form-group">
               <label for="number_children" class="font-weight-bold text-black">Children</label>
-              <input type="number" name="number_children" id="number_children" class="form-control" min="0" max="2"  placeholder="max 2- child from 0 to 10 years old">
+              <input type="number" name="number_children" id="number_children" class="form-control"  max="2"  placeholder="max 2- child from 0 to 10 years old">
             </div>
           </div>
           <div class="mb-3" id="cribOption" style="display: none;">

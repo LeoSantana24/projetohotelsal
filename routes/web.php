@@ -7,6 +7,7 @@ use App\Http\Controllers\ReservaController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\MassageBookingController;
 use App\Http\Middleware\Admin;
+use App\Http\Controllers\UserController;
 
 
 //Admin Controller
@@ -55,7 +56,7 @@ Route::get('/minhas-reservas', [BookingController::class, 'minhasReservas'])->na
 
 
 Route::post('/sendcontact', [HomeController::class, 'sendcontact']);
-Route::get('/profile', [HomeController::class, 'profile']);
+
 Route::get('/showprofile', [BookingController::class, 'showprofile']);
 
 Route::get('/massagens', [HomeController::class, 'massagens']);
@@ -149,9 +150,25 @@ Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
 
 });
 
-
-
+ 
 //teste
+// Rotas do painel do usuário
+// Rotas do usuário autenticado
+Route::middleware(['auth'])->group(function() {
+    // Perfil (mantendo ambas as versões para compatibilidade)
+    Route::get('/perfil', [UserController::class, 'perfil'])->name('user.perfil');
+    Route::get('/profile', [UserController::class, 'profile'])->name('user.profile'); // Redireciona para a mesma view
+    
+    // Reservas
+    Route::get('/minhasreservas', [UserController::class, 'minhasreservas'])->name('user.minhasreservas');
+    Route::get('/reservadetalhes/{id}', [UserController::class, 'reservadetalhes'])->name('user.reservadetalhes');
+    
+    // Atualização de perfil (nova rota)
+    Route::post('/perfil/atualizar', [UserController::class, 'atualizarPerfil'])->name('user.perfil.atualizar');
+});
+
+    
+
 
     
    

@@ -36,11 +36,8 @@ class HomeController extends Controller
        
         return view('home.checkout');
     }
-     public function profile()
-    {
-       
-        return view('home.profile');
-    }
+    
+
 
 
     public function sendcontact(Request $request)
