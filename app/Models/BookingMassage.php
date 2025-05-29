@@ -8,9 +8,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class BookingMassage extends Model
 {
     use HasFactory;
-      protected $table = 'Bookings_massage';
+    protected $table = 'Bookings_massage';
 
     protected $fillable = [
+        'user_id',
         'type_massage_id',
         'name',
         'email',
@@ -18,11 +19,16 @@ class BookingMassage extends Model
         'date',
         'hour',
         'duration',
-             
+        'status'
     ];
+    
     public function typeMassage()
     {
         return $this->belongsTo(TypeMassage::class, 'type_massage_id');
     }
     
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -1,12 +1,12 @@
 @extends('user.profile')
 
-@section('title', 'Minhas Reservas')
+@section('title', 'Minhas Reservas de Massagem')
 
-@section('page-title', 'Minhas Reservas')
-@section('page-subtitle', 'Visualize e gerencie suas reservas ativas')
+@section('page-title', 'Minhas Reservas de Massagem')
+@section('page-subtitle', 'Visualize e gerencie suas reservas de massagem')
 
 @section('content')
-<h3><i class="fas fa-calendar-alt me-2"></i>Minhas Reservas</h3>
+<h3><i class="fas fa-spa me-2"></i>Minhas Reservas de Massagem</h3>
 <hr class="my-4">
 
 @if(session('success'))
@@ -16,53 +16,54 @@
     </div>
 @endif
 
-@if(isset($reservas) && $reservas->isEmpty())
+@if(isset($reservasMassagem) && $reservasMassagem->isEmpty())
     <div class="empty-state">
-        <i class="fas fa-calendar-times"></i>
-        <h3>Nenhuma reserva encontrada</h3>
-        <p>Você ainda não fez nenhuma reserva. Que tal fazer sua primeira reserva?</p>
+        <i class="fas fa-spa"></i>
+        <h3>Nenhuma reserva de massagem encontrada</h3>
+        <p>Você ainda não fez nenhuma reserva de massagem. Que tal relaxar com uma massagem?</p>
+        <a href="{{ url('user.minhasmassagens') }}" class="btn btn-primary mt-3">
+            <i class="fas fa-plus-circle me-2"></i>Reservar Massagem
+        </a>
     </div>
-@elseif(isset($reservas))
+@elseif(isset($reservasMassagem))
     <div class="reservas-list fade-in">
-        @foreach($reservas as $reserva)
+        @foreach($reservasMassagem as $reserva)
         <div class="reserva-card">
             <div class="reserva-id">#{{ $reserva->id }}</div>
             
-            <div class="room-info">
-                @isset($reserva->room)
-                    @if(isset($reserva->room->images) && $reserva->room->images->isNotEmpty())
-                        <div class="room-image-container">
-                            <img src="/room/{{ $reserva->room->images->first()->image }}" 
-                                 alt="Quarto" class="room-image">
+            <div class="massage-info">
+                @isset($reserva->typeMassage)
+                    <div class="massage-icon-container">
+                        <i class="fas fa-spa"></i>
+                    </div>
+                    <div>
+                        <div class="massage-name">
+                            @if($reserva->typeMassage)
+                                {{ $reserva->typeMassage->name }}
+                            @else
+                                Tipo não definido
+                            @endif
                         </div>
-                    @else
-                        <div class="room-image-placeholder">
-                            <i class="fas fa-bed"></i>
+                        <div class="massage-duration">
+                            <span class="badge bg-info">{{ $reserva->duration }} minutos</span>
                         </div>
-                    @endif
-                    <div class="room-name">
-                        @if($reserva->room->typeRoom)
-                            {{ $reserva->room->typeRoom->nome }}
-                        @else
-                            Tipo não definido
-                        @endif
                     </div>
                 @else
-                    <div class="room-image-placeholder">
+                    <div class="massage-icon-placeholder">
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <div class="room-name">Quarto removido</div>
+                    <div class="massage-name">Massagem removida</div>
                 @endisset
             </div>
             
             <div class="date-info">
                 <div>
-                    <div class="date-label">Check-in</div>
-                    <div class="date-value">{{ \Carbon\Carbon::parse($reserva->start_date)->format('d/m/Y') }}</div>
+                    <div class="date-label">Data</div>
+                    <div class="date-value">{{ \Carbon\Carbon::parse($reserva->date)->format('d/m/Y') }}</div>
                 </div>
                 <div>
-                    <div class="date-label">Check-out</div>
-                    <div class="date-value">{{ \Carbon\Carbon::parse($reserva->end_date)->format('d/m/Y') }}</div>
+                    <div class="date-label">Horário</div>
+                    <div class="date-value">{{ $reserva->hour }}</div>
                 </div>
             </div>
             
@@ -70,15 +71,19 @@
                 {{ ucfirst($reserva->status ?? 'Pendente') }}
             </div>
             
+            <div class="price-info">
+                @isset($reserva->typeMassage)
+                    R$ {{ number_format($reserva->typeMassage->price ?? 0, 2, ',', '.') }}
+                @else
+                    R$ 0,00
+                @endisset
+            </div>
+            
             <div class="actions">
-                <a href="{{ route('user.reservadetalhes', $reserva->id) }}" 
-                   class="action-btn btn-view" title="Ver detalhes">
-                    <i class="fas fa-eye"></i>
-                </a>
                 @if(($reserva->status ?? 'pendente') == 'pendente')
-                    <a href="#" 
+                    <a href="{{ route('user.cancelar.massagem', $reserva->id) }}" 
                        class="action-btn btn-cancel" title="Cancelar reserva"
-                       onclick="return confirm('Tem certeza que deseja cancelar esta reserva?')">
+                       onclick="return confirm('Tem certeza que deseja cancelar esta reserva de massagem?')">
                         <i class="fas fa-times"></i>
                     </a>
                 @endif
@@ -88,20 +93,20 @@
     </div>
     
     <div class="pagination">
-        {{ $reservas->links() }}
+        {{ $reservasMassagem->links() }}
     </div>
 @else
     <div class="empty-state">
-        <i class="fas fa-calendar-times"></i>
+        <i class="fas fa-spinner fa-spin"></i>
         <h3>Carregando reservas...</h3>
-        <p>Por favor, aguarde enquanto buscamos suas reservas.</p>
+        <p>Por favor, aguarde enquanto buscamos suas reservas de massagem.</p>
     </div>
 @endif
 @endsection
 
 @section('styles')
 <style>
-    /* Cards para reservas */
+    /* Cards para reservas de massagem */
     .reserva-card {
         background: #f8fafc;
         border: 1px solid #e2e8f0;
@@ -132,7 +137,7 @@
         text-align: center;
     }
     
-    .room-info {
+    .massage-info {
         display: flex;
         align-items: center;
         flex: 1;
@@ -140,22 +145,21 @@
         margin: 10px 0;
     }
     
-    .room-image-container {
-        width: 80px;
-        height: 80px;
+    .massage-icon-container {
+        width: 60px;
+        height: 60px;
         border-radius: 12px;
-        overflow: hidden;
+        background: #dbeafe;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin-right: 15px;
+        color: #1d4ed8;
+        font-size: 1.5rem;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     }
     
-    .room-image-container img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-    
-    .room-image-placeholder {
+    .massage-icon-placeholder {
         width: 60px;
         height: 60px;
         border-radius: 12px;
@@ -168,10 +172,15 @@
         font-size: 1.5rem;
     }
     
-    .room-name {
+    .massage-name {
         font-weight: 600;
         color: #1e293b;
         font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+    
+    .massage-duration {
+        font-size: 0.9rem;
     }
     
     .date-info {
@@ -300,7 +309,7 @@
             gap: 15px;
         }
         
-        .room-info, .date-info, .price-info {
+        .massage-info, .date-info, .price-info {
             width: 100%;
             margin: 5px 0;
         }

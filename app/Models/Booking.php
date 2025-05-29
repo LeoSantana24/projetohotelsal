@@ -26,4 +26,8 @@ class Booking extends Model
         return $this->hasOne('App\Models\Room','id','room_id');
         
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

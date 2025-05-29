@@ -28,6 +28,7 @@
             background: var(--bg-color);
             color: #1e293b;
             line-height: 1.6;
+            min-height: 100vh;
         }
         
         .sidebar {
@@ -65,6 +66,7 @@
             justify-content: center;
             color: white;
             font-size: 2rem;
+            margin: 0 auto 15px;
         }
         
         .user-avatar:hover {
@@ -106,6 +108,7 @@
             padding: 15px 20px;
             transition: all 0.3s ease;
             border-radius: 12px;
+            cursor: pointer;
         }
         
         .sidebar-menu li a i {
@@ -157,6 +160,7 @@
             align-items: center;
             font-weight: 500;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .sidebar-footer .logout-btn:hover {
@@ -172,6 +176,7 @@
             margin-left: var(--sidebar-width);
             min-height: 100vh;
             background: var(--bg-color);
+            transition: all 0.3s ease;
         }
         
         .content-wrapper {
@@ -203,6 +208,8 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             overflow: hidden;
             min-height: 500px;
+            padding: 30px;
+            animation: slideIn 0.5s ease-out;
         }
         
         /* Mobile Responsiveness */
@@ -323,10 +330,47 @@
             }
         }
         
-        .content-area {
-            animation: slideIn 0.5s ease-out;
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Loading animation */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
+    @yield('styles')
 </head>
 
 <body>
@@ -341,31 +385,37 @@
             <div class="user-avatar">
                 <i class="fas fa-user"></i>
             </div>
-            <h3>{{ Auth::user()->name }}</h3>
-            <div class="user-role">Cliente</div>
+            <h3>{{ Auth::check() ? Auth::user()->name : 'Usuário' }}</h3>
+          
         </div>
         
         <ul class="sidebar-menu">
-            <li class="{{ Request::is('user/perfil') || Request::is('perfil') ? 'active' : '' }}">
-                <a href="{{ url('perfil') }}">
+            <li id="menu-perfil" class="{{ request()->routeIs('user.perfil') ? 'active' : '' }}">
+                <a href="{{ route('user.perfil') }}">
                     <i class="fas fa-user"></i>
                     <span>Perfil</span>
                 </a>
             </li>
-            <li class="{{ Request::is('user/reservas') || Request::is('minhasreservas') ? 'active' : '' }}">
-                <a href="{{ url('minhasreservas') }}">
+            <li id="menu-reservas" class="{{ request()->routeIs('user.minhasreservas') ? 'active' : '' }}">
+                <a href="{{ route('user.minhasreservas') }}">
                     <i class="fas fa-calendar-alt"></i>
                     <span>Minhas Reservas</span>
                 </a>
             </li>
-            <li class="{{ Request::is('user/historico') ? 'active' : '' }}">
-                <a href="{{ url('historico') }}">
+            <li id="menu-massagens" class="{{ request()->routeIs('user.minhasmassagens') ? 'active' : '' }}">
+                <a href="{{ route('user.minhasmassagens') }}">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Minhas Massagens</span>
+                </a>
+            </li>
+            <li id="menu-historico" class="{{ request()->routeIs('user.historico') ? 'active' : '' }}">
+                <a href="#">
                     <i class="fas fa-history"></i>
                     <span>Histórico</span>
                 </a>
             </li>
-            <li class="{{ Request::is('user/configuracoes') ? 'active' : '' }}">
-                <a href="{{ url('configuracoes') }}">
+            <li id="menu-configuracoes" class="{{ request()->routeIs('user.configuracoes') ? 'active' : '' }}">
+                <a href="#">
                     <i class="fas fa-cog"></i>
                     <span>Configurações</span>
                 </a>
@@ -373,8 +423,39 @@
         </ul>
         
         <div class="sidebar-footer">
-            <a href="{{ route('logout') }}" class="logout-btn" 
-               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <a href="{{ route('logout') }}" 
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+               class="logout-btn">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Sair</span>
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="main-content">
+        <div class="content-wrapper">
+            <div class="page-header">
+                <h1 class="page-title">@yield('page-title', 'Painel do Usuário')</h1>
+                <p class="page-subtitle">@yield('page-subtitle', 'Gerencie suas informações')</p>
+            </div>
+            
+            <div class="content-area">
+                @yield('content')
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle sidebar para mobile
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('show');
+        }
+    </script>
+    @yield('scripts')
+</body>
+</html>

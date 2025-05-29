@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Booking;
 use App\Models\Room;
 use Illuminate\Support\Facades\Auth;
+use App\Models\BookingMassage;
 
 class UserController extends Controller
 {
@@ -101,4 +102,54 @@ class UserController extends Controller
 
     return view('user.profile', compact('data'));
 }
+
+public function minhasMassagens()
+    {
+        $user = Auth::user();
+        
+        // Consulta com fallback para email
+        $reservasMassagem = BookingMassage::with('typeMassage')
+            ->where(function($query) use ($user) {
+                $query->where('user_id', $user->id)
+                      ->orWhere('email', $user->email);
+            })
+            ->orderBy('date', 'desc')
+            ->orderBy('hour', 'desc')
+            ->paginate(10);
+
+        // Debug no log (verifique storage/logs/laravel.log)
+        \Log::debug('Reservas de massagem do usuário', [
+            'user_id' => $user->id,
+            'count' => $reservasMassagem->count(),
+        ]);
+
+        return view('user.minhasmassagens', compact('reservasMassagem', 'user'));
+    }
+
+    /**
+     * Cancela uma reserva de massagem
+     */
+    public function cancelarMassagem($id)
+    {
+        $user = Auth::user();
+        
+        $reserva = BookingMassage::where('id', $id)
+            ->where(function($query) use ($user) {
+                $query->where('user_id', $user->id)
+                      ->orWhere('email', $user->email);
+            })
+            ->firstOrFail();
+        
+        // Verifica se a reserva já foi aprovada
+        if ($reserva->status == 'aprovado' || $reserva->status == 'confirmada') {
+            return redirect()->back()->with('error', 'Não é possível cancelar uma reserva já aprovada. Entre em contato com o estabelecimento.');
+        }
+        
+        // Atualiza o status para cancelado
+        $reserva->status = 'cancelado';
+        $reserva->save();
+        
+        return redirect()->back()->with('success', 'Reserva de massagem cancelada com sucesso.');
+    }
+
 }

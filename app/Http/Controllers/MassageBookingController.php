@@ -71,8 +71,14 @@ class MassageBookingController extends Controller
         }
 
         // Cria a reserva
+        if (Auth::check()) {
+            $validated['user_id'] = Auth::id();
+        }
+        
+        // Cria a reserva
         try {
             BookingMassage::create([
+                'user_id' => $validated['user_id'] ?? null,
                 'type_massage_id' => $id,
                 'name' => $validated['name'],
                 'email' => $validated['email'],
@@ -80,6 +86,7 @@ class MassageBookingController extends Controller
                 'date' => $validated['date'],
                 'hour' => $validated['hour'],
                 'duration' => $validated['duration'],
+                'status' => 'pendente',
             ]);
 
             if ($request->ajax() || $request->wantsJson()) {

@@ -161,11 +161,16 @@ Route::middleware(['auth'])->group(function() {
     
     // Reservas
     Route::get('/minhasreservas', [UserController::class, 'minhasreservas'])->name('user.minhasreservas');
+     Route::get('/minhasmassagens', [UserController::class, 'minhasmassagens'])->name('user.minhasmassagens');
     Route::get('/reservadetalhes/{id}', [UserController::class, 'reservadetalhes'])->name('user.reservadetalhes');
     
     // Atualização de perfil (nova rota)
     Route::post('/perfil/atualizar', [UserController::class, 'atualizarPerfil'])->name('user.perfil.atualizar');
 });
+
+
+Route::get('/user/reservas-ajax', [ReservaController::class, 'reservasAjax'])->name('user.reservas.ajax');
+Route::post('/user/reservas/{id}/cancelar', [ReservaController::class, 'cancelar'])->name('user.reservas.cancelar');
 
     
 
