@@ -73,15 +73,15 @@
             
             <div class="price-info">
                 @isset($reserva->typeMassage)
-                    R$ {{ number_format($reserva->typeMassage->price ?? 0, 2, ',', '.') }}
+                     {{ number_format($reserva->typeMassage->price ?? 0, 2, ',', '.') }}€
                 @else
-                    R$ 0,00
+                    0,00 €
                 @endisset
             </div>
             
             <div class="actions">
                 @if(($reserva->status ?? 'pendente') == 'pendente')
-                    <a href="{{ route('user.cancelar.massagem', $reserva->id) }}" 
+                    <a href="{{ route('user.cancelarmassagem', $reserva->id) }}" 
                        class="action-btn btn-cancel" title="Cancelar reserva"
                        onclick="return confirm('Tem certeza que deseja cancelar esta reserva de massagem?')">
                         <i class="fas fa-times"></i>

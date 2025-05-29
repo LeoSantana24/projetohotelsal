@@ -539,15 +539,16 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         try {
-            const response = await fetch(`/add_massage_booking/${massageId}`, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-                }
-            });
+            const response = await fetch('/massage-booking', {
+    method: 'POST',
+    body: formData,
+    headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+    }
+});
+            
 
             // Verifica se a resposta foi recebida corretamente
             if (!response.ok) {

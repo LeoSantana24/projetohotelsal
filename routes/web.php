@@ -89,7 +89,10 @@ Route::get('/perfil/reservas', [BookingController::class, 'minhasReservas'])->na
 
 
 // Massage Controller
-Route::post('/add_massage_booking/{id}', [MassageBookingController::class, 'add_massage_booking'])->name('massage.booking');
+//Route::post('/add_massage_booking/{id}', [MassageBookingController::class, 'add_massage_booking'])->name('massage.booking');
+Route::post('/massage-booking', [MassageBookingController::class, 'add_massage_booking'])
+    ->name('massage.booking')
+    ->middleware('auth');
 
 Route::post('/massagens/reservar/{id}', [MassageBookingController::class, 'add_massage_booking']);
 Route::get('/', [AdminController::class, 'home'])->name('home.index');
@@ -163,6 +166,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/minhasreservas', [UserController::class, 'minhasreservas'])->name('user.minhasreservas');
      Route::get('/minhasmassagens', [UserController::class, 'minhasmassagens'])->name('user.minhasmassagens');
     Route::get('/reservadetalhes/{id}', [UserController::class, 'reservadetalhes'])->name('user.reservadetalhes');
+    Route::get('/cancelarmassagem', [UserController::class, 'cancelarmassagem'])->name('user.cancelarmassagem');
     
     // Atualização de perfil (nova rota)
     Route::post('/perfil/atualizar', [UserController::class, 'atualizarPerfil'])->name('user.perfil.atualizar');
