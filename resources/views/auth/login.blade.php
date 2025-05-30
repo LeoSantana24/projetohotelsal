@@ -47,7 +47,7 @@
             @csrf
 
             <div>
-    <label for="email" class="block font-medium text-gray-700">Email</label>
+    <label for="email" class="block font-medium text-gray-700">E-mail</label>
     <input type="email" name="email" id="email" 
            class="mt-1 block w-full rounded-md border border-gray-700 bg-white px-3 py-2 shadow-sm 
                   focus:border-black focus:ring focus:ring-gray-500 focus:ring-opacity-50"
@@ -55,7 +55,7 @@
 </div>
 
 <div class="relative">
-    <label for="password" class="block font-medium text-gray-700">Senha</label>
+    <label for="password" class="block font-medium text-gray-700">Password</label>
     <div class="relative">
         <input type="password" name="password" id="password"
                class="mt-1 block w-full rounded-md border border-gray-700 bg-white px-3 py-2 shadow-sm 
@@ -70,20 +70,20 @@
             <div class="flex items-center justify-between">
                 <label class="flex items-center">
                     <input type="checkbox" name="remember" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500">
-                    <span class="ml-2 text-sm text-gray-600">Lembrar-me</span>
+                    <span class="ml-2 text-sm text-gray-600">Remind me</span>
                 </label>
 
                 <a href="{{ route('password.request') }}" class="text-sm text-gray-600 hover:text-gray-900 underline">
-                    Esqueceu sua senha?
+                   Forgot your password?
                 </a>
             </div>
 
             <div class="flex items-center justify-between mt-4">
                 <a href="{{ route('register') }}" class="text-sm text-gray-600 hover:text-gray-900 underline">
-                    Criar conta
+                    Create account
                 </a>
                 <button type="submit" class="btn btn-primary" >
-                    Entrar
+                    To enter
                 </button>
             </div>
 

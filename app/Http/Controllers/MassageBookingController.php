@@ -22,7 +22,7 @@ class MassageBookingController extends Controller
         if (!Auth::check()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Você precisa estar logado para fazer uma reserva.'
+                'message' => 'You must be logged in to make a reservation.'
             ], 401);
         }
 
@@ -31,7 +31,7 @@ class MassageBookingController extends Controller
         if (!$id) {
             return response()->json([
                 'success' => false,
-                'message' => 'Tipo de massagem não especificado.'
+                'message' => 'Type of massage not specified.'
             ], 400);
         }
 
@@ -40,7 +40,7 @@ class MassageBookingController extends Controller
         if (!$massageType) {
             return response()->json([
                 'success' => false,
-                'message' => 'Tipo de massagem não encontrado.'
+                'message' => 'Massage type not found.'
             ], 404);
         }
 
@@ -63,7 +63,7 @@ class MassageBookingController extends Controller
         if ($isBooked) {
             return response()->json([
                 'success' => false,
-                'message' => 'Este horário já está reservado. Por favor, escolha outro.'
+                'message' => 'This time slot is already booked. Please choose another one.'
             ], 409);
         }
 
@@ -77,25 +77,25 @@ class MassageBookingController extends Controller
             'date' => $validated['date'],
             'hour' => $validated['hour'],
             'duration' => $validated['duration'],
-            'status' => 'pendente',
+            'status' => 'pending',
         ]);
 
         return response()->json([
             'success' => true,
-            'message' => 'Reserva criada com sucesso!',
+            'message' => 'Reservation created successfully!',
             'booking' => $booking
         ]);
 
     } catch (\Illuminate\Validation\ValidationException $e) {
         return response()->json([
             'success' => false,
-            'message' => 'Erro de validação',
+            'message' => 'Validation erroro',
             'errors' => $e->errors()
         ], 422);
     } catch (\Exception $e) {
         return response()->json([
             'success' => false,
-            'message' => 'Erro ao processar reserva: ' . $e->getMessage()
+            'message' => 'Validation error: ' . $e->getMessage()
         ], 500);
     }
 
@@ -107,16 +107,16 @@ class MassageBookingController extends Controller
             $booking = BookingMassage::findOrFail($id);
             $booking->delete();
 
-            return redirect()->back()->with('success', 'Reserva removida com sucesso.');
+            return redirect()->back()->with('success', 'Reservation successfully removed.');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Erro ao remover a reserva: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Error removing reservation: ' . $e->getMessage());
         }
     }
     public function approve_bookMassage($id)
     {
         $booking = BookingMassage::find($id);
 
-        $booking->status= 'aprovado';
+        $booking->status= 'approved';
 
         $booking->save();
 
@@ -127,7 +127,7 @@ class MassageBookingController extends Controller
     {
         $booking = BookingMassage::find($id);
 
-        $booking->status= 'rejeitado';
+        $booking->status= 'rejected';
 
         $booking->save();
 

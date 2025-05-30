@@ -94,7 +94,7 @@
           @if(session()->has('message'))
             @php
               $message = session()->get('message');
-              $isError = str_contains($message, 'reservado');
+              $isError = str_contains($message, 'reserved');
             @endphp
 
             <div class="alert {{ $isError ? 'alert-danger' : 'alert-success' }}">
@@ -128,11 +128,11 @@
           <div class="row">
             <div class="col-md-6 form-group">
               <label for="start_date" class="text-black font-weight-bold">Date Check In</label>
-              <input type="date" id="start_date" name="start_date" class="form-control">
+              <input type="date" id="start_date" name="start_date" class="form-control" required>
             </div>
             <div class="col-md-6 form-group">
               <label for="end_date" class="text-black font-weight-bold">Date Check Out</label>
-              <input type="date" id="end_date" name="end_date" class="form-control">
+              <input type="date" id="end_date" name="end_date" class="form-control" required>
             </div>
           </div>
 

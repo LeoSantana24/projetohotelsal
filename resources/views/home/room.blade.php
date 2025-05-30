@@ -30,7 +30,7 @@
               <p style="color:black; font-size: 18px; padding:10px;">{!! Str::limit($rooms->description, 100) !!}</p>
 
               <a class="btn btn-primary me-2" href="
-              {{url('room_details' ,$rooms->id)}}">Detalhes Quarto</a>
+              {{url('room_details' ,$rooms->id)}}">Room details</a>
             </div>
           </a>
         </div>

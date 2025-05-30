@@ -158,6 +158,7 @@
       <div class="text p-4" style="width: 50%;">
         <h2 class="mb-3" style="font-size: 2.5rem; color: #1d3c6e;">{{optional($room->typeRoom)->nome }}</h2>
         <p>{{ $room->description }}</p>
+        <span class="fw-bold mt-3 mb-2" style="font-size: 18px; color: #e6a900; ">{{$room->price}}€ / Per night</span>
         <div class="mt-4 d-flex justify-content-start gap-3">
           <a href="javascript:void(0);" class="btn btn-outline-dark px-4 py-2 mr-2" onclick="openModal({{ $room->id }})">See Room Features</a>
           <a href="{{ url('room_details', $room->id) }}" class="btn btn-dark text-white px-4 py-2">Reserve</a>

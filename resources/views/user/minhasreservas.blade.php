@@ -3,10 +3,10 @@
 @section('title', 'Minhas Reservas')
 
 @section('page-title', 'Minhas Reservas')
-@section('page-subtitle', 'Visualize e gerencie suas reservas ativas')
+@section('page-subtitle', 'View and manage your active reservations')
 
 @section('content')
-<h3><i class="fas fa-calendar-alt me-2"></i>Minhas Reservas</h3>
+<h3><i class="fas fa-calendar-alt me-2"></i>My room reservations</h3>
 <hr class="my-4">
 
 @if(session('success'))
@@ -19,8 +19,8 @@
 @if(isset($reservas) && $reservas->isEmpty())
     <div class="empty-state">
         <i class="fas fa-calendar-times"></i>
-        <h3>Nenhuma reserva encontrada</h3>
-        <p>Você ainda não fez nenhuma reserva. Que tal fazer sua primeira reserva?</p>
+        <h3>No reservations found</h3>
+        <p>You haven't made any reservations yet. How about making your first reservation?</p>
     </div>
 @elseif(isset($reservas))
     <div class="reservas-list fade-in">
@@ -44,14 +44,14 @@
                         @if($reserva->room->typeRoom)
                             {{ $reserva->room->typeRoom->nome }}
                         @else
-                            Tipo não definido
+                            Type not defined
                         @endif
                     </div>
                 @else
                     <div class="room-image-placeholder">
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <div class="room-name">Quarto removido</div>
+                    <div class="room-name">Room removed</div>
                 @endisset
             </div>
             
@@ -67,7 +67,7 @@
             </div>
             
             <div class="reserva-status status-{{ $reserva->status ?? 'pendente' }}">
-                {{ ucfirst($reserva->status ?? 'Pendente') }}
+                {{ ucfirst($reserva->status ?? 'Pending') }}
             </div>
             
             <div class="actions">
@@ -75,7 +75,7 @@
                    class="action-btn btn-view" title="Ver detalhes">
                     <i class="fas fa-eye"></i>
                 </a>
-                @if(($reserva->status ?? 'pendente') == 'pendente')
+                @if(($reserva->status ?? 'Pending') == 'Pending')
                     <a href="#" 
                        class="action-btn btn-cancel" title="Cancelar reserva"
                        onclick="return confirm('Tem certeza que deseja cancelar esta reserva?')">
@@ -93,8 +93,8 @@
 @else
     <div class="empty-state">
         <i class="fas fa-calendar-times"></i>
-        <h3>Carregando reservas...</h3>
-        <p>Por favor, aguarde enquanto buscamos suas reservas.</p>
+        <h3>Loading reservations...</h3>
+        <p>Please wait while we retrieve your reservations..</p>
     </div>
 @endif
 @endsection

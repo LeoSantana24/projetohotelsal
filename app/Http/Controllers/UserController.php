@@ -41,7 +41,7 @@ class UserController extends Controller
         
         $user->update($request->all());
         
-        return redirect()->back()->with('success', 'Perfil atualizado com sucesso!');
+        return redirect()->back()->with('success', 'Profile updated successfully!');
     }
 
     /**
@@ -142,14 +142,14 @@ public function minhasMassagens()
         
         // Verifica se a reserva já foi aprovada
         if ($reserva->status == 'aprovado' || $reserva->status == 'confirmada') {
-            return redirect()->back()->with('error', 'Não é possível cancelar uma reserva já aprovada. Entre em contato com o estabelecimento.');
+            return redirect()->back()->with('error', 'It is not possible to cancel a reservation that has already been approved. Please contact the property.');
         }
         
         // Atualiza o status para cancelado
         $reserva->status = 'cancelado';
         $reserva->save();
         
-        return redirect()->back()->with('success', 'Reserva de massagem cancelada com sucesso.');
+        return redirect()->back()->with('success', 'Massage reservation cancelled successfully.');
     }
 
 }

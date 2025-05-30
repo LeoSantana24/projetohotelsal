@@ -6,7 +6,7 @@
 @section('page-subtitle', 'Visualize e gerencie suas reservas de massagem')
 
 @section('content')
-<h3><i class="fas fa-spa me-2"></i>Minhas Reservas de Massagem</h3>
+<h3><i class="fas fa-spa me-2"></i>My Massage Bookings</h3>
 <hr class="my-4">
 
 @if(session('success'))
@@ -45,30 +45,30 @@
                             @endif
                         </div>
                         <div class="massage-duration">
-                            <span class="badge bg-info">{{ $reserva->duration }} minutos</span>
+                            <span class="badge bg-info">{{ $reserva->duration }} </span>
                         </div>
                     </div>
                 @else
                     <div class="massage-icon-placeholder">
                         <i class="fas fa-exclamation-triangle"></i>
                     </div>
-                    <div class="massage-name">Massagem removida</div>
+                    <div class="massage-name">Massage removed</div>
                 @endisset
             </div>
             
             <div class="date-info">
                 <div>
-                    <div class="date-label">Data</div>
+                    <div class="date-label">Date</div>
                     <div class="date-value">{{ \Carbon\Carbon::parse($reserva->date)->format('d/m/Y') }}</div>
                 </div>
                 <div>
-                    <div class="date-label">Horário</div>
+                    <div class="date-label">Hour</div>
                     <div class="date-value">{{ $reserva->hour }}</div>
                 </div>
             </div>
             
             <div class="reserva-status status-{{ $reserva->status ?? 'pendente' }}">
-                {{ ucfirst($reserva->status ?? 'Pendente') }}
+                {{ ucfirst($reserva->status ?? 'Pending') }}
             </div>
             
             <div class="price-info">
@@ -80,7 +80,7 @@
             </div>
             
             <div class="actions">
-                @if(($reserva->status ?? 'pendente') == 'pendente')
+                @if(($reserva->status ?? 'Pending') == 'Pending')
                     <a href="{{ route('user.cancelarmassagem', $reserva->id) }}" 
                        class="action-btn btn-cancel" title="Cancelar reserva"
                        onclick="return confirm('Tem certeza que deseja cancelar esta reserva de massagem?')">
@@ -98,8 +98,8 @@
 @else
     <div class="empty-state">
         <i class="fas fa-spinner fa-spin"></i>
-        <h3>Carregando reservas...</h3>
-        <p>Por favor, aguarde enquanto buscamos suas reservas de massagem.</p>
+        <h3>Loading reservations...</h3>
+        <p>Please wait while we retrieve your massage reservations..</p>
     </div>
 @endif
 @endsection

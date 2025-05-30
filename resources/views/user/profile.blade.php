@@ -399,27 +399,17 @@
             <li id="menu-reservas" class="{{ request()->routeIs('user.minhasreservas') ? 'active' : '' }}">
                 <a href="{{ route('user.minhasreservas') }}">
                     <i class="fas fa-calendar-alt"></i>
-                    <span>Minhas Reservas</span>
+                    <span>Room reservations</span>
                 </a>
             </li>
             <li id="menu-massagens" class="{{ request()->routeIs('user.minhasmassagens') ? 'active' : '' }}">
                 <a href="{{ route('user.minhasmassagens') }}">
                     <i class="fas fa-calendar-alt"></i>
-                    <span>Minhas Massagens</span>
+                    <span>Book massages</span>
                 </a>
             </li>
-            <li id="menu-historico" class="{{ request()->routeIs('user.historico') ? 'active' : '' }}">
-                <a href="#">
-                    <i class="fas fa-history"></i>
-                    <span>Histórico</span>
-                </a>
-            </li>
-            <li id="menu-configuracoes" class="{{ request()->routeIs('user.configuracoes') ? 'active' : '' }}">
-                <a href="#">
-                    <i class="fas fa-cog"></i>
-                    <span>Configurações</span>
-                </a>
-            </li>
+
+           
         </ul>
         
         <div class="sidebar-footer">
@@ -427,7 +417,7 @@
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
                class="logout-btn">
                 <i class="fas fa-sign-out-alt"></i>
-                <span>Sair</span>
+                <span>Logout</span>
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
