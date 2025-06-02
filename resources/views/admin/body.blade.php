@@ -1,84 +1,79 @@
+
 <div class="page-content">
-        <div class="page-header">
-          <div class="container-fluid">
-            <h2 class="h5 no-margin-bottom">Dashboard</h2>
-          </div>
+    <div class="page-header">
+        <div class="container-fluid">
         </div>
-        <section class="no-padding-top no-padding-bottom">
-          <div class="container-fluid">
+    </div>
+    <section class="no-padding-top no-padding-bottom">
+        <div class="container-fluid">
             <div class="row">
-              <div class="col-md-3 col-sm-6">
-                <div class="statistic-block block">
-                  <div class="progress-details d-flex align-items-end justify-content-between">
-                    <div class="title">
-                      <div class="icon"><i class="icon-user-1"></i></div><strong>New Clients</strong>
+                <div class="col-md-3 col-sm-6">
+                    <div class="statistic-block block">
+                        <div class="progress-details d-flex align-items-end justify-content-between">
+                            <div class="title">
+                                <div class="icon"><i class="icon-user-1"></i></div><strong>Novos Clientes</strong>
+                            </div>
+                            <div class="number dashtext-1">{{ $novosClientes }}</div>
+                        </div>
+                        <div class="progress progress-template">
+                            <div role="progressbar" style="width: {{ min($percentualClientes, 100) }}%" aria-valuenow="{{ $percentualClientes }}" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-1"></div>
+                        </div>
                     </div>
-                    <div class="number dashtext-1">27</div>
-                  </div>
-                  <div class="progress progress-template">
-                    <div role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-1"></div>
-                  </div>
                 </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="statistic-block block">
-                  <div class="progress-details d-flex align-items-end justify-content-between">
-                    <div class="title">
-                      <div class="icon"><i class="icon-contract"></i></div><strong>New room reservation</strong>
+                <div class="col-md-3 col-sm-6">
+                    <div class="statistic-block block">
+                        <div class="progress-details d-flex align-items-end justify-content-between">
+                            <div class="title">
+                                <div class="icon"><i class="icon-contract"></i></div><strong>Novas reservas de quarto</strong>
+                            </div>
+                            <div class="number dashtext-2">{{ $reservasQuarto }}</div>
+                        </div>
+                        <div class="progress progress-template">
+                            <div role="progressbar" style="width: {{ min($percentualReservasQuarto, 100) }}%" aria-valuenow="{{ $percentualReservasQuarto }}" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-2"></div>
+                        </div>
                     </div>
-                    <div class="number dashtext-2">15</div>
-                  </div>
-                  <div class="progress progress-template">
-                    <div role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-2"></div>
-                  </div>
                 </div>
-              </div>
-              <div class="col-md-3 col-sm-6">
-                <div class="statistic-block block">
-                  <div class="progress-details d-flex align-items-end justify-content-between">
-                    <div class="title">
-                      <div class="icon"><i class="icon-paper-and-pencil"></i></div><strong>New massage booking</strong>
+                <div class="col-md-3 col-sm-6">
+                    <div class="statistic-block block">
+                        <div class="progress-details d-flex align-items-end justify-content-between">
+                            <div class="title">
+                                <div class="icon"><i class="icon-paper-and-pencil"></i></div><strong>Novas reservas de massagens</strong>
+                            </div>
+                            <div class="number dashtext-3">{{ $reservasMassagem }}</div>
+                        </div>
+                        <div class="progress progress-template">
+                            <div role="progressbar" style="width: {{ min($percentualReservasMassagem, 100) }}%" aria-valuenow="{{ $percentualReservasMassagem }}" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-3"></div>
+                        </div>
                     </div>
-                    <div class="number dashtext-3">5</div>
-                  </div>
-                  <div class="progress progress-template">
-                    <div role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" class="progress-bar progress-bar-template dashbg-3"></div>
-                  </div>
                 </div>
-              </div>
-              
             </div>
-          </div>
-        </section>
-        
-              <div style="padding:30px; 20px;"class="col-lg-6">                                           
-                <div class="messages-block block">
-                  <div class="title"><strong>New Messages</strong></div>
-                  <div class="messages"><a href="#" class="message d-flex align-items-center">
-                      <div class="profile"><img src="img/avatar-3.jpg" alt="..." class="img-fluid">
-                        <div class="status online"></div>
-                      </div>
-                      <div class="content">   <strong class="d-block">Nadia Halsey</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">9:30am</small></div></a><a href="#" class="message d-flex align-items-center">
-                      <div class="profile"><img src="img/avatar-2.jpg" alt="..." class="img-fluid">
-                        <div class="status away"></div>
-                      </div>
-                      <div class="content">   <strong class="d-block">Peter Ramsy</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">7:40am</small></div></a><a href="#" class="message d-flex align-items-center">
-                      <div class="profile"><img src="img/avatar-1.jpg" alt="..." class="img-fluid">
-                        <div class="status busy"></div>
-                      </div>
-                      <div class="content">   <strong class="d-block">Sam Kaheil</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">6:55am</small></div></a><a href="#" class="message d-flex align-items-center">
-                      <div class="profile"><img src="img/avatar-5.jpg" alt="..." class="img-fluid">
-                        <div class="status offline"></div>
-                      </div>
-                      <div class="content">   <strong class="d-block">Sara Wood</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">10:30pm</small></div></a><a href="#" class="message d-flex align-items-center">
-                      <div class="profile"><img src="img/avatar-1.jpg" alt="..." class="img-fluid">
-                        <div class="status online"></div>
-                      </div>
-                      <div class="content">   <strong class="d-block">Nader Magdy</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">9:47pm</small></div></a></div>
-                </div>
-              </div>
+        </div>
+    </section>
+    
+    <div style="padding:30px; 20px;" class="col-lg-6">                                           
+        <div class="messages-block block">
+            <div class="title"><strong>Novas mensagens</strong></div>
+            <div class="messages">
+                @forelse($mensagens as $mensagem)
+                    <a href="{{ route('admin.mensagens.show', $mensagem->id) }}" class="message d-flex align-items-center">
+                        <div class="profile">
+                            <div class="status {{ $mensagem->status == 'lida' ? 'away' : 'online' }}"></div>
+                        </div>
+                        <div class="content">
+                            <strong class="d-block">{{ $mensagem->name }}</strong>
+                            <span class="d-block">{{ \Illuminate\Support\Str::limit($mensagem->message, 50) }}</span>
+                            <small class="date d-block">{{ $mensagem->created_at->format('H:i') }}</small>
+                        </div>
+                    </a>
+                @empty
+                    <div class="message d-flex align-items-center">
+                        <div class="content text-center w-100">
+                            <span class="d-block">Nenhuma mensagem recente</span>
+                        </div>
+                    </div>
+                @endforelse
             </div>
-          </div>
-        </section>
-        <section>
-          
+        </div>
+    </div>
+</div>
+

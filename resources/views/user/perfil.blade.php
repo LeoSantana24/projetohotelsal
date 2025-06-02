@@ -2,7 +2,7 @@
 
 @section('title', 'Perfil do Usuário')
 
-@section('page-title', 'Perfil')
+@section('page-title', 'Profile')
 @section('page-subtitle', 'Manage your personal information')
 
 @section('content')

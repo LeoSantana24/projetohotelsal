@@ -77,7 +77,7 @@ class MassageBookingController extends Controller
             'date' => $validated['date'],
             'hour' => $validated['hour'],
             'duration' => $validated['duration'],
-            'status' => 'pending',
+            'status' => 'waiting',
         ]);
 
         return response()->json([
@@ -116,7 +116,7 @@ class MassageBookingController extends Controller
     {
         $booking = BookingMassage::find($id);
 
-        $booking->status= 'approved';
+        $booking->status= 'aprovado';
 
         $booking->save();
 
@@ -127,7 +127,7 @@ class MassageBookingController extends Controller
     {
         $booking = BookingMassage::find($id);
 
-        $booking->status= 'rejected';
+        $booking->status= 'rejeitado';
 
         $booking->save();
 

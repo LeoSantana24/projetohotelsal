@@ -2,8 +2,8 @@
 
 @section('title', 'Minhas Reservas de Massagem')
 
-@section('page-title', 'Minhas Reservas de Massagem')
-@section('page-subtitle', 'Visualize e gerencie suas reservas de massagem')
+@section('page-title', 'My Massage Bookings')
+@section('page-subtitle', 'View and manage your massage bookings')
 
 @section('content')
 <h3><i class="fas fa-spa me-2"></i>My Massage Bookings</h3>
@@ -29,7 +29,7 @@
     <div class="reservas-list fade-in">
         @foreach($reservasMassagem as $reserva)
         <div class="reserva-card">
-            <div class="reserva-id">#{{ $reserva->id }}</div>
+            
             
             <div class="massage-info">
                 @isset($reserva->typeMassage)
@@ -68,7 +68,7 @@
             </div>
             
             <div class="reserva-status status-{{ $reserva->status ?? 'pendente' }}">
-                {{ ucfirst($reserva->status ?? 'Pending') }}
+                {{ ucfirst($reserva->status ?? 'pendente') }}
             </div>
             
             <div class="price-info">
@@ -80,7 +80,7 @@
             </div>
             
             <div class="actions">
-                @if(($reserva->status ?? 'Pending') == 'Pending')
+                @if(($reserva->status ?? 'pendente') == 'pendente')
                     <a href="{{ route('user.cancelarmassagem', $reserva->id) }}" 
                        class="action-btn btn-cancel" title="Cancelar reserva"
                        onclick="return confirm('Tem certeza que deseja cancelar esta reserva de massagem?')">

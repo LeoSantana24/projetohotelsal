@@ -11,7 +11,7 @@
           </div>
           <div class="right-menu list-inline no-margin-bottom">    
             
-            <div class="list-inline-item dropdown"><a id="navbarDropdownMenuLink1" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link messages-toggle"><i class="icon-email"></i><span class="badge dashbg-1">5</span></a>
+            <div class="list-inline-item dropdown">
               <div aria-labelledby="navbarDropdownMenuLink1" class="dropdown-menu messages"><a href="#" class="dropdown-item message d-flex align-items-center">
                   <div class="profile"><img src="admin/img/avatar-3.jpg" alt="..." class="img-fluid">
                     <div class="status online"></div>
@@ -31,7 +31,7 @@
                   <div class="content">   <strong class="d-block">Sara Wood</strong><span class="d-block">lorem ipsum dolor sit amit</span><small class="date d-block">10:30pm</small></div></a><a href="#" class="dropdown-item text-center message"> <strong>See All Messages <i class="fa fa-angle-right"></i></strong></a></div>
             </div>
             <!-- Tasks-->
-            <div class="list-inline-item dropdown"><a id="navbarDropdownMenuLink2" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link tasks-toggle"><i class="icon-new-file"></i><span class="badge dashbg-3">9</span></a>
+            <div class="list-inline-item dropdown">
               <div aria-labelledby="navbarDropdownMenuLink2" class="dropdown-menu tasks-list"><a href="#" class="dropdown-item">
                   <div class="text d-flex justify-content-between"><strong>Task 1</strong><span>40% complete</span></div>
                   <div class="progress">

@@ -143,6 +143,8 @@ Route::get('/massage_delete/{id}', [AdminController::class, 'delete_massage']);
 Route::post('/add_room', [AdminController::class, 'add_room']);
 
 Route::get('/view_room', [AdminController::class, 'view_room']);
+Route::get('/mensagens.show', [AdminController::class, 'mensagens.show'])
+ ->name('admin.mensagens.show');
 
 
 Route::get('/room_delete/{id}', [AdminController::class, 'room_delete']);
@@ -151,16 +153,21 @@ Route::get('/room_update/{id}', [AdminController::class, 'room_update']);
 
 Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
 
+
 });
 
  
 //teste
 // Rotas do painel do usuário
 // Rotas do usuário autenticado
-Route::middleware(['auth'])->group(function() {
+
     // Perfil (mantendo ambas as versões para compatibilidade)
     Route::get('/perfil', [UserController::class, 'perfil'])->name('user.perfil');
-    Route::get('/profile', [UserController::class, 'profile'])->name('user.profile'); // Redireciona para a mesma view
+     // Redireciona para a mesma view
+
+    Route::get('/profile', function () {
+    return redirect()->route('user.perfil');
+})->middleware(['auth'])->name('profile');
     
     // Reservas
     Route::get('/minhasreservas', [UserController::class, 'minhasreservas'])->name('user.minhasreservas');
@@ -170,7 +177,7 @@ Route::middleware(['auth'])->group(function() {
     
     // Atualização de perfil (nova rota)
     Route::post('/perfil/atualizar', [UserController::class, 'atualizarPerfil'])->name('user.perfil.atualizar');
-});
+
 
 
 Route::get('/user/reservas-ajax', [ReservaController::class, 'reservasAjax'])->name('user.reservas.ajax');

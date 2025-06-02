@@ -2,7 +2,7 @@
 
 @section('title', 'Minhas Reservas')
 
-@section('page-title', 'Minhas Reservas')
+@section('page-title', 'My Reservations')
 @section('page-subtitle', 'View and manage your active reservations')
 
 @section('content')

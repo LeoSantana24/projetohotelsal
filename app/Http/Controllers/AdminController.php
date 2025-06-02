@@ -24,6 +24,7 @@ use App\Models\TypeRoom;
 use App\Models\BookingMassage;
 use App\Models\Contact;
 use App\Notifications\SendEmailNotification;
+use Carbon\Carbon;
 
 use Notification;
 
@@ -32,6 +33,51 @@ class AdminController extends Controller
 {
     public function index()
     {
+
+        $novosClientes = User::where('created_at', '>=', Carbon::now()->subDays(30))
+                            ->where('usertype', '!=', 'admin')
+                            ->count();
+        
+        // Percentual de novos clientes em relação ao total
+        $totalClientes = User::where('usertype', '!=', 'admin')->count();
+        $percentualClientes = $totalClientes > 0 ? ($novosClientes / $totalClientes) * 100 : 0;
+        
+        // Reservas de quarto pendentes
+        $reservasQuarto = Booking::where('status', 'pendente')
+                                ->orderBy('created_at', 'desc')
+                                ->count();
+        
+        // Percentual de reservas pendentes em relação ao total de reservas do mês atual
+        $totalReservasQuartoMes = Booking::whereMonth('created_at', Carbon::now()->month)
+                                        ->whereYear('created_at', Carbon::now()->year)
+                                        ->count();
+        $percentualReservasQuarto = $totalReservasQuartoMes > 0 ? ($reservasQuarto / $totalReservasQuartoMes) * 100 : 0;
+        
+        // Reservas de massagem pendentes
+        $reservasMassagem = BookingMassage::where('status', 'pendente')
+                                        ->orderBy('created_at', 'desc')
+                                        ->count();
+        
+        // Percentual de reservas de massagem pendentes em relação ao total de reservas do mês atual
+        $totalReservasMassagemMes = BookingMassage::whereMonth('created_at', Carbon::now()->month)
+                                                ->whereYear('created_at', Carbon::now()->year)
+                                                ->count();
+        $percentualReservasMassagem = $totalReservasMassagemMes > 0 ? ($reservasMassagem / $totalReservasMassagemMes) * 100 : 0;
+        
+        // Mensagens recentes (últimas 5)
+        $mensagens = Contact::orderBy('created_at', 'desc')
+                            ->take(5)
+                            ->get();
+        
+        return view('admin.index', compact(
+            'novosClientes', 
+            'percentualClientes',
+            'reservasQuarto', 
+            'percentualReservasQuarto',
+            'reservasMassagem', 
+            'percentualReservasMassagem',
+            'mensagens'
+        ));
         if (Auth::id()) {
             $usertype = Auth::user()->usertype;
 

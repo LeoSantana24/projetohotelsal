@@ -405,7 +405,7 @@
             <li id="menu-massagens" class="{{ request()->routeIs('user.minhasmassagens') ? 'active' : '' }}">
                 <a href="{{ route('user.minhasmassagens') }}">
                     <i class="fas fa-calendar-alt"></i>
-                    <span>Book massages</span>
+                    <span>Massages reservations</span>
                 </a>
             </li>
 

@@ -6,7 +6,7 @@
       <nav id="sidebar">
         <!-- Sidebar Header-->
         
-        <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
+        <!-- Sidebar Navidation Menus-->
         <ul class="list-unstyled">
         <li class="{{ $activePage == 'home' ? 'active' : '' }}">
   <a href="{{ url('home') }}"> <i class="icon-home"></i>Página Inicial</a>
