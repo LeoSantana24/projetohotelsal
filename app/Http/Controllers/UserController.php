@@ -152,4 +152,27 @@ public function minhasMassagens()
         return redirect()->back()->with('success', 'Massage reservation cancelled successfully.');
     }
 
+    public function cancelarReservaQuarto($id)
+{
+    $user = Auth::user();
+
+    $reserva = Booking::where('id', $id)
+        ->where(function($query) use ($user) {
+            $query->where('user_id', $user->id)
+                  ->orWhere('email', $user->email);
+        })
+        ->firstOrFail();
+
+    // Verifica se a reserva já foi aprovada ou finalizada
+    if ($reserva->status == 'aprovado' || $reserva->status == 'confirmada' || $reserva->status == 'finalizada') {
+        return redirect()->back()->with('error', 'Não é possível cancelar uma reserva já aprovada ou finalizada. Por favor, entre em contato com a recepção.');
+    }
+
+    // Atualiza o status da reserva para cancelado
+    $reserva->status = 'cancelado';
+    $reserva->save();
+
+    return redirect()->back()->with('success', 'Reserva de quarto cancelada com sucesso.');
+}
+
 }

@@ -24,7 +24,7 @@
 
 <li>
   <a href="#massagemDropdown" aria-expanded="{{ $activePage == 'massagens' ? 'true' : 'false' }}" data-toggle="collapse" class="{{ $activePage == 'massagens' ? '' : 'collapsed' }}">
-    <i class="icon-windows"></i>Massages Hotel
+    <i class="icon-windows"></i>Massagens Hotel
   </a>
   <ul id="massagemDropdown" class="collapse list-unstyled {{ $activePage == 'massagens' ? 'show' : '' }}">
     <li><a href="{{ url('create_type_massage') }}">Adicionar Massagens</a></li>

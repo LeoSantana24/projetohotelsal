@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="col-6">
                                     <span>CVV:</span>
-                                    <input type="text" name="card_cvv" id="cvv" placeholder="123" required pattern="\d{3}" title="O CVV deve ter 3 dígitos">
+                                    <input type="password" name="card_cvv" id="cvv" placeholder="123" required pattern="\d{3}" title="O CVV deve ter 3 dígitos">
                                 </div>
                             </div>
 

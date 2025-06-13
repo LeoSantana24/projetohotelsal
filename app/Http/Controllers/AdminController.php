@@ -43,7 +43,7 @@ class AdminController extends Controller
         $percentualClientes = $totalClientes > 0 ? ($novosClientes / $totalClientes) * 100 : 0;
         
         // Reservas de quarto pendentes
-        $reservasQuarto = Booking::where('status', 'pendente')
+        $reservasQuarto = Booking::where('status', 'waiting')
                                 ->orderBy('created_at', 'desc')
                                 ->count();
         
@@ -54,7 +54,7 @@ class AdminController extends Controller
         $percentualReservasQuarto = $totalReservasQuartoMes > 0 ? ($reservasQuarto / $totalReservasQuartoMes) * 100 : 0;
         
         // Reservas de massagem pendentes
-        $reservasMassagem = BookingMassage::where('status', 'pendente')
+        $reservasMassagem = BookingMassage::where('status', 'waiting')
                                         ->orderBy('created_at', 'desc')
                                         ->count();
         

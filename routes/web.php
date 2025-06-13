@@ -173,7 +173,10 @@ Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
     Route::get('/minhasreservas', [UserController::class, 'minhasreservas'])->name('user.minhasreservas');
      Route::get('/minhasmassagens', [UserController::class, 'minhasmassagens'])->name('user.minhasmassagens');
     Route::get('/reservadetalhes/{id}', [UserController::class, 'reservadetalhes'])->name('user.reservadetalhes');
-    Route::get('/cancelarmassagem', [UserController::class, 'cancelarmassagem'])->name('user.cancelarmassagem');
+    Route::get('/cancelarmassagem/{id}', [UserController::class, 'cancelarMassagem'])->name('user.cancelarmassagem');
+    Route::get('/cancelarreservaquarto/{id}', [UserController::class, 'cancelarReservaQuarto'])->name('user.cancelarreservaquarto');
+
+
     
     // Atualização de perfil (nova rota)
     Route::post('/perfil/atualizar', [UserController::class, 'atualizarPerfil'])->name('user.perfil.atualizar');

@@ -20,10 +20,7 @@
     <div class="empty-state">
         <i class="fas fa-spa"></i>
         <h3>Nenhuma reserva de massagem encontrada</h3>
-        <p>Você ainda não fez nenhuma reserva de massagem. Que tal relaxar com uma massagem?</p>
-        <a href="{{ url('user.minhasmassagens') }}" class="btn btn-primary mt-3">
-            <i class="fas fa-plus-circle me-2"></i>Reservar Massagem
-        </a>
+        
     </div>
 @elseif(isset($reservasMassagem))
     <div class="reservas-list fade-in">
@@ -38,11 +35,12 @@
                     </div>
                     <div>
                         <div class="massage-name">
-                            @if($reserva->typeMassage)
-                                {{ $reserva->typeMassage->name }}
-                            @else
-                                Tipo não definido
-                            @endif
+                        @if($reserva->typeMassage)
+                            {{ $reserva->typeMassage->massage_title }}
+                        @else
+                            Tipo não definido
+                        @endif
+
                         </div>
                         <div class="massage-duration">
                             <span class="badge bg-info">{{ $reserva->duration }} </span>
@@ -80,7 +78,7 @@
             </div>
             
             <div class="actions">
-                @if(($reserva->status ?? 'pendente') == 'pendente')
+                @if(($reserva->status ?? 'waiting') == 'waiting')
                     <a href="{{ route('user.cancelarmassagem', $reserva->id) }}" 
                        class="action-btn btn-cancel" title="Cancelar reserva"
                        onclick="return confirm('Tem certeza que deseja cancelar esta reserva de massagem?')">

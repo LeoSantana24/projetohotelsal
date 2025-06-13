@@ -26,7 +26,7 @@
     <div class="reservas-list fade-in">
         @foreach($reservas as $reserva)
         <div class="reserva-card">
-            <div class="reserva-id">#{{ $reserva->id }}</div>
+            
             
             <div class="room-info">
                 @isset($reserva->room)
@@ -75,8 +75,8 @@
                    class="action-btn btn-view" title="Ver detalhes">
                     <i class="fas fa-eye"></i>
                 </a>
-                @if(($reserva->status ?? 'Pending') == 'Pending')
-                    <a href="#" 
+                @if(($reserva->status ?? 'waiting') == 'waiting')
+                    <a href="{{ route('user.cancelarreservaquarto', $reserva->id) }}" 
                        class="action-btn btn-cancel" title="Cancelar reserva"
                        onclick="return confirm('Tem certeza que deseja cancelar esta reserva?')">
                         <i class="fas fa-times"></i>

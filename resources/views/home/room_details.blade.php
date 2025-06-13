@@ -91,17 +91,18 @@
           
           @csrf
 
-          @if(session()->has('message'))
-            @php
-              $message = session()->get('message');
-              $isError = str_contains($message, 'reserved');
-            @endphp
+          @if(session()->has('message') || session()->has('error'))
+    @php
+        $message = session()->get('message') ?? session()->get('error');
+        $isError = session()->has('error') || str_contains($message, 'reserved');
+    @endphp
 
-            <div class="alert {{ $isError ? 'alert-danger' : 'alert-success' }}">
-              <button type="button" class="close" data-bs-dismiss="alert">X</button>
-              {{ $message }}
-            </div>
-          @endif
+    <div class="alert {{ $isError ? 'alert-danger' : 'alert-success' }}">
+        <button type="button" class="close" data-bs-dismiss="alert">×</button>
+        {{ $message }}
+    </div>
+@endif
+
 
 
           <div class="row">
