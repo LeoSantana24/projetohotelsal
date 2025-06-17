@@ -393,7 +393,7 @@
             <li id="menu-perfil" class="{{ request()->routeIs('user.perfil') ? 'active' : '' }}">
                 <a href="{{ route('user.perfil') }}">
                     <i class="fas fa-user"></i>
-                    <span>Perfil</span>
+                    <span>Profile</span>
                 </a>
             </li>
             <li id="menu-reservas" class="{{ request()->routeIs('user.minhasreservas') ? 'active' : '' }}">

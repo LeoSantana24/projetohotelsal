@@ -94,6 +94,21 @@
             background-position-x: 95%;
             background-position-y: center;
         }
+        .header {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.right .item small {
+    font-size: 1rem;
+}
+
+.right .text-right b,
+.right .row .col {
+    font-size: 1rem;
+}
+
     </style>
 </head>
 <body>
@@ -182,7 +197,8 @@
                                 $start = \Carbon\Carbon::parse($item['start_date']);
                                 $end = \Carbon\Carbon::parse($item['end_date']);
                                 $nights = $start->diffInDays($end);
-                                $pricePerNight = isset($item['price']) ? floatval($item['price']) : 100;
+                                 $room = isset($item['room_id']) ? \App\Models\Room::with('typeRoom')->find($item['room_id']) : null;
+                                $pricePerNight = $room ? floatval($room->price) : 100;
                                 $cribFee = (!empty($item['baby_crib'])) ? 12 : 0;
                                 $total = ($nights * $pricePerNight) + $cribFee;
                                 $grandTotal += $total;

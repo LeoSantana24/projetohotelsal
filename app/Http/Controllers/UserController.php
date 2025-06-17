@@ -172,7 +172,7 @@ public function minhasMassagens()
     $reserva->status = 'cancelado';
     $reserva->save();
 
-    return redirect()->back()->with('success', 'Reserva de quarto cancelada com sucesso.');
+    return redirect()->back()->with('success', 'Room reservation successfully cancelled.');
 }
 
 }
