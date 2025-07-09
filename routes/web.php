@@ -161,34 +161,35 @@ Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
 // Rotas do painel do usuário
 // Rotas do usuário autenticado
 
-    // Perfil (mantendo ambas as versões para compatibilidade)
-    Route::get('/perfil', [UserController::class, 'perfil'])->name('user.perfil');
-     // Redireciona para a mesma view
+Route::middleware(['auth'])->group(function () {
 
+    // Perfil
+    Route::get('/perfil', [UserController::class, 'perfil'])->name('user.perfil');
+    Route::post('/perfil/atualizar', [UserController::class, 'atualizarPerfil'])->name('user.perfil.atualizar');
+
+    // Compatibilidade: /profile redireciona para /perfil
     Route::get('/profile', function () {
-    return redirect()->route('user.perfil');
-})->middleware(['auth'])->name('profile');
-    
+        return redirect()->route('user.perfil');
+    });
+
+    // OU: usar diretamente o método profile() e update() se quiser editar lá também
+    Route::get('/profile/edit', [UserController::class, 'profile'])->name('user.profile');
+    Route::put('/profile', [UserController::class, 'update'])->name('user.profile.update');
+
     // Reservas
     Route::get('/minhasreservas', [UserController::class, 'minhasreservas'])->name('user.minhasreservas');
-     Route::get('/minhasmassagens', [UserController::class, 'minhasmassagens'])->name('user.minhasmassagens');
+    Route::get('/minhasmassagens', [UserController::class, 'minhasmassagens'])->name('user.minhasmassagens');
     Route::get('/reservadetalhes/{id}', [UserController::class, 'reservadetalhes'])->name('user.reservadetalhes');
     Route::get('/cancelarmassagem/{id}', [UserController::class, 'cancelarMassagem'])->name('user.cancelarmassagem');
     Route::get('/cancelarreservaquarto/{id}', [UserController::class, 'cancelarReservaQuarto'])->name('user.cancelarreservaquarto');
-
-
-    
-    // Atualização de perfil (nova rota)
+    Route::get('/perfil/editar', [UserController::class, 'editarPerfil'])->name('user.perfil.editar');
     Route::post('/perfil/atualizar', [UserController::class, 'atualizarPerfil'])->name('user.perfil.atualizar');
 
 
-
-Route::get('/user/reservas-ajax', [ReservaController::class, 'reservasAjax'])->name('user.reservas.ajax');
-Route::post('/user/reservas/{id}/cancelar', [ReservaController::class, 'cancelar'])->name('user.reservas.cancelar');
-
-    
-
-
+    // Ajax e cancelamento
+    Route::get('/user/reservas-ajax', [ReservaController::class, 'reservasAjax'])->name('user.reservas.ajax');
+    Route::post('/user/reservas/{id}/cancelar', [ReservaController::class, 'cancelar'])->name('user.reservas.cancelar');
+});
     
    
 

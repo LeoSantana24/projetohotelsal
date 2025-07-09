@@ -344,7 +344,7 @@
                                 <th class="th_deg">Nome</th>
                                 <th class="th_deg">Email</th>
                                 <th class="th_deg">Telefone</th>
-                                <th class="th_deg">Tipo</th>
+                                <th class="th_deg">Tipo massagem</th>
                                 <th class="th_deg">Data</th>
                                 <th class="th_deg">Hora</th>
                                 <th class="th_deg">Duração</th>

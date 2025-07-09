@@ -11,42 +11,44 @@ use App\Models\BookingMassage;
 
 class UserController extends Controller
 {
-    /**
-     * Exibe o perfil do usuário (para ambas as rotas /perfil e /profile)
-     */
+    
     public function perfil()
     {
         $user = Auth::user();
-        return view('user.perfil', compact('user')); // Usando view perfil.blade.php
+        return view('user.perfil', compact('user')); 
     }
     public function profile()
     {
         
-        return view('user.profile'); // Usando view perfil.blade.php
+        return view('user.profile'); 
     }
+    public function editarPerfil()
+{
+    $user = Auth::user();
+    return view('user.editarperfil', compact('user'));
+}
 
-    /**
-     * Atualiza o perfil do usuário
-     */
+   
     public function atualizarPerfil(Request $request)
-    {
-        $user = Auth::user();
-        
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,'.$user->id,
-            'phone' => 'nullable|string|max:20',
-            'address' => 'nullable|string|max:255',
-        ]);
-        
-        $user->update($request->all());
-        
-        return redirect()->back()->with('success', 'Profile updated successfully!');
-    }
+{
+    $user = Auth::user();
 
-    /**
-     * Exibe todas as reservas do usuário
-     */
+    $request->validate([
+        'email' => 'required|email|unique:users,email,'.$user->id,
+        'phone' => 'nullable|string|max:20',
+        'country' => 'nullable|string|max:100',  
+    ]);
+
+    $user->email = $request->email;
+    $user->phone = $request->phone;
+    $user->country = $request->country;  
+    $user->save();
+
+    return redirect()->route('user.perfil')->with('success', 'Profile updated successfully!');
+}
+
+
+
    public function minhasreservas()
 {
     $user = Auth::user();
@@ -102,6 +104,21 @@ class UserController extends Controller
 
     return view('user.profile', compact('data'));
 }
+public function update(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'phone' => 'nullable|string|max:20',
+        ]);
+
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->save();
+
+        return redirect()->route('user.profile')->with('success', 'Profile updated successfully.');
+    }
 
 public function minhasMassagens()
     {

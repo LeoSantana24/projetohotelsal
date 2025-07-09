@@ -383,7 +383,7 @@
                             <th class="th_deg">Check-in</th>
                             <th class="th_deg">Check-out</th>
                             <th class="th_deg">Estado</th>
-                            <th class="th_deg">Tipo</th>
+                            <th class="th_deg">Tipo quarto</th>
                             <th class="th_deg">Preço</th>
                             <th class="th_deg">Imagem</th>
                             <th class="th_deg">Remover</th>

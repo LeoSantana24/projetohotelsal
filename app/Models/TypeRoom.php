@@ -9,12 +9,12 @@ class TypeRoom extends Model
 {
     use HasFactory;
 
-    protected $table = 'type_room'; // nome da tabela
+    protected $table = 'type_room'; 
 
-    // Campos que podem ser atribuídos em massa
+    
     protected $fillable = [
-        'nome', // por exemplo
-        // adicione outros campos se houver
+        'nome', 
+        
     ];
 
     // Relacionamento com a tabela de quartos

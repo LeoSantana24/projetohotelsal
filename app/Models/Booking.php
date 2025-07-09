@@ -17,8 +17,8 @@ class Booking extends Model
         'phone',
         'start_date',
         'end_date',
-        'number_adults',      // Novo campo para número de adultos
-        'number_children',     // Novo campo para 
+        'number_adults',      
+        'number_children',     
     ];
 
     public function room()

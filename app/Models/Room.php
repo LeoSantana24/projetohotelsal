@@ -12,7 +12,7 @@ class Room extends Model
     protected $fillable = [
         'description',
         'price',
-        'type_room_id' // Corrigido aqui
+        'type_room_id'
     ];
 
     // Imagens do quarto

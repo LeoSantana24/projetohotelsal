@@ -413,6 +413,10 @@
         </ul>
         
         <div class="sidebar-footer">
+         <a href="{{ url('/') }}" class="btn btn-secondary w-100 mb-2" style="display: flex; align-items: center; justify-content: center;">
+    <i class="fas fa-arrow-left me-2"></i> Return to website
+</a>
+
             <a href="{{ route('logout') }}" 
                onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
                class="logout-btn">

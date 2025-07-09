@@ -22,10 +22,15 @@
         <label class="form-label"><strong>Phone:</strong></label>
         <p class="form-control-plaintext">{{ Auth::user()->phone ?? '(Not informed)' }}</p>
     </div>
+    <div class="col-md-6 mb-3">
+        <label class="form-label"><strong>Country:</strong></label>
+        <p class="form-control-plaintext">{{ Auth::user()->country ?? '(Not informed)' }}</p>
+    </div>
    
 </div>
 
-<button class="btn btn-primary">
-    <i class="fas fa-edit me-2"></i>Edit Profile
-</button>
+<a href="{{ route('user.perfil.editar') }}" class="btn btn-primary">
+    <i class="fas fa-edit me-2"></i> Edit Profile
+</a>
+
 @endsection

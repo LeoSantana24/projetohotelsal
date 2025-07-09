@@ -313,9 +313,9 @@ public function view_massages()
 
    public function bookings()
 {
-    $rooms = Room::with(['images', 'typeRoom'])->get(); // 👈 CORRIGIDO AQUI
+    $rooms = Room::with(['images', 'typeRoom'])->get(); 
     $data = Booking::all();
-    return view('admin.booking', compact('data', 'rooms')); // 👈 Adicionei 'rooms' se você usa na view
+    return view('admin.booking', compact('data', 'rooms')); 
 }
 
     public function delete_booking($id)
