@@ -8,18 +8,23 @@
 
 Perfeito! Aqui estão as demais tabelas do seu banco de dados `.sql`, com **campos como colunas** e **dados fictícios como conteúdo**, em formato Markdown para usar no seu README:
 
----
+Tabela Booking
 
-| id | room\_id | name        | email                                     | phone     | status    | start\_date | end\_date  | number\_adults | number\_children | created\_at         | updated\_at         |
-| -- | -------- | ----------- | ----------------------------------------- | --------- | --------- | ----------- | ---------- | -------------- | ---------------- | ------------------- | ------------------- |
-| 1  | 2        | João Silva  | [joao@email.com](mailto:joao@email.com)   | 912345678 | waiting   | 2025-05-10  | 2025-05-12 | 2              | 1                | 2025-05-01 10:00:00 | 2025-05-01 10:00:00 |
-| 2  | 1        | Maria Souza | [maria@email.com](mailto:maria@email.com) | 934567890 | confirmed | 2025-06-01  | 2025-06-03 | 1              | 0                | 2025-05-02 11:00:00 | 2025-05-02 11:00:00 |
+| id | user_id | room_id |  status   |  start_date  |   end_date   | number_adults | number_children |
+|----|---------|---------|-----------|--------------|--------------|----------------|------------------|
+|  1 |    3    |    2    | waiting   | 2025-07-15   | 2025-05-12   |       2        |         1        |
+|  2 |    7    |    1    | aproved   | 2025-06-01   | 2025-06-03   |       1        |         0        |
+|  3 |    3    |    3    | cancelled | 2025-07-15   | 2025-07-18   |       2        |         2        |
 
 
-| id | type\_massage\_id | name          | email                                     | phone     | date       | hour  | created\_at         | updated\_at         | duration |
-| -- | ----------------- | ------------- | ----------------------------------------- | --------- | ---------- | ----- | ------------------- | ------------------- | -------- |
-| 1  | 1                 | Pedro Martins | [pedro@email.com](mailto:pedro@email.com) | 911112223 | 2025-05-15 | 14:00 | 2025-05-01 12:00:00 | 2025-05-01 12:00:00 | 60min    |
-| 2  | 2                 | Ana Lopes     | [ana@email.com](mailto:ana@email.com)     | 922334455 | 2025-05-16 | 10:30 | 2025-05-02 13:00:00 | 2025-05-02 13:00:00 | 90min    |
+
+
+
+| id | user_id | type_massage_id |    date     |  hour  |
+|----|---------|------------------|-------------|--------|
+|  1 |    1    |        1         | 2025-05-15  | 14:00  |
+|  2 |    3    |        2         | 2025-05-16  | 10:30  |
+
 
 
 | id | name            | icon\_class  | created\_at         | updated\_at         |
