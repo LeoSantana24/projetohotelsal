@@ -120,7 +120,7 @@
         color: #166534;
     }
     
-    .status-pendente {
+    .status-pendente, .status-waiting {
         background: #fef3c7;
         color: #d97706;
     }
@@ -241,30 +241,23 @@
     <div class="empty-state">
         <i class="fas fa-spa"></i>
         <h3>No massage bookings found</h3>
-        
     </div>
 @elseif(isset($reservasMassagem))
     <div class="reservas-list fade-in">
         @foreach($reservasMassagem as $reserva)
         <div class="reserva-card">
             
-            
             <div class="massage-info">
-                @isset($reserva->typeMassage)
+                @if($reserva->typeMassage)
                     <div class="massage-icon-container">
                         <i class="fas fa-spa"></i>
                     </div>
                     <div>
                         <div class="massage-name">
-                        @if($reserva->typeMassage)
                             {{ $reserva->typeMassage->massage_title }}
-                        @else
-                            Tipo não definido
-                        @endif
-
                         </div>
                         <div class="massage-duration">
-                            <span class="badge bg-info">{{ $reserva->duration }} </span>
+                            <span class="badge bg-info">{{ $reserva->duration }}</span>
                         </div>
                     </div>
                 @else
@@ -282,24 +275,21 @@
                 </div>
                 <div>
                     <div class="date-label">Hour</div>
-                    <div class="date-value">{{ $reserva->hour }}</div>
+                    <div class="date-value">{{ \Carbon\Carbon::parse($reserva->hour)->format('H:i') }}</div>
                 </div>
             </div>
             
-            <div class="reserva-status status-{{ $reserva->status ?? 'pendente' }}">
-                {{ ucfirst($reserva->status ?? 'pendente') }}
+            <div class="reserva-status status-{{ strtolower($reserva->status ?? 'waiting') }}">
+                {{ ucfirst($reserva->status ?? 'waiting') }}
             </div>
             
+            {{-- CÓDIGO CORRIGIDO PARA EXIBIR O PREÇO --}}
             <div class="price-info">
-                @isset($reserva->typeMassage)
-                     {{ number_format($reserva->typeMassage->price ?? 0, 2, ',', '.') }}€
-                @else
-                    0,00 €
-                @endisset
+                €{{ number_format($reserva->price ?? 0, 2, ',', '.') }}
             </div>
             
             <div class="actions">
-                @if(($reserva->status ?? 'waiting') == 'waiting')
+                @if(strtolower($reserva->status ?? 'waiting') == 'waiting')
                     <a href="{{ route('user.cancelarmassagem', $reserva->id) }}" 
                        class="action-btn btn-cancel" title="Cancelar reserva"
                        onclick="return confirm('Are you sure you want to cancel this massage reservation?')">
@@ -318,13 +308,13 @@
     <div class="empty-state">
         <i class="fas fa-spinner fa-spin"></i>
         <h3>Loading reservations...</h3>
-        <p>Please wait while we retrieve your massage reservations..</p>
+        <p>Please wait while we retrieve your massage reservations.</p>
     </div>
 @endif
 @endsection
 
 @section('styles')
-
+{{-- Seção de estilos, pode deixar vazia se não precisar --}}
 @endsection
 
 @section('scripts')
@@ -333,16 +323,14 @@
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.reserva-card');
         cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            
             setTimeout(() => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'all 0.6s ease';
-                
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }, 100);
-            }, index * 150);
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100); // Atraso escalonado para cada card
         });
     });
 </script>

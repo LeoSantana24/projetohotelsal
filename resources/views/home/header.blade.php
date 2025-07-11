@@ -117,65 +117,55 @@
     <button id="closeCartBtn" class="btn-close" aria-label="Fechar">&times;</button>
   </div>
   <div class="cart-body">
-  @if(count($cart ?? []) > 0)
-    @php
-        $grandTotal = 0;
-    @endphp
+    @if(count($cart ?? []) > 0)
+      @php
+          $grandTotal = 0;
+      @endphp
 
-    @foreach($cart as $index => $item)
-        @php
-            $start = \Carbon\Carbon::parse($item['start_date']);
-            $end = \Carbon\Carbon::parse($item['end_date']);
-            $nights = $start->diffInDays($end);
-            $room = isset($item['room_id']) ? \App\Models\Room::with('typeRoom')->find($item['room_id']) : null;
-           $pricePerNight = $room ? floatval($room->price) : 100;
-           $price = $room->price;
-            $hasCrib = isset($item['baby_crib']) && $item['baby_crib'];
-            $cribFee = $hasCrib ? 12 : 0;
-            $total = ($nights * $pricePerNight) + $cribFee;
-            $grandTotal += $total;
+      @foreach($cart as $index => $item)
+          @php
+              $start = \Carbon\Carbon::parse($item['start_date'] ?? now());
+              $end = \Carbon\Carbon::parse($item['end_date'] ?? now());
+              $nights = $start->diffInDays($end);
 
-            // Busca o quarto com o tipo (usa o caminho completo da classe Room)
-            
-        @endphp
+              $room = isset($item['room_id']) ? \App\Models\Room::with('typeRoom')->find($item['room_id']) : null;
+              $pricePerNight = $room ? floatval($room->price) : 100;
+              $hasCrib = !empty($item['baby_crib']);
+              $cribFee = $hasCrib ? 12 : 0;
+              $total = ($nights * $pricePerNight) + $cribFee;
+              $grandTotal += $total;
+          @endphp
 
-        <div class="mb-3 p-3 border rounded shadow-sm bg-white">
-            <div class="mb-3 p-3 border rounded shadow-sm bg-white position-relative">
-                <a href="{{ url('/cart/remove/' . $index) }}" class="btn-close position-absolute" style="top: 10px; right: 10px;color:red;" aria-label="Remover">X</a>
-                <h6>Reserve {{ $index + 1 }}</h6>
-            </div>
+          <div class="mb-3 p-3 border rounded shadow-sm bg-white position-relative">
+              <a href="{{ url('/cart/remove/' . $index) }}" class="btn-close position-absolute" style="top: 10px; right: 10px; color: red;" aria-label="Remover">X</a>
+              <h6>Reserve {{ $index + 1 }}</h6>
 
-            <p><strong>Room type:</strong>
-                @if ($room && $room->typeRoom)
-                    {{ $room->typeRoom->nome }}
-                
-            </p>
+              <p><strong>Room type:</strong>
+                  @if ($room && $room->typeRoom)
+                      {{ $room->typeRoom->nome }}
+                  @else
+                      Unknown
+                  @endif
+              </p>
 
-            <p><strong>Name:</strong> {{ $item['name'] }}</p>
-            <p><strong>Email:</strong> {{ $item['email'] }}</p>
-            <p><strong>Phone:</strong> {{ $item['phone'] }}</p>
-            <p><strong>Check-in:</strong> {{ $item['start_date'] }}</p>
-            <p><strong>Check-out:</strong> {{ $item['end_date'] }}</p>
-            <p><strong>Adults:</strong> {{ $item['number_adults'] }}</p>
-            <p><strong>Children:</strong> {{ $item['number_children'] }}</p>
+              <p><strong>Name:</strong> {{ $item['name'] ?? 'N/A' }}</p>
+              <p><strong>Email:</strong> {{ $item['email'] ?? 'N/A' }}</p>
+              <p><strong>Phone:</strong> {{ $item['phone'] ?? 'N/A' }}</p>
+              <p><strong>Check-in:</strong> {{ $item['start_date'] ?? 'N/A' }}</p>
+              <p><strong>Check-out:</strong> {{ $item['end_date'] ?? 'N/A' }}</p>
+              <p><strong>Adults:</strong> {{ $item['number_adults'] ?? 0 }}</p>
+              <p><strong>Children:</strong> {{ $item['number_children'] ?? 0 }}</p>
 
-            @if($hasCrib)
-                <p><strong>Cradle:</strong> +12,00 €</p>
-            @endif
+              @if($hasCrib)
+                  <p><strong>Cradle:</strong> +12,00 €</p>
+              @endif
 
-            <p><strong>Nights:</strong> {{ $nights }} night{{ $nights > 1 ? 's' : '' }}</p>
-            <p><strong>Price per night:</strong> {{ number_format($pricePerNight, 2, ',', '.') }} €</p>
-            <p><strong>Total:</strong> {{ number_format($total, 2, ',', '.') }} €</p>
-        </div>
-        @endif
-    @endforeach
+              <p><strong>Nights:</strong> {{ $nights }} night{{ $nights > 1 ? 's' : '' }}</p>
+              <p><strong>Price per night:</strong> {{ number_format($pricePerNight, 2, ',', '.') }} €</p>
+              <p><strong>Total:</strong> {{ number_format($total, 2, ',', '.') }} €</p>
+          </div>
+      @endforeach
 
-
-
-
-
-
-      {{-- Total geral --}}
       <div class="p-3 border-top mt-2">
         <h5><strong>Grand total:</strong> {{ number_format($grandTotal, 2, ',', '.') }} €</h5>
       </div>
@@ -187,6 +177,7 @@
     @endif
   </div>
 </div>
+
 
 
 <script>

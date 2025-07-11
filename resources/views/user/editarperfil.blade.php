@@ -3,7 +3,7 @@
 @section('title', 'Editar Perfil')
 
 @section('page-title', 'Edit Profile')
-@section('page-subtitle', 'Update your email and phone')
+@section('page-subtitle', 'Update your profile')
 
 @section('content')
 

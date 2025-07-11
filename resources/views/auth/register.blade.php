@@ -19,8 +19,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
-
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
@@ -163,7 +161,6 @@
 
         let isValid = true;
 
-        // 📞 Validação do telefone: começa com + seguido de 2 ou 3 números, depois ao menos 6 dígitos
         const phoneRegex = /^\+\d{2,3}\s?\d{6,}$/;
         if (!phoneRegex.test(phoneInput)) {
             phoneError.classList.remove("hidden");
@@ -172,7 +169,6 @@
             phoneError.classList.add("hidden");
         }
 
-        // 🔐 Validação de senha: 8-15 chars, 1 maiúscula, 1 número
         const passwordRegex = /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,15}$/;
         if (!passwordRegex.test(password)) {
             passwordError.textContent = "Password must be 8–15 characters, with at least one uppercase letter and one number.";
@@ -187,7 +183,7 @@
         }
 
         if (!isValid) {
-            event.preventDefault(); // Impede o envio do formulário
+            event.preventDefault(); 
         }
     });
 </script>

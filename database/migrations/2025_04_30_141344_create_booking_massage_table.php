@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('date');  
             $table->time('hour');
             $table->string('duration');
+            $table->decimal('price', 8, 2);
                
             $table->timestamps();
         });

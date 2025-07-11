@@ -19,6 +19,7 @@ class BookingMassage extends Model
         'date',
         'hour',
         'duration',
+        'price',
         'status'
     ];
     

@@ -90,9 +90,7 @@ Route::get('/perfil/reservas', [BookingController::class, 'minhasReservas'])->na
 
 // Massage Controller
 //Route::post('/add_massage_booking/{id}', [MassageBookingController::class, 'add_massage_booking'])->name('massage.booking');
-Route::post('/massage-booking', [MassageBookingController::class, 'add_massage_booking'])
-    ->name('massage.booking')
-    ->middleware('auth');
+Route::post('/add_massage_booking', [MassageBookingController::class, 'add_massage_booking'])->name('add_massage_booking');
 
 Route::post('/massagens/reservar/{id}', [MassageBookingController::class, 'add_massage_booking']);
 Route::get('/', [AdminController::class, 'home'])->name('home.index');
@@ -156,10 +154,7 @@ Route::post('/edit_room/{id}', [AdminController::class, 'edit_room']);
 
 });
 
- 
-//teste
-// Rotas do painel do usuário
-// Rotas do usuário autenticado
+
 
 Route::middleware(['auth'])->group(function () {
 
@@ -186,7 +181,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/perfil/atualizar', [UserController::class, 'atualizarPerfil'])->name('user.perfil.atualizar');
 
 
-    // Ajax e cancelamento
+   
     Route::get('/user/reservas-ajax', [ReservaController::class, 'reservasAjax'])->name('user.reservas.ajax');
     Route::post('/user/reservas/{id}/cancelar', [ReservaController::class, 'cancelar'])->name('user.reservas.cancelar');
 });

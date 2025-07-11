@@ -15,10 +15,11 @@ class MassageBookingController extends Controller
         return view('home.massagens', compact('massages'));
     }
 
-    public function add_massage_booking(Request $request)
+   // Em app/Http/Controllers/MassageBookingController.php
+
+public function add_massage_booking(Request $request)
 {
     try {
-        // Verifica se o usuário está autenticado
         if (!Auth::check()) {
             return response()->json([
                 'success' => false,
@@ -26,37 +27,20 @@ class MassageBookingController extends Controller
             ], 401);
         }
 
-        // Obtém o ID do tipo de massagem
-        $id = $request->input('type_massage_id');
-        if (!$id) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Type of massage not specified.'
-            ], 400);
-        }
-
-        // Verifica se o tipo de massagem existe
-        $massageType = TypeMassage::find($id);
-        if (!$massageType) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Massage type not found.'
-            ], 404);
-        }
-
-        // Validação dos dados
+        // Validação dos dados recebidos do formulário
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'phone' => 'required|string|max:20',
-            'date' => 'required|date|after_or_equal:today',
-            'hour' => 'required|string',
-            'duration' => 'required|string',
+            'type_massage_id' => 'required|exists:type_massage,id', // Valida se a massagem existe
+            'name'            => 'required|string|max:255',
+            'email'           => 'required|email',
+            'phone'           => 'required|string|max:20',
+            'date'            => 'required|date|after_or_equal:today',
+            'hour'            => 'required|string',
+            'duration'        => 'required|string',
+            'price'           => 'required|numeric|min:0', // <-- MODIFICADO: Validar o preço recebido
         ]);
 
-        // Verifica disponibilidade
-        $isBooked = BookingMassage::where('type_massage_id', $id)
-            ->where('date', $validated['date'])
+        // Verifica se o horário já está reservado
+        $isBooked = BookingMassage::where('date', $validated['date'])
             ->where('hour', $validated['hour'])
             ->exists();
 
@@ -64,40 +48,49 @@ class MassageBookingController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'This time slot is already booked. Please choose another one.'
-            ], 409);
+            ], 409); // 409 Conflict é um bom status code para isto
         }
 
-        // Cria a reserva
+        // Cria a reserva usando os dados validados
         $booking = BookingMassage::create([
-            'user_id' => Auth::id(),
-            'type_massage_id' => $id,
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'phone' => $validated['phone'],
-            'date' => $validated['date'],
-            'hour' => $validated['hour'],
-            'duration' => $validated['duration'],
-            'status' => 'waiting',
+            'user_id'         => Auth::id(),
+            'type_massage_id' => $validated['type_massage_id'],
+            'name'            => $validated['name'],
+            'email'           => $validated['email'],
+            'phone'           => $validated['phone'],
+            'date'            => $validated['date'],
+            'hour'            => $validated['hour'],
+            'duration'        => $validated['duration'],
+            'price'           => $validated['price'], // <-- MODIFICADO: Usar o preço diretamente do request
+            'status'          => 'waiting',
         ]);
 
         return response()->json([
             'success' => true,
             'message' => 'Reservation created successfully!',
             'booking' => $booking
-        ]);
+        ], 201); // 201 Created é o status ideal para sucesso na criação
 
     } catch (\Illuminate\Validation\ValidationException $e) {
+        // Se a validação falhar, retorna os erros específicos
         return response()->json([
             'success' => false,
-            'message' => 'Validation erroro',
-            'errors' => $e->errors()
+            'message' => 'Please check the fields.',
+            'errors'  => $e->errors()
         ], 422);
     } catch (\Exception $e) {
+        // Para qualquer outro erro inesperado
+        // Logar o erro é uma boa prática para debug
+        \Log::error('Error creating massage booking: ' . $e->getMessage());
+        
         return response()->json([
             'success' => false,
-            'message' => 'Validation error: ' . $e->getMessage()
+            'message' => 'An unexpected server error occurred.'
         ], 500);
     }
+
+
+
 
 
     }

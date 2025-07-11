@@ -17,11 +17,14 @@ use Illuminate\Support\Facades\Notification;
 
 class BookingController extends Controller
 {
-    public function roomFeatures($id)
-    {
-        $room = Room::with('features')->findOrFail($id);
-        return response()->json($room->features);
-    }
+   public function roomFeatures($id)
+{
+    $room = Room::with(['features' => function ($query) {
+        $query->select('features.id', 'features.name', 'features.icon_class');
+    }])->findOrFail($id);
+
+    return response()->json($room->features);
+}
 
     public function add_booking(Request $request, $id)
     {
@@ -62,7 +65,7 @@ class BookingController extends Controller
         }
     }
 
-    // Verificar conflitos com reservas no banco de dados
+    // Verificar conflitos com reservas no base de dados
     $conflictingBooking = Booking::where('room_id', $id)
         ->where('start_date', '<', $newEnd)
         ->where('end_date', '>', $newStart)
@@ -90,7 +93,7 @@ class BookingController extends Controller
 }
 
 
-        // Verifica conflito com reservas existentes no banco
+        // Verifica conflito com reservas existentes na base dados
         $conflictingBooking = Booking::where('room_id', $id)
             ->where('start_date', '<', $endDate)
             ->where('end_date', '>', $startDate)
