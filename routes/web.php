@@ -46,6 +46,7 @@ Route::get('/minhas-reservas', [App\Http\Controllers\BookingController::class, '
 Route::get('/room_details/{id}', [HomeController::class, 'room_details']);
 
 Route::get('/contact', [HomeController::class, 'contact']);
+Route::get('/about', [HomeController::class, 'about']);
 
 //checkout
 Route::get('/checkout', [HomeController::class, 'checkout']);

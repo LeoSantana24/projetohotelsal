@@ -59,6 +59,9 @@
                        class="mt-1 block w-full rounded-md border border-gray-700 bg-white px-3 py-2 shadow-sm 
                               focus:border-black focus:ring focus:ring-gray-500 focus:ring-opacity-50"
                        required>
+                        @error('email')
+        <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
+    @enderror
             </div>
 
             <div>

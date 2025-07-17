@@ -283,7 +283,7 @@
                 {{ ucfirst($reserva->status ?? 'waiting') }}
             </div>
             
-            {{-- CÓDIGO CORRIGIDO PARA EXIBIR O PREÇO --}}
+            
             <div class="price-info">
                 €{{ number_format($reserva->price ?? 0, 2, ',', '.') }}
             </div>
@@ -314,12 +314,12 @@
 @endsection
 
 @section('styles')
-{{-- Seção de estilos, pode deixar vazia se não precisar --}}
+
 @endsection
 
 @section('scripts')
 <script>
-    // Animação de entrada suave para cards de reserva
+   
     document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.reserva-card');
         cards.forEach((card, index) => {
@@ -330,7 +330,7 @@
             setTimeout(() => {
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0)';
-            }, index * 100); // Atraso escalonado para cada card
+            }, index * 100); 
         });
     });
 </script>

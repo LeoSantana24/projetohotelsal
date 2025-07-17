@@ -157,7 +157,7 @@
 
       <div class="text p-4" style="width: 50%;">
         <h2 class="mb-3" style="font-size: 2.5rem; color: #1d3c6e;">{{optional($room->typeRoom)->nome }}</h2>
-        <p>{{ $room->description }}</p>
+        <p style="font-size:24px;">{{ $room->description }}</p>
         <span class="fw-bold mt-3 mb-2" style="font-size: 18px; color: #e6a900; ">{{$room->price}}€ / Per night</span>
         <div class="mt-4 d-flex justify-content-start gap-3">
           <a href="javascript:void(0);" class="btn btn-outline-dark px-4 py-2 mr-2" onclick="openModal({{ $room->id }})">See Room Features</a>
@@ -172,7 +172,7 @@
       @else
       <div class="text p-4" style="width: 50%;">
         <h2 class="mb-3" style="font-size: 2.5rem; color: #1d3c6e;">{{ optional($room->typeRoom)->nome }}</h2>
-        <p>{{ $room->description }}</p>
+        <p style="font-size:24px;">{{ $room->description }}</p>
        <span class="fw-bold mt-3 mb-2" style="font-size: 18px; color: #e6a900;">{{$room->price}}€ / Per night</span>
         <div class="mt-4 d-flex justify-content-start gap-3">
           <a href="javascript:void(0);" class="btn btn-outline-dark px-4 py-2 mr-2" onclick="openModal({{ $room->id }})">See Room Features</a>
@@ -204,7 +204,7 @@
           <h2 class="text-white font-weight-bold">A Best Place To Stay. Reserve Now!</h2>
         </div>
         <div class="col-12 col-md-6 text-center text-md-right" data-aos="fade-up" data-aos-delay="200">
-          <a href="reservation.html" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve Now</a>
+          <a href="#" class="btn btn-outline-white-primary py-3 text-white px-5">Reserve Now</a>
         </div>
       </div>
     </div>

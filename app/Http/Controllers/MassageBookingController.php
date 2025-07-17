@@ -61,7 +61,7 @@ public function add_massage_booking(Request $request)
             'date'            => $validated['date'],
             'hour'            => $validated['hour'],
             'duration'        => $validated['duration'],
-            'price'           => $validated['price'], // <-- MODIFICADO: Usar o preço diretamente do request
+            'price'           => $validated['price'], //
             'status'          => 'waiting',
         ]);
 
@@ -69,18 +69,17 @@ public function add_massage_booking(Request $request)
             'success' => true,
             'message' => 'Reservation created successfully!',
             'booking' => $booking
-        ], 201); // 201 Created é o status ideal para sucesso na criação
+        ], 201); 
 
     } catch (\Illuminate\Validation\ValidationException $e) {
-        // Se a validação falhar, retorna os erros específicos
+        
         return response()->json([
             'success' => false,
             'message' => 'Please check the fields.',
             'errors'  => $e->errors()
         ], 422);
     } catch (\Exception $e) {
-        // Para qualquer outro erro inesperado
-        // Logar o erro é uma boa prática para debug
+        
         \Log::error('Error creating massage booking: ' . $e->getMessage());
         
         return response()->json([
@@ -88,8 +87,6 @@ public function add_massage_booking(Request $request)
             'message' => 'An unexpected server error occurred.'
         ], 500);
     }
-
-
 
 
 

@@ -151,7 +151,7 @@
           </div>
           <div class="col-md-12 col-lg-4 order-lg-1" data-aos="fade-up">
             <h2 class="heading">Welcome!</h2>
-            <p class="mb-4">Far, far away, beyond the ocean breeze and golden sands, lies Sal Paradise Hotel. Nestled on the sun-kissed shores of Sal Island, Cabo Verde, it is a tranquil haven where dreams drift with the tides. Separated from the noise of the world, our guests find their sanctuary right at the edge of the Atlantic, embraced by warm winds and endless horizons.</p>
+            <p style="font-size:24px;"class="mb-4">Far, far away, beyond the ocean breeze and golden sands, lies Sal Paradise Hotel. Nestled on the sun-kissed shores of Sal Island, Cabo Verde, it is a tranquil haven where dreams drift with the tides. Separated from the noise of the world, our guests find their sanctuary right at the edge of the Atlantic, embraced by warm winds and endless horizons.</p>
           </div>
           
         </div>
@@ -179,7 +179,7 @@
   <div class="slider-item p-3">
     <div class="d-flex flex-column flex-md-row align-items-center justify-content-between gap-4">
       
-      <!-- IMAGEM -->
+      
       <div class="img-box">
         <img src="{{ asset('room/' . ($rooms->images->first()->image ?? 'default.jpg')) }}"
           alt="Room Image"
@@ -187,12 +187,12 @@
           style="border-radius: 10px; width: 100%; height: auto; object-fit: cover;">
       </div>
 
-      <!-- CONTEÚDO -->
+      
       <div class="content-box text-start">
         <h2 class="mb-3" style="font-size: 32px; color: #1a2d5a;">
           {{ optional($rooms->typeRoom)->nome }}
         </h2>
-        <p style="font-size: 16px; color: #555;">{!! $rooms->description !!}</p>
+        <p style="font-size: 20px; color: #555;">{!! $rooms->description !!}</p>
         <p class="fw-bold mt-3 mb-2" style="font-size: 18px; color: #e6a900;">
           {{ $rooms->price }}€ / per night
         </p>
@@ -225,7 +225,7 @@
         <div class="row justify-content-center text-center mb-5">
           <div class="col-md-6">
             <h2 class="heading" data-aos="fade-up">Photos</h2>
-            <p data-aos="fade-up" data-aos-delay="100">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
+            <p style="font-size:24px;" data-aos="fade-up" data-aos-delay="100">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
           </div>
         </div>
         <div class="row">
@@ -238,7 +238,7 @@
                 <a href="images/slider-1.jpg" data-fancybox="images" data-caption="Caption for this image"><img src="/gallery/{{$gallery->image}}" alt="Image placeholder" class="img-fluid"></a>
               </div>
              @endforeach
-            <!-- END slider -->
+           
             </div>
         
          </div>
@@ -246,11 +246,6 @@
       </div>
       </div>
     </section>
-
-
-
-
-
 
 
     <!-- END section -->

@@ -9,7 +9,7 @@
     <meta name="keywords" content="" />
     <meta name="author" content="" />
     
-    <!-- CORRIGIDO: Removido o espaço dentro de csrf_token( ) -->
+   
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Google Fonts -->
@@ -18,7 +18,7 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- O resto do seu CSS... -->
+   
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/owl.carousel.min.css">
     <link rel="stylesheet" href="css/aos.css">
@@ -31,7 +31,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <style>
-        /* O seu CSS continua aqui... */
+    
         * { margin: 0; padding: 0; box-sizing: border-box; }
         header.not-home { position: fixed; z-index: 10; }
         body { padding-top: 150px; }
@@ -72,7 +72,7 @@
     <header class="not-home">@include('home.header')</header>
   
     <div class="container">
-        <!-- O resto do seu body HTML continua aqui... -->
+        
         <h2>Our Types of Massages</h2>
         <p>Discover our massage options and choose the ideal one for you:</p>
         
@@ -176,7 +176,7 @@
     
     @include('home.footer')
     
-    <!-- O seu Javascript... -->
+    
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/jquery-migrate-3.0.1.min.js"></script>
     <script src="js/popper.min.js"></script>
@@ -190,7 +190,7 @@
     <script src="js/main.js"></script>
     
     <script>
-        // O seu Javascript continua aqui, sem alterações necessárias.
+       
         document.addEventListener("DOMContentLoaded", function() {
             const modal = document.getElementById("bookingModal");
             const bookBtns = document.querySelectorAll(".book-btn");
@@ -257,7 +257,7 @@
                 const formData = new FormData(this);
                 
                 if (!formData.get('type_massage_id') || !formData.get('price')) {
-                    alert('Ocorreu um erro. Por favor, feche e abra o formulário novamente.');
+                    alert('An error has occurred. Please close and reopen the form..');
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Confirm reservation';
                     return;
@@ -277,7 +277,7 @@
                     const result = await response.json();
 
                     if (!response.ok) {
-                        // Se a resposta não for OK, lança um erro com a mensagem do backend
+                        
                         throw new Error(result.message || `Erro HTTP: ${response.status}`);
                     }
 
@@ -286,13 +286,13 @@
                         modal.style.display = "none";
                         window.location.reload();
                     } else {
-                        // Este 'else' pode não ser necessário se o !response.ok já tratar tudo
-                        alert(result.message || 'Erro ao processar a reserva.');
+                        
+                        alert(result.message || 'Error processing reservation.');
                     }
                 } catch (error) {
                     console.error('Erro no fetch:', error);
-                    // Mostra a mensagem de erro vinda do backend ou uma mensagem genérica
-                    alert(error.message || 'Não foi possível concluir a sua reserva. A data/hora pode já estar ocupada ou ocorreu um erro de rede.');
+                    
+                    alert(error.message || 'We were unable to complete your reservation. The date/time is already taken..');
                 } finally {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Confirm reservation';
